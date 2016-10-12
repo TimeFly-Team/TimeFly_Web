@@ -1,0 +1,7 @@
+HEX Color Codes TimeFly:
+
+Green:
+#1fda81
+
+Grey/Blue:
+#014354
