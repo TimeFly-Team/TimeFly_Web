@@ -1,33 +1,40 @@
 /*==========  Navigation ==========*/
 .navbar-default {
-    background-color: #25DA83;
+    background-color: #1fda81;
     border-style: none;
+    font-size: 20px;
+}
+.navbar-default .navbar-brand img{
+    width: 50px;
+}
+.navbar-brand {
+    padding: 0px 15px;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:focus,
 .navbar-default .navbar-nav > .active > a:hover {
-    color: #25DA83;
-    background-color: #fff;
+    color: #1fda81;
+    background-color: #014354;
 }
 .navbar-default .navbar-nav > li > a:focus,
 .navbar-default .navbar-nav > li > a:hover{
-    color: #25DA83;
-    background-color: #fff;
+    color: #1fda81;
+    background-color: #014354;
 }
 .navbar-default .navbar-nav > li > a{
-    color: #fff;
+    color: #014354;
 }
 .navbar-default .navbar-brand {
-    color: #fff;
+    color: #014354;
 }
 .navbar-default .navbar-toggle:focus,
 .navbar-default .navbar-toggle:hover {
-    background-color: #fff;
-    color: #25DA83;
+    background-color: #014354;
+    color: #1fda81;
 }
 .navbar-default .navbar-toggle{
-    border-color: #fff;
-    color: #fff;
+    border-color: #014354;
+    color: #014354;
     font-size: 22px;
 }
 .navbar-toggle {
@@ -49,18 +56,60 @@
     margin-right: 0px;
     margin-left: 0px;
 }
+article{
+    position: relative;
+}
 .article {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.chevron_right {
+    position:absolute;
+    top:0px;
+    right:0px;
+    height:100%;
+    width: 100px;
+    background-color:white;
+    color: #014354;
+    font-size:600%;
+}
+.chevron_left {
+    position:absolute;
+    top:0px;
+    left:0px;
+    height:100%;
+    width:100px;
+    background-color:white;
+    color: #014354;
+    font-size:600%;
+}
+
+.chevron_right:hover,
+.chevron_left:hover {
+    background-color: #1fda81;
+    color: #014354;
 }
 
 /*==========  Footer ==========*/
 footer {
-      background-color: #25DA83;
-      color: white;
+      background-color: #1fda81;
+      color: #014354;
       padding: 15px;
+      font-size: 16px;
 }
+
+/*==========  BreakPointy ==========*/
+
+@media (max-width: 767px) {
+  .chevron_left,
+  .chevron_right {
+    display: none;
+  }
+}
+
 
 /*==========  Recommended carousel ==========*/
 
