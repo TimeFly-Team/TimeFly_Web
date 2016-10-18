@@ -4,8 +4,18 @@
     border-style: none;
     font-size: 20px;
 }
+#TeamName{
+    color: #FFF;
+    font-size: 24px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .navbar-default .navbar-brand img{
-    width: 50px;
+    width: 45px;
+    margin-top: 4px;
 }
 .navbar-brand {
     padding: 0px 15px;
@@ -14,27 +24,27 @@
 .navbar-default .navbar-nav > .active > a:focus,
 .navbar-default .navbar-nav > .active > a:hover {
     color: #1fda81;
-    background-color: #014354;
+    background-color: #fff;
 }
 .navbar-default .navbar-nav > li > a:focus,
 .navbar-default .navbar-nav > li > a:hover{
     color: #1fda81;
-    background-color: #014354;
+    background-color: #fff;
 }
 .navbar-default .navbar-nav > li > a{
-    color: #014354;
+    color: #fff;
 }
 .navbar-default .navbar-brand {
-    color: #014354;
+    color: #fff;
 }
 .navbar-default .navbar-toggle:focus,
 .navbar-default .navbar-toggle:hover {
-    background-color: #014354;
+    background-color: #fff;
     color: #1fda81;
 }
 .navbar-default .navbar-toggle{
-    border-color: #014354;
-    color: #014354;
+    border-color: #fff;
+    color: #fff;
     font-size: 22px;
 }
 .navbar-toggle {
@@ -107,8 +117,21 @@ footer {
   .chevron_left,
   .chevron_right {
     display: none;
-  }
+  } 
 }
+@media (min-width: 768px) {
+    #TeamName{
+        display: none;
+    }
+    .container-fluid > .navbar-collapse,
+    .container-fluid > .navbar-header,
+    .container > .navbar-collapse,
+    .container > .navbar-header {
+        display: flex !important;
+        justify-content: center;
+    }
+}
+
 
 
 /*==========  Recommended carousel ==========*/
