@@ -74,27 +74,22 @@ article{
     margin-right: auto;
     padding-top: 15px;
     padding-bottom: 15px;
+    width: 80%;
 }
-
-.chevron_right {
+.chevron {
     position:absolute;
     top:0px;
-    right:0px;
     height:100%;
-    width: 100px;
+    width:10%;
     background-color:white;
     color: #014354;
     font-size:600%;
+}
+.chevron_right {
+    right:0px;
 }
 .chevron_left {
-    position:absolute;
-    top:0px;
     left:0px;
-    height:100%;
-    width:100px;
-    background-color:white;
-    color: #014354;
-    font-size:600%;
 }
 
 .chevron_right:hover,
@@ -103,10 +98,16 @@ article{
     color: #014354;
 }
 
+#div {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 /*==========  Footer ==========*/
 footer {
       background-color: #1fda81;
-      color: #014354;
+      color: #fff;
       padding: 15px;
       font-size: 16px;
 }
@@ -117,7 +118,10 @@ footer {
   .chevron_left,
   .chevron_right {
     display: none;
-  } 
+  }
+  .article {
+    width: 100%;
+    }
 }
 @media (min-width: 768px) {
     #TeamName{
