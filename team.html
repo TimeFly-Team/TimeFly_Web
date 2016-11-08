@@ -52,23 +52,25 @@
 						<label>More information</label>
 						</a>
 						<div id="collapseOne" class="collapse" role="tabpanel" >
-							<div class="card-block contact">
+							<div id="c0" class="card-block contact">
 								<p>Tel: xxxx xxx xxx</p>
 								<p>Email: xxxx@zzzz.sc</p>
 								<p>Twiter: sssssss</p>
-								<button class="button button_kontakt" type="button" onclick="">Kontaktovat</button>
+								<button class="button button_kontakt" type="button" onclick="ContactToogle('#m0','#c0');">Kontaktovat</button>
 							</div>
-						</div>
-						<div class="message" >
+							<div id="m0" class="message" >
 							<form class="send_message">
-								<p>Tvoj Mail:</p>
-								<input class="mail" type="text" name="yourmail" value=""><br>
-								<p>Otazka:</p>
-								<textarea type="text" name="question" value="" rows="4"></textarea>
-								<button class="button button_form" type="button" onclick="">Kontaktovat</button>
-								<input class="button button_form"type="submit" value="Submit">								
-							</form>
-						</div>
+									<p>Tvoj Mail:</p>
+									<input class="mail" type="email"  name="yourmail" value=""><br>
+									<p>Nazov temy:</p>
+									<input class="tema" type="text" name="tema" value=""><br>
+									<p>Opis problemu:</p>
+									<textarea type="text" name="question" value="" rows="4"></textarea>
+									<button class="button button_form" type="button" onclick="ContactToogle('#c0','#m0');">Kontaktovat</button>
+									<input class="button button_form"type="submit" value="Submit">								
+								</form>
+							</div>
+						</div>						
 					</div>					
 				</div>
 				<div class="col-md-4">
@@ -79,23 +81,25 @@
 						<label>More information</label>
 						</a>
 						<div id="collapseTwo" class="collapse" role="tabpanel" >
-							<div class="card-block contact">
+							<div id="c1" class="card-block contact">
 								<p>Tel: xxxx xxx xxx</p>
 								<p>Email: xxxx@zzzz.sc</p>
 								<p>Twiter: sssssss</p>
-								<button class="button button_kontakt" type="button" onclick="">Kontaktovat</button>
+								<button class="button button_kontakt" type="button" onclick="ContactToogle('#m1','#c1');">Kontaktovat</button>
 							</div>
-						</div>
-						<div class="message" >
-							<form class="send_message">
-								<p>Tvoj Mail:</p>
-								<input class="mail" type="text" name="yourmail" value=""><br>
-								<p>Otazka:</p>
-								<textarea type="text" name="question" value="" rows="4"></textarea>
-								<button class="button button_form" type="button" onclick="">Kontaktovat</button>
-								<input class="button button_form"type="submit" value="Submit">
-							</form>
-						</div>
+							<div id="m1" class="message" >
+								<form class="send_message">
+									<p>Tvoj Mail:</p>
+									<input class="mail" type="email" name="yourmail" value=""><br>
+									<p>Nazov temy:</p>
+									<input class="tema" type="text" name="tema" value=""><br>
+									<p>Opis problemu:</p>
+									<textarea type="text" name="question" value="" rows="4"></textarea>
+									<button class="button button_form" type="button" onclick="ContactToogle('#c1','#m1');">Kontaktovat</button>
+									<input class="button button_form"type="submit" value="Submit">
+								</form>
+							</div>
+						</div>						
 					</div>					
 				</div>
 				<div class="col-md-4">
@@ -106,29 +110,61 @@
 						<label>More information</label>
 						</a>
 						<div id="collapseThree" class="collapse" role="tabpanel" >
-							<div class="card-block contact">
+							<div id="c2"class="card-block contact">
 								<p>Tel: xxxx xxx xxx</p>
 								<p>Email: xxxx@zzzz.sc</p>
 								<p>Twiter: sssssss</p>
-								<button class="button button_kontakt" type="button" onclick="">Kontaktovat</button>
+								<button class="button button_kontakt" type="button" onclick="ContactToogle('#m2','#c2');">Kontaktovat</button>
+							</div>
+							<div id="m2" class="message" >
+								<form class="send_message">
+									<p>Tvoj Mail:</p>
+									<input class="mail" type="email" name="yourmail" value=""><br>
+									<p>Nazov temy:</p>
+									<input class="tema" type="text" name="tema" value=""><br>
+									<p>Opis problemu:</p>
+									<textarea type="text" name="question" value="" rows="4"></textarea>
+									<button class="button button_form" type="button" onclick="ContactToogle('#c2','#m2');">Kontaktovat</button>
+									<input class="button button_form"type="submit" value="Submit">								
+								</form>
 							</div>
 						</div>
-						<div class="message" >
-							<form class="send_message">
-								<p>Tvoj Mail:</p>
-								<input class="mail" type="text" name="yourmail" value=""><br>
-								<p>Otazka:</p>
-								<textarea type="text" name="question" value="" rows="4"></textarea>
-								<button class="button button_form" type="button" onclick="">Kontaktovat</button>
-								<input class="button button_form"type="submit" value="Submit">								
-							</form>
+					</div>					
+				</div>
+				
+				<div class="col-md-4">
+					<div class="person">
+						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							<img src="media/img/portret.jpg" alt="clen_tymu">
+						<div class="info text-center"><h1>Dr. House</h1></div>
+						<label>More information</label>
+						</a>
+						<div id="collapseThree" class="collapse" role="tabpanel" >
+							<div id="c2"class="card-block contact">
+								<p>Tel: xxxx xxx xxx</p>
+								<p>Email: xxxx@zzzz.sc</p>
+								<p>Twiter: sssssss</p>
+								<button class="button button_kontakt" type="button" onclick="ContactToogle('#m2','#c2');">Kontaktovat</button>
+							</div>
+							<div id="m2" class="message" >
+								<form class="send_message">
+									<p>Tvoj Mail:</p>
+									<input class="mail" type="email" name="yourmail" value=""><br>
+									<p>Nazov temy:</p>
+									<input class="tema" type="text" name="tema" value=""><br>
+									<p>Opis problemu:</p>
+									<textarea type="text" name="question" value="" rows="4"></textarea>
+									<button class="button button_form" type="button" onclick="ContactToogle('#c2','#m2');">Kontaktovat</button>
+									<input class="button button_form"type="submit" value="Submit">								
+								</form>
+							</div>
 						</div>
 					</div>					
 				</div>
 			</div>
 		</div>
 		<a href="#" class="chevron chevron_right text-center"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
-		<a href="#" class="chevron chevron_left text-center"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+		<a href="index.html" class="chevron chevron_left text-center"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
 	</article>
 	
     <footer>

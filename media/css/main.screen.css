@@ -130,19 +130,15 @@ label::before {
   margin-right: 3px;
   background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
 }
-#expand {
-  height: 0px;
-  overflow: hidden;
-  transition: height 2.5s;
-  color: black;
-  padding: 0px 0px 0px 20px;
-}
 
 .contact p {
     margin: auto 1%;
 }
 .message {
     display: none;
+}
+.message p {
+    margin: 10px 0px 0px 0px;
 }
 
 .send_message {
@@ -154,8 +150,12 @@ label::before {
     resize: none;
 }
 
-.send_message input .mail{
+.send_message .mail {
     width: 75%;
+}
+
+.send_message .tema {
+    width: 100%;
 }
 
 .button {
@@ -172,6 +172,7 @@ label::before {
     transition-duration: 0.4s;
     cursor: pointer;
 }
+
 .button_form {
     width: 47%;
     background-color: #d1d1d1;
@@ -182,6 +183,7 @@ label::before {
 .button_form:hover {
     background-color: #fff;
     border: 2px solid #d1d1d1;}
+    
 .button_kontakt {
     width: 98%;
     background-color: #d1d1d1;
@@ -192,15 +194,6 @@ label::before {
 .button_kontakt:hover {
     background-color: #fff;
     border: 2px solid #d1d1d1;}
-
-/*
-#toggle:checked ~ #expand {
-  height: auto;
-}
-#toggle:checked ~ label::before {
-  content: "-";
-}
-*/
 
 /*==========  Footer ==========*/
 footer {
@@ -221,6 +214,13 @@ footer {
     width: 100%;
     }
 }
+@media screen and (min-device-width: 500px) and (max-device-width: 992px) {
+  .col-md-4 {
+    width: 50%;
+    float: left;
+  }
+}
+
 @media (min-width: 768px) {
     #TeamName{
         display: none;
