@@ -99,20 +99,108 @@ article{
 
 /*==========  Body team.html ==========*/
 .person{
-    display: flex;
-    justify-content: center;
+    display: block;
     margin: 10px;
-    background: green;
+    width: 100%;
+    background: #d1d1d1;
     
 }
 .person img {
     display: flex;
     justify-content: center;
-    width: 320px;
-    height: 480px;
-    background: red;
+    width: 100%;
 }
 
+label {
+  display: block;
+  padding: 0.5em;
+  text-align: center;
+  border-bottom: 1px solid #CCC;
+  color: #666;
+}
+label:hover {
+  color: #000;
+}
+label::before {
+  content: "+";
+  vertical-align: text-top;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+  background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
+}
+#expand {
+  height: 0px;
+  overflow: hidden;
+  transition: height 2.5s;
+  color: black;
+  padding: 0px 0px 0px 20px;
+}
+
+.contact p {
+    margin: auto 1%;
+}
+.message {
+    display: none;
+}
+
+.send_message {
+    margin: 0px 1%;
+}
+
+.send_message textarea {
+    width: 100%;
+    resize: none;
+}
+
+.send_message input .mail{
+    width: 75%;
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 1%;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+.button_form {
+    width: 47%;
+    background-color: #d1d1d1;
+    color: black;
+    border: 2px solid #fff;
+}
+
+.button_form:hover {
+    background-color: #fff;
+    border: 2px solid #d1d1d1;}
+.button_kontakt {
+    width: 98%;
+    background-color: #d1d1d1;
+    color: black;
+    border: 2px solid #fff;
+}
+
+.button_kontakt:hover {
+    background-color: #fff;
+    border: 2px solid #d1d1d1;}
+
+/*
+#toggle:checked ~ #expand {
+  height: auto;
+}
+#toggle:checked ~ label::before {
+  content: "-";
+}
+*/
 
 /*==========  Footer ==========*/
 footer {

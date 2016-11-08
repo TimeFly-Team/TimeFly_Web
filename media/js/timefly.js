@@ -13,3 +13,7 @@ $(window).scroll(function(){
 $(function(){
   $(".under_nav").css({"marginTop": ($(".navbar-fixed-top").height())+ "px"})
 });
+
+function toCelsius(f) {
+    $("p").css({"background-color": "yellow", "font-size": "200%"});
+}
