@@ -206,12 +206,29 @@ footer {
 /*==========  BreakPointy ==========*/
 
 @media (max-width: 767px) {
-  .chevron_left,
-  .chevron_right {
-    display: none;
-  }
-  .article {
-    width: 100%;
+    .chevron_left,
+    .chevron_right {
+        display: none;
+    }
+    .article {
+        width: 100%;
+        }
+    .nav{
+        float: right;
+    }
+    .container > .navbar-header {
+        background: #1fda81;
+    }
+    .navbar-default .navbar-collapse {
+        border-color: #e7e7e7;
+        width: auto;
+        background: #1fda81;
+        float: right;
+    }
+    .navbar-default {
+        background-color: transparent;
+        border-style: none;
+        font-size: 20px;
     }
 }
 @media screen and (min-device-width: 500px) and (max-device-width: 992px) {
