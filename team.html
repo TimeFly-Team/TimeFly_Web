@@ -44,7 +44,7 @@
 	<article>
 		<div class="container article under_nav">
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-4 cols">
 					<div class="person">
 						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 							<img src="media/img/portret.jpg" alt="clen_tymu">
@@ -73,7 +73,7 @@
 						</div>						
 					</div>					
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4 cols">
 					<div class="person">
 						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 							<img src="media/img/portret.jpg" alt="clen_tymu">
@@ -102,7 +102,7 @@
 						</div>						
 					</div>					
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4 cols">
 					<div class="person">
 						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 							<img src="media/img/portret.jpg" alt="clen_tymu">
@@ -132,21 +132,21 @@
 					</div>					
 				</div>
 				
-				<div class="col-md-4">
+				<div class="col-md-4 cols">
 					<div class="person">
-						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
 							<img src="media/img/portret.jpg" alt="clen_tymu">
 						<div class="info text-center"><h1>Dr. House</h1></div>
 						<label>More information</label>
 						</a>
-						<div id="collapseThree" class="collapse" role="tabpanel" >
-							<div id="c2"class="card-block contact">
+						<div id="collapseFour" class="collapse" role="tabpanel" >
+							<div id="c3"class="card-block contact">
 								<p>Tel: xxxx xxx xxx</p>
 								<p>Email: xxxx@zzzz.sc</p>
 								<p>Twiter: sssssss</p>
-								<button class="button button_kontakt" type="button" onclick="ContactToogle('#m2','#c2');">Kontaktovat</button>
+								<button class="button button_kontakt" type="button" onclick="ContactToogle('#m3','#c3');">Kontaktovat</button>
 							</div>
-							<div id="m2" class="message" >
+							<div id="m3" class="message" >
 								<form class="send_message">
 									<p>Tvoj Mail:</p>
 									<input class="mail" type="email" name="yourmail" value=""><br>
@@ -154,11 +154,40 @@
 									<input class="tema" type="text" name="tema" value=""><br>
 									<p>Opis problemu:</p>
 									<textarea type="text" name="question" value="" rows="4"></textarea>
-									<button class="button button_form" type="button" onclick="ContactToogle('#c2','#m2');">Kontaktovat</button>
+									<button class="button button_form" type="button" onclick="ContactToogle('#c3','#m3');">Kontaktovat</button>
 									<input class="button button_form"type="submit" value="Submit">								
 								</form>
 							</div>
 						</div>
+					</div>					
+				</div>
+				<div class="col-md-4 cols">
+					<div class="person">
+						<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseOne">
+							<img src="media/img/portret.jpg" alt="clen_tymu">
+						<div class="info text-center"><h1>Dr. House</h1></div>
+						<label>More information</label>
+						</a>
+						<div id="collapseFive" class="collapse" role="tabpanel" >
+							<div id="c4" class="card-block contact">
+								<p>Tel: xxxx xxx xxx</p>
+								<p>Email: xxxx@zzzz.sc</p>
+								<p>Twiter: sssssss</p>
+								<button class="button button_kontakt" type="button" onclick="ContactToogle('#m4','#c4');">Kontaktovat</button>
+							</div>
+							<div id="m4" class="message" >
+							<form class="send_message">
+									<p>Tvoj Mail:</p>
+									<input class="mail" type="email"  name="yourmail" value=""><br>
+									<p>Nazov temy:</p>
+									<input class="tema" type="text" name="tema" value=""><br>
+									<p>Opis problemu:</p>
+									<textarea type="text" name="question" value="" rows="4"></textarea>
+									<button class="button button_form" type="button" onclick="ContactToogle('#c4','#m4');">Kontaktovat</button>
+									<input class="button button_form"type="submit" value="Submit">								
+								</form>
+							</div>
+						</div>						
 					</div>					
 				</div>
 			</div>

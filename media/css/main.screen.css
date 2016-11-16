@@ -60,7 +60,7 @@
 .slider img
 {
     width: 100%;
-    max-height: 500px;
+    max-height: 300px;
 }
 .container {
     margin-right: 0px;
@@ -100,8 +100,8 @@ article{
 /*==========  Body team.html ==========*/
 .person{
     display: block;
-    margin: 10px;
-    width: 100%;
+    margin: 15px;
+    /*width: 100%; */
     background: #d1d1d1;
     
 }
@@ -197,10 +197,19 @@ label::before {
 
 /*==========  Footer ==========*/
 footer {
-      background-color: #1fda81;
-      color: #fff;
-      padding: 15px;
-      font-size: 16px;
+    background-color: #1fda81;
+    color: #fff;
+    height: 62px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+}
+footer p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*==========  BreakPointy ==========*/
@@ -232,12 +241,19 @@ footer {
     }
 }
 @media screen and (min-device-width: 500px) and (max-device-width: 992px) {
-  .col-md-4 {
-    width: 50%;
-    float: left;
+  .cols {
+    width: 49%;
+    float: none;
+    display: inline-flex;
   }
 }
-
+@media (min-width: 993px) {
+    .cols {
+    display: inline-flex;
+    width: 32.33%;
+    float: none;
+}
+}
 @media (min-width: 768px) {
     #TeamName{
         display: none;
