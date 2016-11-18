@@ -69,12 +69,20 @@
 article{
     position: relative;
 }
-.article {
+.article,
+.about_us {
     margin-left: auto;
     margin-right: auto;
     padding-top: 15px;
     padding-bottom: 15px;
     width: 80%;
+}
+.about_us h4 {
+    color: #d1d1d1;
+    margin-bottom: 20px; 
+}
+.about_us p {
+    margin-top: 20px;
 }
 .chevron {
     position:absolute;
@@ -96,6 +104,17 @@ article{
 .chevron_left:hover {
     color: #1fda81;
 }
+.bg-circle{
+    background: #d1d1d1;
+    border-radius: 50%;
+    width: 220px;
+    height: 220px;
+    padding: 10px 0% 0% 10px;
+}
+.img-circle {
+    width: 200px;
+    height: 200px;  
+}
 
 /*==========  Body team.html ==========*/
 .person{
@@ -110,6 +129,9 @@ article{
     justify-content: center;
     width: 100%;
 }
+.person h1 {
+    color: black;
+}
 
 label {
   display: block;
@@ -118,19 +140,20 @@ label {
   border-bottom: 1px solid #CCC;
   color: #666;
 }
+
 label:hover {
   color: #000;
 }
+/*
 label::before {
   content: "+";
-  vertical-align: text-top;
   display: inline-block;
   width: 20px;
   height: 20px;
   margin-right: 3px;
-  background: radial-gradient(ellipse at center, #CCC 50%, transparent 50%);
+  background: radial-gradient(ellipse at center, #d1d1d1 50%, transparent 50%);
 }
-
+*/
 .contact p {
     margin: auto 1%;
 }
@@ -240,6 +263,19 @@ footer p {
         font-size: 20px;
     }
 }
+@media screen and (min-device-width: 925px) and (max-device-width: 1180px) {
+    .about_us .col-md-3 {
+        width: 33.33%;
+        float: left;
+  }
+}
+@media screen and (min-device-width: 600px) and (max-device-width: 924px) {
+    .about_us .col-md-3 {
+        width: 50%;
+        float: left;
+  }
+}
+
 @media screen and (min-device-width: 500px) and (max-device-width: 992px) {
   .cols {
     width: 49%;
