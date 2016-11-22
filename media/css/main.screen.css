@@ -77,7 +77,9 @@ article{
     padding-bottom: 15px;
     width: 80%;
 }
-.about_us h4 {
+.about_us .nadpis h4,
+.team .nadpis h4,
+.blog .nadpis h4{
     color: #d1d1d1;
     margin-bottom: 20px; 
 }
@@ -133,7 +135,7 @@ article{
     color: black;
 }
 
-label {
+.team label {
   display: block;
   padding: 0.5em;
   text-align: center;
@@ -141,19 +143,9 @@ label {
   color: #666;
 }
 
-label:hover {
+.team label:hover {
   color: #000;
 }
-/*
-label::before {
-  content: "+";
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-right: 3px;
-  background: radial-gradient(ellipse at center, #d1d1d1 50%, transparent 50%);
-}
-*/
 .contact p {
     margin: auto 1%;
 }
@@ -217,6 +209,68 @@ label::before {
 .button_kontakt:hover {
     background-color: #fff;
     border: 2px solid #d1d1d1;}
+/*==========  Blog ==========*/
+.media {
+    padding-left: 20px;
+}
+.filter,
+.search {
+    display: inline-block;    
+}
+.search{
+    float: right;    
+}
+.search button,
+.filter{
+    width: 250px;
+    height: 34px;
+}
+.search_ext button {
+    width: auto;
+    height: 34px;
+    float: right;
+}
+.search_ext {
+    width: 350px;
+    background: #f5f5f5;
+    display: none;
+    padding: 10px;
+    float: right;
+    border: 1px solid #AFAFAF;
+}
+.blog .fa {
+    float: right;
+    font-size: 20px;
+}
+.blog .fa-exclamation {
+    color: red;
+}
+.blog .fa-check {
+    color: green;
+}
+.blog .new_topic {
+    padding-top: 5px;
+}
+.new_topic button,
+.add_reply button{
+    height: 34px;
+    width: 100px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+.new_topic button:active,
+.add_reply button:active{
+    background: #AFAFAF;
+}
+.new_topic .fa {
+    float: left;
+}
+.add_reply {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+}
 
 /*==========  Footer ==========*/
 footer {
@@ -274,6 +328,24 @@ footer p {
         width: 50%;
         float: left;
   }
+}
+
+@media (max-width: 550px) {
+    .search{
+    float: right;
+    width: 150px;
+    padding:0px 0px 20px 0px;
+    
+    }
+    .search button{
+    width: 100%;
+    height: 34px;
+    }
+    .filter {
+    width: 150px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+    }
 }
 
 @media screen and (min-device-width: 500px) and (max-device-width: 992px) {
