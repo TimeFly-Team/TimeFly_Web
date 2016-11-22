@@ -250,27 +250,77 @@ article{
 }
 .blog .new_topic {
     padding-top: 5px;
+    padding-bottom: 5px;
 }
 .new_topic button,
-.add_reply button{
+.new_reply button{
     height: 34px;
     width: 100px;
     border: 1px solid #ddd;
     border-radius: 3px;
 }
 .new_topic button:active,
-.add_reply button:active{
+.new_reply button:active{
     background: #AFAFAF;
 }
 .new_topic .fa {
     float: left;
 }
-.add_reply {
+.new_reply {
     width: 100%;
     display: flex;
     justify-content: center;
     padding-bottom: 10px;
 }
+.add_topic,
+.add_theme,
+.add_reply{
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    display: none;    
+}
+.add_reply {
+    margin: 15px;
+}
+.send_topic,
+.send_theme,
+.send_reply {
+    padding: 10px;
+}
+.send_topic .tema,
+.send_theme .tema,
+.send_topic .mail,
+.send_reply .mail{
+    width: 100%;
+}
+.send_theme button,
+.send_theme input,
+.send_topic button,
+.send_topic input,
+.send_reply button,
+.send_reply input {
+    height: 34px;
+    width: 100px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+.send_topic .description_problem,
+.send_topic .description_problem textarea,
+.send_reply .description_problem,
+.send_reply .description_problem textarea{
+    width: 100%;
+    padding-top: 10px;
+    resize: none;
+}
+.blog .tlacidla {
+    float: right;
+    padding-top: 10px;
+}
+.send_topic .description_problem textarea,
+.send_reply .description_problem textarea{
+    border: 1px solid #eeeeee;
+}
+
 
 /*==========  Footer ==========*/
 footer {
@@ -334,7 +384,9 @@ footer p {
     .search{
     float: right;
     width: 150px;
-    padding:0px 0px 20px 0px;
+    }
+    .search_ext{
+    width: 300px;
     
     }
     .search button{
@@ -343,6 +395,26 @@ footer p {
     }
     .filter {
     width: 150px;
+    padding-bottom: 10px;
+    padding-top: 0px;
+    }
+}
+@media (max-width: 360px) {
+    .search{
+    float: right;
+    width: 100%;
+    padding-top: 10px;
+    }
+    .search_ext{
+    float: right;
+    width: 100%;
+    }
+    .search button{
+    width: 100%;
+    height: 34px;
+    }
+    .filter {
+    width: 100%;
     padding-bottom: 10px;
     padding-top: 0px;
     }

@@ -124,10 +124,36 @@
 														</div>												
 													</div>
 												</div>
-												<div class="add_reply">
-													<button  type="button" onclick="">
+												<div class="new_reply">
+													<button  type="button" onclick="$('.add_reply').show();">
 														Add reply
 													</button>
+												</div>
+												<div class="add_reply">
+													<form class="send_reply">
+														<div class="row">
+															<div class="col-md-3">
+																<p>Your email:</p>
+																<input class="mail" type="email"  name="yourmail" value="">													
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<div class="description_problem">
+																	<p>Opis problemu:</p>
+																	<textarea type="text" name="question" value="" rows="4"></textarea>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-12">
+																<div class="tlacidla">																	
+																	<button type="button" onclick="$('.add_reply').hide();">Cancel</button>
+																	<input type="submit" value="Submit">
+																</div>
+															</div>
+														</div>																				
+													</form>
 												</div>
 											</div>											
 										</div>
@@ -158,8 +184,38 @@
 											</div>
 										</div>
 										<div class="new_topic">
-											<button  type="button" onclick=""><i class="fa fa-plus-square" aria-hidden="true"></i>
+											<button  type="button" onclick="$('.add_topic').show();"><i class="fa fa-plus-square" aria-hidden="true"></i>
 											Add</button>
+										</div>
+										<div class="add_topic" >
+											<form class="send_topic">
+												<div class="row">
+													<div class="col-md-3">
+														<p>Your email:</p>
+														<input class="mail" type="email"  name="yourmail" value="">													
+													</div>
+													<div class="col-md-9">
+														<p>Nazov temy:</p>
+														<input class="tema" type="text" name="tema" value="">
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-12">
+														<div class="description_problem">
+															<p>Opis problemu:</p>
+															<textarea type="text" name="question" value="" rows="4"></textarea>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-12">
+														<div class="tlacidla">
+															<button type="button" onclick="$('.add_topic').hide();">Cancel</button>
+															<input type="submit" value="Submit">
+														</div>
+													</div>
+												</div>																				
+											</form>
 										</div>
 									</div>
 								</div>
@@ -192,15 +248,33 @@
 							</div>
 						</div>												
 						<div class="new_topic">
-							<button  type="button" onclick="">
+							<button  type="button" onclick="$('.add_theme').show();">
 								<i class="add fa fa-plus-square" aria-hidden="true"></i>
 							Add</button>
+						</div>
+						<div class="add_theme" >
+							<form class="send_theme">																
+								<div class="row">
+									<div class="col-md-12">
+										<p>Nazov temy:</p>
+										<input class="tema" type="text" name="tema" value="">
+									</div>
+								</div>								
+								<div class="row">
+									<div class="col-md-12">
+										<div class="tlacidla">
+											<button type="button" onclick="$('.add_theme').hide();">Cancel</button>
+											<input type="submit" value="Submit">
+										</div>										
+									</div>
+								</div>								
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<a href="#" class="chevron chevron_right text-center"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+		<a href="team.html" class="chevron chevron_right text-center"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
 		<a href="index.html" class="chevron chevron_left text-center"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
 	</article>
 	
