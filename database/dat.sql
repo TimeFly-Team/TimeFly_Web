@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
 	`topic_id` int(10) unsigned DEFAULT NULL,
 	`user_id` int(10) unsigned DEFAULT NULL,
 	`text` text COLLATE utf8_unicode_ci,
-	`timestamp` datetime DEFAULT NULL
+	`timestamp` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
