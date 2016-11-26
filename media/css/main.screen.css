@@ -52,6 +52,18 @@
 }
 
 /*==========  Body INDEX.html ==========*/
+#tim,
+#forum {
+    display: none;
+    position: absolute;
+}
+#tim {
+    left: 100%;
+}
+#forum{
+    left:-100%;
+}
+
 .slider{
     width: 100%;
     max-height: 500px;
@@ -76,6 +88,9 @@ article{
     padding-top: 15px;
     padding-bottom: 15px;
     width: 80%;
+}
+.nadpis{
+    background-color: #FFFFFF;
 }
 .about_us .nadpis h4,
 .team .nadpis h4,
@@ -119,6 +134,22 @@ article{
     height: 200px;
 }
 
+@keyframes hide_page_l {
+    0%   {left:0%;position: relative;display: block;height: 1080px;width: 100%;}
+    100% {left:100%;position: relative;display: none;height: 1080px;width: 0%;}
+}
+@keyframes show_page_l {
+    0%   {left:-100%;position: relative;display: none;height: 1080px;width: 0%;}
+    100% {left:0%;position: relative;display: block;height: 1080px;width: 100%;}
+}
+@keyframes hide_page_r {
+    0%   {left:0%;position: relative;display: block;height: 1080px;width: 100%;}
+    100% {left:-100%;position: relative;display: none;height: 1080px;width: 0%;}
+}
+@keyframes show_page_r {
+    0%   {left:100%;position: relative;display: none;height: 1080px;width: 0%;}
+    100% {left:0%;position: relative;display: block;height: 1080px;width: 100%;}
+}
 /*==========  Body team.html ==========*/
 .person{
     display: block;
@@ -321,6 +352,18 @@ article{
 .send_topic .description_problem textarea,
 .send_reply .description_problem textarea{
     border: 1px solid #eeeeee;
+}
+.result_search {
+    width: auto;
+    min-height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 5px;
+    color: #000000;
+}
+.result_search a {
+    color: #AFAFAF;
+    cursor: pointer;
 }
 
 

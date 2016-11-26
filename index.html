@@ -30,10 +30,10 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li class="current "><a class="page-scroll" href="#home"  >Home</a></li>
-						<li><a class="page-scroll" href="#about"  >About us</a></li>
-						<li><a href="blog1.html" >Blog</a></li>
-						<li><a href="team.html" >Team</a></li>
+						<li class="current "><a class="page-scroll" onclick="ChangePage('#index');" href="#home" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" >Home</a></li>
+						<li><a class="page-scroll" onclick="ChangePage('#index');" href="#about" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" >About us</a></li>
+						<li><a onclick="ChangePage('#forum');"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">Blog</a></li>
+						<li><a onclick="ChangePage('#tim');" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">Team</a></li>
 					</ul>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 			</div>
 		</div>
 
-		<article>
+		<article id="index">
 			<div class="container article">
 				<div class="row">
 					<div class="col-md-12">
@@ -107,6 +107,406 @@
 			</div>
 			<a href="blog1.html" class="chevron chevron_right text-center"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
 			<a href="team.html" class="chevron chevron_left text-center"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+		</article>
+
+		<article id="tim">
+			<div class="container article under_nav team">
+				<div class="row">
+					<div class="col-md-12 text-center pb35 nadpis">
+						<h1>Lorem ipsum dolor sit amet.</h1>
+						<h4>Lorem ipsum dolor sit amet.</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 cols">
+						<div class="person">
+							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onclick="ShowLabel('#l0','#collapseOne');">
+								<img src="media/img/portret.jpg" alt="clen_tymu">
+								<div class="info text-center">
+									<h1>Dr. House</h1>
+								</div>
+								<p class="inf" id="l0">+ More information</p>
+							</a>
+							<div id="collapseOne" class="collapse" role="tabpanel" aria-expanded="false">
+								<div id="c0" class="card-block contact">
+									<p>Tel: xxxx xxx xxx</p>
+									<p>Email: xxxx@zzzz.sc</p>
+									<p>Twiter: sssssss</p>
+									<button class="button button_kontakt" type="button" onclick="ContactToogle('#m0','#c0');">Kontaktovat</button>
+								</div>
+								<div id="m0" class="message" >
+									<form class="send_message">
+										<p>Tvoj Mail:</p>
+										<input class="mail" type="email"  name="yourmail" value=""><br>
+										<p>Nazov temy:</p>
+										<input class="tema" type="text" name="tema" value=""><br>
+										<p>Opis problemu:</p>
+										<textarea name="question" rows="4"></textarea>
+										<button class="button button_form" type="button" onclick="ContactToogle('#c0','#m0');">Kontaktovat</button>
+										<input class="button button_form" type="submit" value="Submit">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 cols">
+						<div class="person">
+							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" onclick="ShowLabel('#l1','#collapseTwo');">
+								<img src="media/img/portret.jpg" alt="clen_tymu">
+								<div class="info text-center"><h1>Dr. House</h1></div>
+								<p class="inf" id="l1">+ More information</p>
+							</a>
+							<div id="collapseTwo" class="collapse" role="tabpanel" aria-expanded="false">
+								<div id="c1" class="card-block contact">
+									<p>Tel: xxxx xxx xxx</p>
+									<p>Email: xxxx@zzzz.sc</p>
+									<p>Twiter: sssssss</p>
+									<button class="button button_kontakt" type="button" onclick="ContactToogle('#m1','#c1');">Kontaktovat</button>
+								</div>
+								<div id="m1" class="message" >
+									<form class="send_message">
+										<p>Tvoj Mail:</p>
+										<input class="mail" type="email" name="yourmail" value=""><br>
+										<p>Nazov temy:</p>
+										<input class="tema" type="text" name="tema" value=""><br>
+										<p>Opis problemu:</p>
+										<textarea name="question" rows="4"></textarea>
+										<button class="button button_form" type="button" onclick="ContactToogle('#c1','#m1');">Kontaktovat</button>
+										<input class="button button_form" type="submit" value="Submit">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 cols">
+						<div class="person">
+							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" onclick="ShowLabel('#l2','#collapseThree');">
+								<img src="media/img/portret.jpg" alt="clen_tymu">
+								<div class="info text-center"><h1>Dr. House</h1></div>
+								<p class="inf" id="l2">+ More information</p>
+							</a>
+							<div id="collapseThree" class="collapse" role="tabpanel" aria-expanded="false">
+								<div id="c2" class="card-block contact">
+									<p>Tel: xxxx xxx xxx</p>
+									<p>Email: xxxx@zzzz.sc</p>
+									<p>Twiter: sssssss</p>
+									<button class="button button_kontakt" type="button" onclick="ContactToogle('#m2','#c2');">Kontaktovat</button>
+								</div>
+								<div id="m2" class="message" >
+									<form class="send_message">
+										<p>Tvoj Mail:</p>
+										<input class="mail" type="email" name="yourmail" value=""><br>
+										<p>Nazov temy:</p>
+										<input class="tema" type="text" name="tema" value=""><br>
+										<p>Opis problemu:</p>
+										<textarea name="question" rows="4"></textarea>
+										<button class="button button_form" type="button" onclick="ContactToogle('#c2','#m2');">Kontaktovat</button>
+										<input class="button button_form" type="submit" value="Submit">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-4 cols">
+						<div class="person">
+							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour" onclick="ShowLabel('#l3','#collapseFour');">
+								<img src="media/img/portret.jpg" alt="clen_tymu">
+								<div class="info text-center"><h1>Dr. House</h1></div>
+								<p class="inf" id="l3">+ More information</p>
+							</a>
+							<div id="collapseFour" class="collapse" role="tabpanel" aria-expanded="false">
+								<div id="c3" class="card-block contact">
+									<p>Tel: xxxx xxx xxx</p>
+									<p>Email: xxxx@zzzz.sc</p>
+									<p>Twiter: sssssss</p>
+									<button class="button button_kontakt" type="button" onclick="ContactToogle('#m3','#c3');">Kontaktovat</button>
+								</div>
+								<div id="m3" class="message" >
+									<form class="send_message">
+										<p>Tvoj Mail:</p>
+										<input class="mail" type="email" name="yourmail" value=""><br>
+										<p>Nazov temy:</p>
+										<input class="tema" type="text" name="tema" value=""><br>
+										<p>Opis problemu:</p>
+										<textarea name="question" rows="4"></textarea>
+										<button class="button button_form" type="button" onclick="ContactToogle('#c3','#m3');">Kontaktovat</button>
+										<input class="button button_form" type="submit" value="Submit">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 cols">
+						<div class="person">
+							<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive" onclick="ShowLabel('#l4','#collapseFive');">
+								<img src="media/img/portret.jpg" alt="clen_tymu">
+								<div class="info text-center"><h1>Dr. House</h1></div>
+								<p class="inf" id="l4">+ More information</p>
+							</a>
+							<div id="collapseFive" class="collapse" role="tabpanel" aria-expanded="false">
+								<div id="c4" class="card-block contact">
+									<p>Tel: xxxx xxx xxx</p>
+									<p>Email: xxxx@zzzz.sc</p>
+									<p>Twiter: sssssss</p>
+									<button class="button button_kontakt" type="button" onclick="ContactToogle('#m4','#c4');">Kontaktovat</button>
+								</div>
+								<div id="m4" class="message" >
+									<form class="send_message">
+										<p>Tvoj Mail:</p>
+										<input class="mail" type="email"  name="yourmail" value=""><br>
+										<p>Nazov temy:</p>
+										<input class="tema" type="text" name="tema" value=""><br>
+										<p>Opis problemu:</p>
+										<textarea name="question" rows="4"></textarea>
+										<button class="button button_form" type="button" onclick="ContactToogle('#c4','#m4');">Kontaktovat</button>
+										<input class="button button_form" type="submit" value="Submit">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a href="index.html" class="chevron chevron_right text-center"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+			<a href="blog1.html" class="chevron chevron_left text-center"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
+		</article>
+
+		<article id="forum">
+			<div class="container article under_nav blog">
+				<div class="row">
+					<div class="col-md-12 text-center pb35 nadpis">
+						<h1>Lorem ipsum dolor sit amet.</h1>
+						<h4>Lorem ipsum dolor sit amet.</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="filter">
+							<select class="form-control" id="sel1">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+							</select>
+						</div>
+						<div class="search">
+							<button  type="button" onclick="$('.search_ext').toggle();">Search</button>
+						</div>
+					</div>
+				</div>
+				<div class="row search_ex">
+					<div class="col-md-12">
+						<div class="search_ext">
+							<input class="" type="text"  name="Search" placeholder="search">
+							<div class="checkbox">
+								<label><input type="checkbox" value="">Option 1</label>
+							</div>
+							<div class="checkbox">
+								<label><input type="checkbox" value="">Option 1</label>
+							</div>
+							<button  type="button" onclick="ResultSearch();$('.search_ext').toggle();">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 pt20">
+						<div class="panel-group" id="level0">
+
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#level0" href="#c01">Collapsible Group 1</a>
+									</h4>
+								</div>
+								<div id="c01" class="panel-collapse collapse">
+									<div class="panel-body">
+										<div class="panel-group" id="level1">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a data-toggle="collapse" data-parent="#level1" href="#collapse1">Collapsible Group 1<i class="fa fa-exclamation" aria-hidden="true"></i></a>
+													</h4>
+												</div>
+												<div id="collapse1" class="panel-collapse collapse">
+													<div class="panel-body">
+														<div class="media">
+															<div class="media-body">
+																<h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
+																<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading">John Doe <small><i>Posted on February 20, 2016</i></small></h4>
+																		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+																	</div>
+																</div>
+
+
+																<div class="media">
+																	<div class="media-body">
+																		<h4 class="media-heading">Jane Doe <small><i>Posted on February 20, 2016</i></small></h4>
+																		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="new_reply">
+														<button  type="button" onclick="$('.add_reply').show();">
+															Add reply
+														</button>
+													</div>
+													<div class="add_reply">
+														<form class="send_reply">
+															<div class="row">
+																<div class="col-md-3">
+																	<p>Your email:</p>
+																	<input class="mail" type="email"  name="yourmail" value="">
+																</div>
+															</div>
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="description_problem">
+																		<p>Opis problemu:</p>
+																		<textarea name="question" rows="4"></textarea>
+																	</div>
+																</div>
+															</div>
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="tlacidla">
+																		<button type="button" onclick="$('.add_reply').hide();">Cancel</button>
+																		<input type="submit" value="Submit">
+																	</div>
+																</div>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a data-toggle="collapse" data-parent="#level1" href="#collapse2">Collapsible Group 2<i class="fa fa-exclamation" aria-hidden="true"></i></a>
+													</h4>
+												</div>
+												<div id="collapse2" class="panel-collapse collapse">
+													<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+														sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+														quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+													</div>
+												</div>
+											</div>
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h4 class="panel-title">
+														<a data-toggle="collapse" data-parent="#level1" href="#collapse3">Collapsible Group 3<i class="fa fa-check" aria-hidden="true"></i></a>
+													</h4>
+												</div>
+												<div id="collapse3" class="panel-collapse collapse">
+													<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+														sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+														quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+													</div>
+												</div>
+											</div>
+											<div class="new_topic">
+												<button  type="button" onclick="$('.add_topic').show();"><i class="fa fa-plus-square" aria-hidden="true"></i>
+													Add</button>
+											</div>
+											<div class="add_topic" >
+												<form class="send_topic">
+													<div class="row">
+														<div class="col-md-3">
+															<p>Your email:</p>
+															<input class="mail" type="email"  name="yourmail" value="">
+														</div>
+														<div class="col-md-9">
+															<p>Nazov temy:</p>
+															<input class="tema" type="text" name="tema" value="">
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															<div class="description_problem">
+																<p>Opis problemu:</p>
+																<textarea name="question" rows="4"></textarea>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-12">
+															<div class="tlacidla">
+																<button type="button" onclick="$('.add_topic').hide();">Cancel</button>
+																<input type="submit" value="Submit">
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#level0" href="#c02">Collapsible Group 2</a>
+									</h4>
+								</div>
+								<div id="c02" class="panel-collapse collapse">
+									<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+										sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+										quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#level0" href="#c03">Collapsible Group 3</a>
+									</h4>
+								</div>
+								<div id="c03" class="panel-collapse collapse">
+									<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+										sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+										quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+									</div>
+								</div>
+							</div>
+							<div class="new_topic">
+								<button  type="button" onclick="$('.add_theme').show();">
+									<i class="add fa fa-plus-square" aria-hidden="true"></i>
+									Add</button>
+							</div>
+							<div class="add_theme" >
+								<form class="send_theme">
+									<div class="row">
+										<div class="col-md-12">
+											<p>Nazov temy:</p>
+											<input class="tema" type="text" name="tema" value="">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="tlacidla">
+												<button type="button" onclick="$('.add_theme').hide();">Cancel</button>
+												<input type="submit" value="Submit">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a href="team.html" class="chevron chevron_right text-center"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
+			<a href="index.html" class="chevron chevron_left text-center"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
 		</article>
 
 		<footer>
