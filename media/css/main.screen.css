@@ -135,20 +135,20 @@ article{
 }
 
 @keyframes hide_page_l {
-    0%   {left:0%;position: relative;display: block;height: 1080px;width: 100%;}
-    100% {left:100%;position: relative;display: none;height: 1080px;width: 0%;}
+    0%   {left:0%;position: relative;display: block;height: 1080px;}
+    100% {left:100%;position: relative;display: none;height: 1080px;}
 }
 @keyframes show_page_l {
-    0%   {left:-100%;position: relative;display: none;height: 1080px;width: 0%;}
-    100% {left:0%;position: relative;display: block;height: 1080px;width: 100%;}
+    0%   {left:-100%;position: relative;display: none;height: 1080px;}
+    100% {left:0%;position: relative;display: block;height: 1080px;}
 }
 @keyframes hide_page_r {
-    0%   {left:0%;position: relative;display: block;height: 1080px;width: 100%;}
-    100% {left:-100%;position: relative;display: none;height: 1080px;width: 0%;}
+    0%   {left:0%;position: relative;display: block;height: 1080px;}
+    100% {left:-100%;position: relative;display: none;height: 1080px;}
 }
 @keyframes show_page_r {
-    0%   {left:100%;position: relative;display: none;height: 1080px;width: 0%;}
-    100% {left:0%;position: relative;display: block;height: 1080px;width: 100%;}
+    0%   {left:100%;position: relative;display: none;height: 1080px;}
+    100% {left:0%;position: relative;display: block;height: 1080px;}
 }
 /*==========  Body team.html ==========*/
 .person{
@@ -371,17 +371,46 @@ article{
 footer {
     background-color: #1fda81;
     color: #fff;
-    height: 62px;
+    min-height: 62px;
     font-size: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     width:100%;
+}
+footer .container{
+    width: 100%;
 }
 footer p {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    margin: 10px 0 10px;
+}
+footer button{
+    float: right;
+    margin: 10px;
+    border: 1px solid #ddd;
+    background-color: #1FDA81;
+    border-radius: 3px;
+}
+footer button:hover{
+    background-color: #FFFFFF;
+    color: #1FDA81;
+}
+footer .login {
+    color: black;
+}
+footer .login label{
+    display: inline-block;
+    width: 100px;
+    padding: 5px;
+}
+footer .login input{
+    display: inline-block;
+    width: 250px;
+}
+footer .login .tlacidla input{
+    float: right;
+    width: 150px;
+    margin-top: 5px;
 }
 
 /*==========  BreakPointy ==========*/
@@ -489,6 +518,11 @@ footer p {
     .container > .navbar-header {
         display: flex !important;
         justify-content: center;
+    }
+}
+@media (min-width: 1260px) {
+    .blog{
+        width: 60%;
     }
 }
 
