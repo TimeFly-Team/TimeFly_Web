@@ -1,3 +1,56 @@
+
+<?php
+function generateModerator($moderator)
+{
+	?>
+	<div class="col-md-4 cols">
+		<div class="person">
+			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_moderator_<?php echo $moderator['user_id'];?>" aria-expanded="false" aria-controls="collapse_moderator_<?php echo $moderator['user_id'];?>" onclick="ShowLabel('#label_<?php echo $moderator['user_id'];?>','#collapse_moderator_<?php echo $moderator['user_id'];?>');">
+				<img src="media/img/portret.jpg" alt="clen_tymu">
+				<div class="info text-center">
+					<h1><?php echo $moderator['name'];?></h1>
+				</div>
+				<p class="inf" id="label_<?php echo $moderator['user_id'];?>">+ More information</p>
+			</a>
+			<div id="collapse_moderator_<?php echo $moderator['user_id'];?>" class="collapse" role="tabpanel" aria-expanded="false">
+				<div id="moderator_<?php echo $moderator['user_id'];?>" class="card-block contact">
+					<p>Tel: <?php echo $moderator['property1'];?></p>
+					<p>Email: <?php echo $moderator['property2'];?></p>
+					<p>Twiter: <?php echo $moderator['property3'];?></p>
+					<button class="button button_kontakt" type="button" onclick="ContactToogle('#message_<?php echo $moderator['user_id'];?>','#moderator_<?php echo $moderator['user_id'];?>');">Contact</button>
+				</div>
+				<div id="message_<?php echo $moderator['user_id'];?>" class="message" >
+					<form class="send_message">
+						<p>Your mail:</p>
+						<input id="add_question_mail_<?php echo $moderator['user_id'];?>" class="mail" type="email"  name="yourmail" value=""><br>
+						<p>Question name:</p>
+						<input id="add_question_topic_name_<?php echo $moderator['user_id'];?>" class="tema" type="text" name="tema" value=""><br>
+						<p>Description:</p>
+						<textarea id="add_question_desc_<?php echo $moderator['user_id'];?>" name="question" rows="4"></textarea>
+						<button class="button button_form" type="button" onclick="ContactToogle('#moderator_<?php echo $moderator['user_id'];?>','#message_<?php echo $moderator['user_id'];?>');">Cancel</button>
+						<button id="add_question_submit_<?php echo $moderator['user_id'];?>" class="button button_form" type="button" onclick="">Submit</button>
+						<script>
+							document.getElementById('add_question_submit_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>).onclick = function ()
+							{
+								
+								callPHP("type=topic" + "&forum=2"
+										+ "&name=" + document.getElementById('add_question_topic_name_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>).value
+										+ "&user=" + document.getElementById('add_question_mail_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>).value
+										+ "&desc=" + document.getElementById('add_question_desc_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>).value
+										+ "&moderator=" + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>);
+								ContactToogle('#moderator_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>,'#message_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>);
+							}
+						</script>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+?>
+
 <article id="tim">
 	<div class="container article under_nav team">
 		<div class="row">
@@ -6,155 +59,18 @@
 				<h4>Lorem ipsum dolor sit amet.</h4>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-4 cols">
-				<div class="person">
-					<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onclick="ShowLabel('#l0','#collapseOne');">
-						<img src="media/img/portret.jpg" alt="clen_tymu">
-						<div class="info text-center">
-							<h1>Dr. House</h1>
-						</div>
-						<p class="inf" id="l0">+ More information</p>
-					</a>
-					<div id="collapseOne" class="collapse" role="tabpanel" aria-expanded="false">
-						<div id="c0" class="card-block contact">
-							<p>Tel: xxxx xxx xxx</p>
-							<p>Email: xxxx@zzzz.sc</p>
-							<p>Twiter: sssssss</p>
-							<button class="button button_kontakt" type="button" onclick="ContactToogle('#m0','#c0');">Kontaktovat</button>
-						</div>
-						<div id="m0" class="message" >
-							<form class="send_message">
-								<p>Tvoj Mail:</p>
-								<input class="mail" type="email"  name="yourmail" value=""><br>
-								<p>Nazov temy:</p>
-								<input class="tema" type="text" name="tema" value=""><br>
-								<p>Opis problemu:</p>
-								<textarea name="question" rows="4"></textarea>
-								<button class="button button_form" type="button" onclick="ContactToogle('#c0','#m0');">Kontaktovat</button>
-								<input class="button button_form" type="submit" value="Submit">
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 cols">
-				<div class="person">
-					<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" onclick="ShowLabel('#l1','#collapseTwo');">
-						<img src="media/img/portret.jpg" alt="clen_tymu">
-						<div class="info text-center"><h1>Dr. House</h1></div>
-						<p class="inf" id="l1">+ More information</p>
-					</a>
-					<div id="collapseTwo" class="collapse" role="tabpanel" aria-expanded="false">
-						<div id="c1" class="card-block contact">
-							<p>Tel: xxxx xxx xxx</p>
-							<p>Email: xxxx@zzzz.sc</p>
-							<p>Twiter: sssssss</p>
-							<button class="button button_kontakt" type="button" onclick="ContactToogle('#m1','#c1');">Kontaktovat</button>
-						</div>
-						<div id="m1" class="message" >
-							<form class="send_message">
-								<p>Tvoj Mail:</p>
-								<input class="mail" type="email" name="yourmail" value=""><br>
-								<p>Nazov temy:</p>
-								<input class="tema" type="text" name="tema" value=""><br>
-								<p>Opis problemu:</p>
-								<textarea name="question" rows="4"></textarea>
-								<button class="button button_form" type="button" onclick="ContactToogle('#c1','#m1');">Kontaktovat</button>
-								<input class="button button_form" type="submit" value="Submit">
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 cols">
-				<div class="person">
-					<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" onclick="ShowLabel('#l2','#collapseThree');">
-						<img src="media/img/portret.jpg" alt="clen_tymu">
-						<div class="info text-center"><h1>Dr. House</h1></div>
-						<p class="inf" id="l2">+ More information</p>
-					</a>
-					<div id="collapseThree" class="collapse" role="tabpanel" aria-expanded="false">
-						<div id="c2" class="card-block contact">
-							<p>Tel: xxxx xxx xxx</p>
-							<p>Email: xxxx@zzzz.sc</p>
-							<p>Twiter: sssssss</p>
-							<button class="button button_kontakt" type="button" onclick="ContactToogle('#m2','#c2');">Kontaktovat</button>
-						</div>
-						<div id="m2" class="message" >
-							<form class="send_message">
-								<p>Tvoj Mail:</p>
-								<input class="mail" type="email" name="yourmail" value=""><br>
-								<p>Nazov temy:</p>
-								<input class="tema" type="text" name="tema" value=""><br>
-								<p>Opis problemu:</p>
-								<textarea name="question" rows="4"></textarea>
-								<button class="button button_form" type="button" onclick="ContactToogle('#c2','#m2');">Kontaktovat</button>
-								<input class="button button_form" type="submit" value="Submit">
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-4 cols">
-				<div class="person">
-					<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour" onclick="ShowLabel('#l3','#collapseFour');">
-						<img src="media/img/portret.jpg" alt="clen_tymu">
-						<div class="info text-center"><h1>Dr. House</h1></div>
-						<p class="inf" id="l3">+ More information</p>
-					</a>
-					<div id="collapseFour" class="collapse" role="tabpanel" aria-expanded="false">
-						<div id="c3" class="card-block contact">
-							<p>Tel: xxxx xxx xxx</p>
-							<p>Email: xxxx@zzzz.sc</p>
-							<p>Twiter: sssssss</p>
-							<button class="button button_kontakt" type="button" onclick="ContactToogle('#m3','#c3');">Kontaktovat</button>
-						</div>
-						<div id="m3" class="message" >
-							<form class="send_message">
-								<p>Tvoj Mail:</p>
-								<input class="mail" type="email" name="yourmail" value=""><br>
-								<p>Nazov temy:</p>
-								<input class="tema" type="text" name="tema" value=""><br>
-								<p>Opis problemu:</p>
-								<textarea name="question" rows="4"></textarea>
-								<button class="button button_form" type="button" onclick="ContactToogle('#c3','#m3');">Kontaktovat</button>
-								<input class="button button_form" type="submit" value="Submit">
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 cols">
-				<div class="person">
-					<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive" onclick="ShowLabel('#l4','#collapseFive');">
-						<img src="media/img/portret.jpg" alt="clen_tymu">
-						<div class="info text-center"><h1>Dr. House</h1></div>
-						<p class="inf" id="l4">+ More information</p>
-					</a>
-					<div id="collapseFive" class="collapse" role="tabpanel" aria-expanded="false">
-						<div id="c4" class="card-block contact">
-							<p>Tel: xxxx xxx xxx</p>
-							<p>Email: xxxx@zzzz.sc</p>
-							<p>Twiter: sssssss</p>
-							<button class="button button_kontakt" type="button" onclick="ContactToogle('#m4','#c4');">Kontaktovat</button>
-						</div>
-						<div id="m4" class="message" >
-							<form class="send_message">
-								<p>Tvoj Mail:</p>
-								<input class="mail" type="email"  name="yourmail" value=""><br>
-								<p>Nazov temy:</p>
-								<input class="tema" type="text" name="tema" value=""><br>
-								<p>Opis problemu:</p>
-								<textarea name="question" rows="4"></textarea>
-								<button class="button button_form" type="button" onclick="ContactToogle('#c4','#m4');">Kontaktovat</button>
-								<input class="button button_form" type="submit" value="Submit">
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
+		<div id="moderators_row" class="row">
+			<?php
+			$conn = db_connect();
+			$moderators = getModerators($conn);
+			$rows = mysqli_num_rows($moderators);
+			for ($i = 0 ; $i < $rows ; $i++)
+			{
+				generateModerator(mysqli_fetch_array($moderators));
+			}
+			mysqli_close($conn);
+			?>
+			
 		</div>
 	</div>
 	<a id="chevron-tim" onclick="ArrowLeftChangePage();" class="chevron chevron_right text-center"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>

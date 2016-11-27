@@ -7,7 +7,7 @@
 //Pripojenie databázy
 function db_connect() {
 	//$conn = mysqli_connect('localhost', 'sktimefly', 'timefly12345');
-	$conn = mysqli_connect("localhost","root","","sktimefly");
+	$conn = mysqli_connect("localhost","root","");
 	if ($conn) {
 		return db_select($conn);
 	}
@@ -281,6 +281,16 @@ function getInfoUserById($conn,$id)
     array_push($result, $pom);
  }
  echo json_encode($result);
+}
+
+function getModerators($conn)
+{
+	$result = mysqli_query($conn, "SELECT * FROM moderators m, users u WHERE u.user_id = m.user_id");
+	if (mysqli_num_rows($result) > 0)
+	{
+		return $result;
+	}
+	return false;	
 }
 ?>
 
