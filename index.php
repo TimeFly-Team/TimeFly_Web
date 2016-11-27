@@ -4,12 +4,12 @@ session_start();
 
 require 'lib/Moderator.php';
 
-$user = new Moderator();
+$moderator = new Moderator();
 
 if (isset($_POST["name"])){
-	$user->loggIn($_POST["name"], $_POST["pass"]);
+	$moderator->loggIn($_POST["name"], $_POST["pass"]);
 }else if(isset($_POST["logout"])){
-	$user->logOut();
+	$moderator->logOut();
 }
 
 require 'pages/header.phtml';
