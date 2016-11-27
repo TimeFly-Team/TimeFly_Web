@@ -91,14 +91,14 @@
 													<div class="row">
 														<div class="col-md-3">
 															<p>Your email:</p>
-															<input class="mail" type="email"  name="yourmail" value="">
+															<input id="reply_mail" class="mail" type="email"  name="yourmail" value="">
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-12">
 															<div class="description_problem">
 																<p>Opis problemu:</p>
-																<textarea name="question" rows="4"></textarea>
+																<textarea id="reply_desc" name="question" rows="4"></textarea>
 															</div>
 														</div>
 													</div>
@@ -106,7 +106,7 @@
 														<div class="col-md-12">
 															<div class="tlacidla">
 																<button type="button" onclick="$('.add_reply').hide();">Cancel</button>
-																<input type="submit" value="Submit">
+																<button id="reply_submit" type="button" onclick="">Submin</button>
 															</div>
 														</div>
 													</div>
@@ -149,18 +149,18 @@
 											<div class="row">
 												<div class="col-md-3">
 													<p>Your email:</p>
-													<input class="mail" type="email"  name="yourmail" value="">
+													<input id="topic_mail" class="mail" type="email"  name="yourmail" value="">
 												</div>
 												<div class="col-md-9">
 													<p>Nazov temy:</p>
-													<input class="tema" type="text" name="tema" value="">
+													<input id="topic_tema" class="tema" type="text" name="tema" value="">
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-12">
 													<div class="description_problem">
 														<p>Opis problemu:</p>
-														<textarea name="question" rows="4"></textarea>
+														<textarea id="topic_desc" name="question" rows="4"></textarea>
 													</div>
 												</div>
 											</div>
@@ -168,7 +168,7 @@
 												<div class="col-md-12">
 													<div class="tlacidla">
 														<button type="button" onclick="$('.add_topic').hide();">Cancel</button>
-														<input type="submit" value="Submit">
+														<button id="topic_submit" type="button" onclick="">Submit</button>
 													</div>
 												</div>
 											</div>
@@ -214,14 +214,14 @@
 							<div class="row">
 								<div class="col-md-12">
 									<p>Nazov temy:</p>
-									<input class="tema" type="text" name="tema" value="">
+									<input id="theme_name" class="tema" type="text" name="tema" value="">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12">
 									<div class="tlacidla">
 										<button type="button" onclick="$('.add_theme').hide();">Cancel</button>
-										<input type="submit" value="Submit">
+										<button id="theme_submit" type="button" onclick="">Submit</button>
 									</div>
 								</div>
 							</div>
