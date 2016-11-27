@@ -2,7 +2,7 @@
 
 require 'functions.php';
 
-class User
+class Moderator
 {
     public function loggIn($name, $password)
     {
@@ -30,7 +30,7 @@ class User
     private function verifyUser($name, $password)
     {
         if ($con = db_connect()) { /* global function is used db_connect()*/
-            $sql = "SELECT * FROM users WHERE name='" .$name. "' and password='". $password ."' LIMIT 1";
+            $sql = "SELECT * FROM moderators WHERE user_id='" .$name. "' and password='". $password ."' LIMIT 1";
             $result = mysqli_query($con, $sql); 
             if ($result && (mysqli_num_rows($result) > 0) ) {
                 mysqli_close($con);

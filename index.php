@@ -2,9 +2,9 @@
 
 session_start();
 
-require 'lib/User.php';
+require 'lib/Moderator.php';
 
-$user = new User();
+$user = new Moderator();
 
 if (isset($_POST["name"])){
 	$user->loggIn($_POST["name"], $_POST["pass"]);
