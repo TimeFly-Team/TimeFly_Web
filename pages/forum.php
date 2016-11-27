@@ -114,11 +114,17 @@ getForums();
 			<div class="col-md-12 pt20">
 				<div class="panel-group" id="level0">
 
+					<?php 
+					if(!$moderator->isLogged()){
+					?>
 					<div class="new_topic">
 						<button  type="button" onclick="$('.add_theme').show();">
 							<i class="add fa fa-plus-square" aria-hidden="true"></i>
 						Add</button>
 					</div>
+					<?php
+					}
+					?>
 					<div class="add_theme" >
 						<form class="send_theme">
 							<div class="row">
