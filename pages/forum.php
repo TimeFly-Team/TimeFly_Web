@@ -2,7 +2,7 @@
 function callPHP(params) {
 	console.log(params);
     var httpc = new XMLHttpRequest(); // simplified for clarity
-    var url = "/addNewItem.php";
+    var url = "/TimeFly_Web/addNewItem.php";
     httpc.open("POST", url, true); // sending as POST
 
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -15,6 +15,42 @@ function callPHP(params) {
     }
     httpc.send(params);
 }
+
+function getForums(){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(JSON.parse(this.responseText));
+            document.getElementById("level0").innerHTML = showForums(JSON.parse(this.responseText));
+        }
+    };
+    xmlhttp.open("GET", "/TimeFly_Web/getForums.php", true);
+    xmlhttp.send();
+}
+
+function showForums(response){
+	result = "";
+	console.log("response", response);
+	for(var i in response){
+		result += createForumView(response[i]);
+	}
+	return result;
+}
+
+function createForumView(forum){
+	console.log(forum.forum_id);
+	var view ='<div class="panel panel-default">' +
+				'<div class="panel-heading">' +
+					'<h4 class="panel-title">' +
+						'<a data-toggle="collapse" data-parent="#level0" href="#c01">' + forum.forum_name + '</a>' +
+					'</h4>' +
+				'</div>' +
+			'</div>';
+	return view;
+}
+
+getForums();
+
 </script>
 
 <article id="forum">
@@ -60,12 +96,7 @@ function callPHP(params) {
 			<div class="col-md-12 pt20">
 				<div class="panel-group" id="level0">
 
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#level0" href="#c01">Collapsible Group 1</a>
-							</h4>
-						</div>
+						<!--
 						<div id="c01" class="panel-collapse collapse">
 							<div class="panel-body">
 								<div class="panel-group" id="level1">
@@ -242,6 +273,8 @@ function callPHP(params) {
 							</div>
 						</div>
 					</div>
+					-->
+
 					<div class="new_topic">
 						<button  type="button" onclick="$('.add_theme').show();">
 							<i class="add fa fa-plus-square" aria-hidden="true"></i>
