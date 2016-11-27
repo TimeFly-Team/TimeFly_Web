@@ -205,7 +205,7 @@ function getSqlInsertComment($topic_id, $user_id, $text)
 function getForums($conn)
 {
  $result = array();
- $sql = mysql_query($conn,"SELECT * FROM forums ORDER BY forum_id;"));
+ $sql = mysql_query($conn,"SELECT * FROM forums ORDER BY forum_id;");
  while ($row = mysql_fetch_alias_array($sql))
  {
     $pom = array();
@@ -219,7 +219,7 @@ function getForums($conn)
 function getTopic($conn,$forumId)
 {
  $result = array();
- $sql = mysql_query($conn,"SELECT * FROM topics WHERE forum_id="+$forumId+" ORDER BY topic_id;"));
+ $sql = mysql_query($conn,"SELECT * FROM topics WHERE forum_id="+$forumId+" ORDER BY topic_id;");
  while ($row = mysql_fetch_alias_array($sql))
  {
     $pom = array();
@@ -234,7 +234,7 @@ function getTopic($conn,$forumId)
 function getComments($conn,$topicId)
 {
  $result = array();
- $sql = mysql_query($conn,"SELECT * FROM comments WHERE topic_id="+$topicId+" ORDER BY timestamp ASC;"));
+ $sql = mysql_query($conn,"SELECT * FROM comments WHERE topic_id="+$topicId+" ORDER BY timestamp ASC;");
  while ($row = mysql_fetch_alias_array($sql))
  {
     $pom = array();
@@ -249,7 +249,7 @@ function getComments($conn,$topicId)
 function getUsers($conn)
 {
  $result = array();
- $sql = mysql_query($conn,"SELECT * FROM users ORDER BY user_id;"));
+ $sql = mysql_query($conn,"SELECT * FROM users ORDER BY user_id;");
  while ($row = mysql_fetch_alias_array($sql))
  {
     $pom = array();
@@ -263,7 +263,7 @@ function getUsers($conn)
 function getInfoUserById($conn,$id)
 {
  $result = array();
- $sql = mysql_query($conn,"SELECT * FROM moderators WHERE user_id="+$id+" ;"));
+ $sql = mysql_query($conn,"SELECT * FROM moderators WHERE user_id="+$id+" ;");
  while ($row = mysql_fetch_alias_array($sql))
  {
     $pom = array();
