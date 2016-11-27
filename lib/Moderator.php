@@ -8,6 +8,7 @@ class Moderator
     {
         if($this->verifyUser($name, $password)){
             $_SESSION["name"] = $name;
+            $_SESSION["loggedUser"] = $name;
         }
     }
 
