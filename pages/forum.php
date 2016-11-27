@@ -20,7 +20,6 @@ function getForums(){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            alert(JSON.parse(this.responseText));
             document.getElementById("level0").innerHTML = showForums(JSON.parse(this.responseText));
         }
     };
@@ -30,7 +29,6 @@ function getForums(){
 
 function showForums(response){
 	result = "";
-	console.log("response", response);
 	for(var i in response){
 		result += createForumView(response[i]);
 	}
@@ -273,13 +271,13 @@ getForums();
 							</div>
 						</div>
 					</div>
-					-->
-
+	
 					<div class="new_topic">
 						<button  type="button" onclick="$('.add_theme').show();">
 							<i class="add fa fa-plus-square" aria-hidden="true"></i>
 							Add</button>
 					</div>
+					-->
 					<div class="add_theme" >
 						<form class="send_theme">
 							<div class="row">
