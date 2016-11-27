@@ -195,5 +195,83 @@ function getSqlInsertComment($topic_id, $user_id, $text)
 {
 	return "INSERT INTO comments (topic_id, user_id, text) VALUES (".$topic_id.",".$user_id.",\"".$text."\")";
 }
+
+function getForums($conn)
+{
+ $result = array();
+ $sql = mysql_query($conn,"SELECT * FROM forums ORDER BY forum_id;"));
+ while ($row = mysql_fetch_alias_array($sql))
+ {
+    $pom = array();
+    array_push($pom, $row['forum_id']);
+    array_push($pom, $row['name']);
+    array_push($result, $pom);
+ }
+ echo json_encode($result);
+}
+
+function getTopic($conn,$forumId)
+{
+ $result = array();
+ $sql = mysql_query($conn,"SELECT * FROM topics WHERE forum_id="+$forumId+" ORDER BY topic_id;"));
+ while ($row = mysql_fetch_alias_array($sql))
+ {
+    $pom = array();
+    array_push($pom, $row['topic_id']);
+    array_push($pom, $row['name']);
+    array_push($pom, $row['lock']);
+    array_push($result, $pom);
+ }
+ echo json_encode($result);
+}
+
+function getComments($conn,$topicId)
+{
+ $result = array();
+ $sql = mysql_query($conn,"SELECT * FROM comments WHERE topic_id="+$topicId+" ORDER BY timestamp ASC;"));
+ while ($row = mysql_fetch_alias_array($sql))
+ {
+    $pom = array();
+    array_push($pom, $row['comment_id']);
+    array_push($pom, $row['text']);
+    array_push($pom, $row['timestamp']);
+    array_push($result, $pom);
+ }
+ echo json_encode($result);
+}
+
+function getUsers($conn)
+{
+ $result = array();
+ $sql = mysql_query($conn,"SELECT * FROM users ORDER BY user_id;"));
+ while ($row = mysql_fetch_alias_array($sql))
+ {
+    $pom = array();
+    array_push($pom, $row['user_id']);
+    array_push($pom, $row['name']);
+    array_push($result, $pom);
+ }
+ echo json_encode($result);
+}
+
+function getInfoUserById($conn,$id)
+{
+ $result = array();
+ $sql = mysql_query($conn,"SELECT * FROM moderators WHERE user_id="+$id+" ;"));
+ while ($row = mysql_fetch_alias_array($sql))
+ {
+    $pom = array();
+    array_push($pom, 'E-mail');
+    array_push($pom, $row['email']);
+    array_push($pom, 'property1');
+    array_push($pom, $row['property1']);
+    array_push($pom, 'property2');
+    array_push($pom, $row['property2']);
+    array_push($pom, 'property3');
+    array_push($pom, $row['property3']);
+    array_push($result, $pom);
+ }
+ echo json_encode($result);
+}
 ?>
 
