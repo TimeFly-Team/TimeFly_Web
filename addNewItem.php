@@ -25,9 +25,9 @@ if (isset($_POST['type']))
 	}
 	else if ($_POST['type'] == 'topic')
 	{
-		if ($topic_id = checkUserAndAddTopic($conn, $_POST['forum'], $_POST['name']))
+		if ($topic_id = checkUserAndAddTopic($conn, $_POST['forum'], $_POST['name'], $_POST['moderator']))
 		{
-			echoMessage(checkUserAndAddTopic($conn, $topic_id, $_POST['desc'], $_POST['user']));
+			echoMessage(checkUserAndAddComment($conn, $topic_id, $_POST['desc'], $_POST['user']));
 		}		
 	}
 	else if ($_POST['type'] == 'comment')
