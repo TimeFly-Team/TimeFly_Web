@@ -1,7 +1,13 @@
 <?php
+
+//require 'lib/User.php';
+
+//$user = new User();
+
 //Pripojenie databázy
 function db_connect() {
-	$conn = mysqli_connect('localhost', 'sktimefly', 'timefly12345');
+	//$conn = mysqli_connect('localhost', 'sktimefly', 'timefly12345');
+	$conn = mysqli_connect("localhost","root","","sktimefly");
 	if ($conn) {
 		return db_select($conn);
 	}
