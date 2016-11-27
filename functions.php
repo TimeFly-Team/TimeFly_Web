@@ -204,16 +204,19 @@ function getSqlInsertComment($topic_id, $user_id, $text)
 
 function getForums($conn)
 {
- $result = array();
- $sql = mysql_query($conn,"SELECT * FROM forums ORDER BY forum_id;");
- while ($row = mysql_fetch_alias_array($sql))
- {
-    $pom = array();
-    array_push($pom, $row['forum_id']);
-    array_push($pom, $row['name']);
-    array_push($result, $pom);
- }
- echo json_encode($result);
+	$result = array();
+	$sql = mysqli_query($conn,"SELECT * FROM forums ORDER BY forum_id;");
+	while ($row = mysqli_fetch_array($sql))
+	{
+	 	$result[] = array("forum_id" => $row['forum_id'], "forum_name" => $row['name']);
+	 	/*
+	    $pom = array();
+	    array_push($pom, $row['forum_id']);
+	    array_push($pom, $row['name']);
+	    array_push($result, $pom);
+	    */
+	}
+	echo json_encode($result);
 }
 
 function getTopic($conn,$forumId)
