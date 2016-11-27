@@ -8,9 +8,9 @@
 						Powered by TimeFly - Webdeveloper Team
 
 						<?php
-						if(!$user->isLogged()){
+						if(!$moderator->isLogged()){
 						?>
-						
+
 							<button type="button" data-toggle="modal" data-target="#myModal">Login</button>
 						
 						<?php
