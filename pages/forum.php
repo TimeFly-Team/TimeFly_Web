@@ -1,3 +1,22 @@
+<script>
+function callPHP(params) {
+	console.log(params);
+    var httpc = new XMLHttpRequest(); // simplified for clarity
+    var url = "/addNewItem.php";
+    httpc.open("POST", url, true); // sending as POST
+
+    httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    httpc.setRequestHeader("Content-Length", params.length); // POST request MUST have a Content-Length header (as per HTTP/1.1)
+
+    httpc.onreadystatechange = function() { //Call a function when the state changes.
+    if(httpc.readyState == 4 && httpc.status == 200) { // complete and no errors
+        alert(httpc.responseText); // some processing here, or whatever you want to do with the response
+        }
+    }
+    httpc.send(params);
+}
+</script>
+
 <article id="forum">
 	<div class="container article under_nav blog">
 		<div class="row">
@@ -91,14 +110,14 @@
 													<div class="row">
 														<div class="col-md-3">
 															<p>Your email:</p>
-															<input id="reply_mail" class="mail" type="email"  name="yourmail" value="">
+															<input id="t_collapse1_reply_mail" class="mail" type="email"  name="yourmail" value="">
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-12">
 															<div class="description_problem">
 																<p>Opis problemu:</p>
-																<textarea id="reply_desc" name="question" rows="4"></textarea>
+																<textarea id="t_collapse1_reply_desc" name="question" rows="4"></textarea>
 															</div>
 														</div>
 													</div>
@@ -106,7 +125,16 @@
 														<div class="col-md-12">
 															<div class="tlacidla">
 																<button type="button" onclick="$('.add_reply').hide();">Cancel</button>
-																<button id="reply_submit" type="button" onclick="">Submin</button>
+																<button id="t_collapse1_reply_submit" type="button" onclick="">Submin</button>
+																<script>
+																	document.getElementById('t_collapse1_reply_submit').onclick = function ()
+																	{
+																		callPHP("type=comment" + "&topic=" + document.getElementById('collapse1').value
+																				+ "&user=" + document.getElementById('t_collapse1_reply_mail').value
+																				+ "&desc=" + document.getElementById('t_collapse1_reply_desc').value);
+																		$('.add_reply').hide();
+																	}
+																</script>
 															</div>
 														</div>
 													</div>
@@ -149,18 +177,18 @@
 											<div class="row">
 												<div class="col-md-3">
 													<p>Your email:</p>
-													<input id="topic_mail" class="mail" type="email"  name="yourmail" value="">
+													<input id="f_c01_topic_mail" class="mail" type="email"  name="yourmail" value="">
 												</div>
 												<div class="col-md-9">
 													<p>Nazov temy:</p>
-													<input id="topic_tema" class="tema" type="text" name="tema" value="">
+													<input id="f_c01_topic_tema" class="tema" type="text" name="tema" value="">
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-12">
 													<div class="description_problem">
 														<p>Opis problemu:</p>
-														<textarea id="topic_desc" name="question" rows="4"></textarea>
+														<textarea id="f_c01_topic_desc" name="question" rows="4"></textarea>
 													</div>
 												</div>
 											</div>
@@ -168,7 +196,17 @@
 												<div class="col-md-12">
 													<div class="tlacidla">
 														<button type="button" onclick="$('.add_topic').hide();">Cancel</button>
-														<button id="topic_submit" type="button" onclick="">Submit</button>
+														<button id="f_c01_topic_submit" type="button" onclick="">Submit</button>
+														<script>
+															document.getElementById('f_c01_topic_submit').onclick = function ()
+															{
+																callPHP("type=topic" + "&forum=" + document.getElementById('c01').value
+																		+ "&name=" + document.getElementById('f_c01_topic_tema').value
+																		+ "&user=" + document.getElementById('f_c01_topic_mail').value
+																		+ "&desc=" + document.getElementById('f_c01_topic_desc').value);
+																$('.add_topic').hide();
+															}
+														</script>
 													</div>
 												</div>
 											</div>
@@ -222,6 +260,13 @@
 									<div class="tlacidla">
 										<button type="button" onclick="$('.add_theme').hide();">Cancel</button>
 										<button id="theme_submit" type="button" onclick="">Submit</button>
+										<script>
+											document.getElementById('theme_submit').onclick = function ()
+											{
+												callPHP("type=forum" + "&name=" + document.getElementById('theme_name').value);
+												$('.add_theme').hide();
+											}
+										</script>
 									</div>
 								</div>
 							</div>
