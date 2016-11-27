@@ -3,7 +3,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<p>
+					<div class="foot">
 						<i></i>
 						Powered by TimeFly - Webdeveloper Team
 
@@ -24,8 +24,8 @@
 						<?php
 						}
 						?>
+					</div>
 
-					</p>
 					<div class="modal fade login" id="myModal" role="dialog">
 						<div class="modal-dialog">
 							<!-- Modal content-->

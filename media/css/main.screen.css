@@ -1,3 +1,20 @@
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    min-height: 100%;
+}
+
 /*==========  Navigation ==========*/
 .navbar-default {
     background-color: #1fda81;
@@ -80,6 +97,7 @@
 }
 article{
     position: relative;
+    padding-bottom: 65px;
 }
 .article,
 .about_us {
@@ -164,6 +182,13 @@ article{
     width: 100%;
 }
 .person h1 {
+    color: black;
+}
+.person a {
+    text-decoration: none;
+}
+.person a:hover {
+    text-decoration: underline;
     color: black;
 }
 
@@ -291,9 +316,10 @@ article{
     width: 100px;
     border: 1px solid #ddd;
     border-radius: 3px;
+    background-color: #F0F0F0;
 }
-.new_topic button:active,
-.new_reply button:active{
+.new_topic button:hover,
+.new_reply button:hover{
     background: #AFAFAF;
 }
 .new_topic .fa {
@@ -327,16 +353,29 @@ article{
     width: 100%;
 }
 .send_theme button,
-.send_theme input,
 .send_topic button,
-.send_topic input,
 .send_reply button,
+.send_theme input,
+.send_topic input,
 .send_reply input {
     height: 34px;
     width: 100px;
     border: 1px solid #ddd;
     border-radius: 3px;
+
 }
+.send_theme button,
+.send_topic button,
+.send_reply button{
+    background-color: #F0F0F0;
+}
+
+.send_theme button:hover,
+.send_topic button:hover,
+.send_reply button:hover {
+    background-color: #AFAFAF;
+}
+
 .send_topic .description_problem,
 .send_topic .description_problem textarea,
 .send_reply .description_problem,
@@ -369,6 +408,10 @@ article{
 
 /*==========  Footer ==========*/
 footer {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0px;
     background-color: #1fda81;
     color: #fff;
     min-height: 62px;
@@ -378,20 +421,22 @@ footer {
 footer .container{
     width: 100%;
 }
-footer p {
+footer .foot {
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin: 10px 0 10px;
 }
-footer button{
+footer button,
+footer #logout{
     float: right;
     margin: 10px;
     border: 1px solid #ddd;
     background-color: #1FDA81;
     border-radius: 3px;
 }
-footer button:hover{
+footer button:hover,
+footer #logout:hover{
     background-color: #FFFFFF;
     color: #1FDA81;
 }
