@@ -1,4 +1,7 @@
 <script>
+
+//var button = document.getElementById("level0").innerHTML;
+
 function callPHP(params) {
 	console.log(params);
     var httpc = new XMLHttpRequest(); // simplified for clarity
@@ -7,20 +10,30 @@ function callPHP(params) {
 
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     httpc.setRequestHeader("Content-Length", params.length); // POST request MUST have a Content-Length header (as per HTTP/1.1)
-
     httpc.onreadystatechange = function() { //Call a function when the state changes.
     if(httpc.readyState == 4 && httpc.status == 200) { // complete and no errors
-        alert(httpc.responseText); // some processing here, or whatever you want to do with the response
+        	return httpc.responseText; // some processing here, or whatever you want to do with the response
         }
     }
     httpc.send(params);
 }
 
+
 function getForums(){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("level0").innerHTML = showForums(JSON.parse(this.responseText));
+        	var button = document.getElementById("level0").innerHTML;
+        	//document.getElementById("level0").innerHTML = "";
+            document.getElementById("level0").innerHTML = showForums(JSON.parse(this.responseText)) + button;
+			document.getElementById('theme_submit').onclick = function ()
+			{
+				var x = callPHP("type=forum" + "&name=" + document.getElementById('theme_name').value);
+				var view = createForumView({forum_id: x, forum_name: document.getElementById('theme_name').value});
+				$(view).insertBefore(".new_topic");
+				$(".add_theme").hide();
+			}
+            //document.getElementById("level0").innerHTML = button;
         }
     };
     xmlhttp.open("GET", "/TimeFly_Web/getForums.php", true);
@@ -37,13 +50,20 @@ function showForums(response){
 
 function createForumView(forum){
 	console.log(forum.forum_id);
-	var view ='<div class="panel panel-default">' +
-				'<div class="panel-heading">' +
-					'<h4 class="panel-title">' +
-						'<a data-toggle="collapse" data-parent="#level0" href="#c01">' + forum.forum_name + '</a>' +
-					'</h4>' +
-				'</div>' +
-			'</div>';
+	var levelId = "level" + forum.forum_id;
+	var panelId = "#panel" + forum.forum_id; 
+	var view =  '<div class="panel panel-default">' +
+					'<div class="panel-heading">' +
+						'<h4 class="panel-title">' +
+							'<a data-toggle="collapse" data-parent="#level0" href="' + "#" + levelId + '">' + forum.forum_name + '</a>' +
+						'</h4>' +
+					'</div>' +
+					'<div id="' + levelId + '" class="panel-collapse collapse">' +
+						'<div id="' + panelId + '" class="panel-body">' +
+						'</div>	' +
+					'</div>' +
+				'</div>';
+
 	return view;
 }
 
@@ -94,190 +114,11 @@ getForums();
 			<div class="col-md-12 pt20">
 				<div class="panel-group" id="level0">
 
-						<!--
-						<div id="c01" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div class="panel-group" id="level1">
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h4 class="panel-title">
-												<a data-toggle="collapse" data-parent="#level1" href="#collapse1">Collapsible Group 1<i class="fa fa-exclamation" aria-hidden="true"></i></a>
-											</h4>
-										</div>
-										<div id="collapse1" class="panel-collapse collapse">
-											<div class="panel-body">
-												<div class="media">
-													<div class="media-body">
-														<h4 class="media-heading">John Doe <small><i>Posted on February 19, 2016</i></small></h4>
-														<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-
-														<div class="media">
-															<div class="media-body">
-																<h4 class="media-heading">John Doe <small><i>Posted on February 20, 2016</i></small></h4>
-																<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-															</div>
-														</div>
-
-
-														<div class="media">
-															<div class="media-body">
-																<h4 class="media-heading">Jane Doe <small><i>Posted on February 20, 2016</i></small></h4>
-																<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="new_reply">
-												<button  type="button" onclick="$('.add_reply').show();">
-													Add reply
-												</button>
-											</div>
-											<div class="add_reply">
-												<form class="send_reply">
-													<div class="row">
-														<div class="col-md-3">
-															<p>Your email:</p>
-															<input id="t_collapse1_reply_mail" class="mail" type="email"  name="yourmail" value="">
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-12">
-															<div class="description_problem">
-																<p>Opis problemu:</p>
-																<textarea id="t_collapse1_reply_desc" name="question" rows="4"></textarea>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-12">
-															<div class="tlacidla">
-																<button type="button" onclick="$('.add_reply').hide();">Cancel</button>
-																<button id="t_collapse1_reply_submit" type="button" onclick="">Submin</button>
-																<script>
-																	document.getElementById('t_collapse1_reply_submit').onclick = function ()
-																	{
-																		callPHP("type=comment" + "&topic=" + document.getElementById('collapse1').value
-																				+ "&user=" + document.getElementById('t_collapse1_reply_mail').value
-																				+ "&desc=" + document.getElementById('t_collapse1_reply_desc').value);
-																		$('.add_reply').hide();
-																	}
-																</script>
-															</div>
-														</div>
-													</div>
-												</form>
-											</div>
-										</div>
-									</div>
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h4 class="panel-title">
-												<a data-toggle="collapse" data-parent="#level1" href="#collapse2">Collapsible Group 2<i class="fa fa-exclamation" aria-hidden="true"></i></a>
-											</h4>
-										</div>
-										<div id="collapse2" class="panel-collapse collapse">
-											<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-												sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-												quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-											</div>
-										</div>
-									</div>
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h4 class="panel-title">
-												<a data-toggle="collapse" data-parent="#level1" href="#collapse3">Collapsible Group 3<i class="fa fa-check" aria-hidden="true"></i></a>
-											</h4>
-										</div>
-										<div id="collapse3" class="panel-collapse collapse">
-											<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-												sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-												quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-											</div>
-										</div>
-									</div>
-									<div class="new_topic">
-										<button  type="button" onclick="$('.add_topic').show();"><i class="fa fa-plus-square" aria-hidden="true"></i>
-											Add</button>
-									</div>
-									<div class="add_topic" >
-										<form class="send_topic">
-											<div class="row">
-												<div class="col-md-3">
-													<p>Your email:</p>
-													<input id="f_c01_topic_mail" class="mail" type="email"  name="yourmail" value="">
-												</div>
-												<div class="col-md-9">
-													<p>Nazov temy:</p>
-													<input id="f_c01_topic_tema" class="tema" type="text" name="tema" value="">
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<div class="description_problem">
-														<p>Opis problemu:</p>
-														<textarea id="f_c01_topic_desc" name="question" rows="4"></textarea>
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<div class="tlacidla">
-														<button type="button" onclick="$('.add_topic').hide();">Cancel</button>
-														<button id="f_c01_topic_submit" type="button" onclick="">Submit</button>
-														<script>
-															document.getElementById('f_c01_topic_submit').onclick = function ()
-															{
-																callPHP("type=topic" + "&forum=" + document.getElementById('c01').value
-																		+ "&name=" + document.getElementById('f_c01_topic_tema').value
-																		+ "&user=" + document.getElementById('f_c01_topic_mail').value
-																		+ "&desc=" + document.getElementById('f_c01_topic_desc').value);
-																$('.add_topic').hide();
-															}
-														</script>
-													</div>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#level0" href="#c02">Collapsible Group 2</a>
-							</h4>
-						</div>
-						<div id="c02" class="panel-collapse collapse">
-							<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#level0" href="#c03">Collapsible Group 3</a>
-							</h4>
-						</div>
-						<div id="c03" class="panel-collapse collapse">
-							<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-							</div>
-						</div>
-					</div>
-	
 					<div class="new_topic">
 						<button  type="button" onclick="$('.add_theme').show();">
 							<i class="add fa fa-plus-square" aria-hidden="true"></i>
-							Add</button>
+						Add</button>
 					</div>
-					-->
 					<div class="add_theme" >
 						<form class="send_theme">
 							<div class="row">
@@ -291,18 +132,13 @@ getForums();
 									<div class="tlacidla">
 										<button type="button" onclick="$('.add_theme').hide();">Cancel</button>
 										<button id="theme_submit" type="button" onclick="">Submit</button>
-										<script>
-											document.getElementById('theme_submit').onclick = function ()
-											{
-												callPHP("type=forum" + "&name=" + document.getElementById('theme_name').value);
-												$('.add_theme').hide();
-											}
-										</script>
+
 									</div>
 								</div>
 							</div>
 						</form>
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -310,3 +146,5 @@ getForums();
 	<a id="chevron-blog" onclick="ArrowLeftChangePage();" class="chevron chevron_right text-center"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></a>
 	<a id="chevron-blog" onclick="ArrowRightChangePage();" class="chevron chevron_left text-center"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></a>
 </article>
+
+										
