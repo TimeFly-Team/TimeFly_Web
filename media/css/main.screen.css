@@ -306,11 +306,13 @@ article{
 .blog .fa-check {
     color: green;
 }
-.blog .new_topic {
+.blog .new_topic, 
+.blog .new_forum  {
     padding-top: 5px;
     padding-bottom: 5px;
 }
 .new_topic button,
+.new_forum button,
 .new_reply button{
     height: 34px;
     width: 100px;
@@ -319,10 +321,12 @@ article{
     background-color: #F0F0F0;
 }
 .new_topic button:hover,
+.new_forum button:hover,
 .new_reply button:hover{
     background: #AFAFAF;
 }
-.new_topic .fa {
+.new_topic .fa,
+.new_forum .fa {
     float: left;
 }
 .new_reply {
