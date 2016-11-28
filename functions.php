@@ -7,7 +7,7 @@
 //Pripojenie databázy
 function db_connect() {
 	//$conn = mysqli_connect('localhost', 'sktimefly', 'timefly12345');
-	$conn = mysqli_connect("localhost","root","");
+	$conn = mysqli_connect("localhost","root","vertrigo");
 	if ($conn) {
 		return db_select($conn);
 	}
@@ -209,76 +209,28 @@ function getForums($conn)
 	while ($row = mysqli_fetch_array($sql))
 	{
 	 	$result[] = array("forum_id" => $row['forum_id'], "forum_name" => $row['name']);
-	 	/*
-	    $pom = array();
-	    array_push($pom, $row['forum_id']);
-	    array_push($pom, $row['name']);
-	    array_push($result, $pom);
-	    */
 	}
 	echo json_encode($result);
 }
 
-function getTopic($conn,$forumId)
+function getTopics($conn, $forum_id)
 {
  $result = array();
- $sql = mysql_query($conn,"SELECT * FROM topics WHERE forum_id="+$forumId+" ORDER BY topic_id;");
- while ($row = mysql_fetch_alias_array($sql))
+ $sql = mysqli_query($conn,"SELECT * FROM topics WHERE forum_id=".$forum_id." ORDER BY topic_id;");
+ while ($row = mysqli_fetch_array($sql))
  {
-    $pom = array();
-    array_push($pom, $row['topic_id']);
-    array_push($pom, $row['name']);
-    array_push($pom, $row['lock']);
-    array_push($result, $pom);
+	$result[] = array("topic_id" => $row['topic_id'], "topic_name" => $row['name'], "topic_lock" => $row['lock']);
  }
  echo json_encode($result);
 }
 
-function getComments($conn,$topicId)
+function getComments($conn,$topic_id)
 {
  $result = array();
- $sql = mysql_query($conn,"SELECT * FROM comments WHERE topic_id="+$topicId+" ORDER BY timestamp ASC;");
- while ($row = mysql_fetch_alias_array($sql))
+ $sql = mysqli_query($conn,"SELECT * FROM comments c, users u WHERE u.user_id=c.user_id AND c.topic_id=".$topic_id." ORDER BY c.timestamp ASC;");
+ while ($row = mysqli_fetch_array($sql))
  {
-    $pom = array();
-    array_push($pom, $row['comment_id']);
-    array_push($pom, $row['text']);
-    array_push($pom, $row['timestamp']);
-    array_push($result, $pom);
- }
- echo json_encode($result);
-}
-
-function getUsers($conn)
-{
- $result = array();
- $sql = mysql_query($conn,"SELECT * FROM users ORDER BY user_id;");
- while ($row = mysql_fetch_alias_array($sql))
- {
-    $pom = array();
-    array_push($pom, $row['user_id']);
-    array_push($pom, $row['name']);
-    array_push($result, $pom);
- }
- echo json_encode($result);
-}
-
-function getInfoUserById($conn,$id)
-{
- $result = array();
- $sql = mysql_query($conn,"SELECT * FROM moderators WHERE user_id="+$id+" ;");
- while ($row = mysql_fetch_alias_array($sql))
- {
-    $pom = array();
-    array_push($pom, 'E-mail');
-    array_push($pom, $row['email']);
-    array_push($pom, 'property1');
-    array_push($pom, $row['property1']);
-    array_push($pom, 'property2');
-    array_push($pom, $row['property2']);
-    array_push($pom, 'property3');
-    array_push($pom, $row['property3']);
-    array_push($result, $pom);
+	 $result[] = array("comment_id" => $row['comment_id'], "user_name" => $row['name'], "text" => $row['text'], "time" => $row['timestamp']);
  }
  echo json_encode($result);
 }

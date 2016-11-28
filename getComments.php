@@ -3,6 +3,6 @@ require_once(dirname(__FILE__)."/functions.php");
 
 $con = db_connect();
 
-echo getForums($con);
+echo getComments($con, $_POST['id']);
 
 ?>
