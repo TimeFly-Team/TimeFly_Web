@@ -18,16 +18,18 @@ CREATE TABLE IF NOT EXISTS `moderators` (
 
 CREATE TABLE IF NOT EXISTS `forums` (
 	`forum_id` int(10) unsigned NOT NULL,
-	`name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-	`access` tinyint(1) DEFAULT NULL
+	`text` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+	`access` tinyint(1) DEFAULT 0,
+	`visible` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `topics` (
 	`topic_id` int(10) unsigned NOT NULL,
 	`forum_id` int(10) unsigned DEFAULT NULL,
 	`user_id` int(10) unsigned DEFAULT NULL,
-	`name` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
-	`lock` tinyint(1) DEFAULT NULL
+	`text` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+	`lock` tinyint(1) DEFAULT 0,
+	`visible` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `comments` (
@@ -35,7 +37,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
 	`topic_id` int(10) unsigned DEFAULT NULL,
 	`user_id` int(10) unsigned DEFAULT NULL,
 	`text` text COLLATE utf8_unicode_ci,
-	`timestamp` datetime DEFAULT CURRENT_TIMESTAMP
+	`timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
+	`visible` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -52,7 +55,7 @@ INSERT INTO `users` (`user_id`, `name`) VALUES
 (2, 'Tester 2'),
 (3, 'Tester 3');
 
-INSERT INTO `forums` (`forum_id`, `name`, `access`) VALUES
+INSERT INTO `forums` (`forum_id`, `text`, `access`) VALUES
 (1, 'News', 1),
 (2, 'Questions', 0);
 
