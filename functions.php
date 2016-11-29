@@ -216,7 +216,7 @@ function getTopics($conn, $forum_id)
  $sql = mysqli_query($conn,"SELECT * FROM topics WHERE forum_id=".$forum_id." AND visible < ".(isLoggedUser() ? "2" : "1")." ORDER BY topic_id");
  while ($row = mysqli_fetch_array($sql))
  {
-	$result[] = array("topic_id" => $row['topic_id'], "topic_name" => $row['text'], "topic_lock" => $row['lock']);
+	$result[] = array("forum_id" => $forum_id, "topic_id" => $row['topic_id'], "topic_name" => $row['text'], "topic_lock" => $row['lock']);
  }
  echo json_encode($result);
 }
@@ -271,8 +271,8 @@ function createAndGetNewTopic($conn, $forum, $name, $moderator, $text, $user)
 		if ($id = checkUserAndAddComment($conn, $topic_id, $text, $user))
 		{
 			$result = array();
-			$topic = getTopicById($conn, $id);
-			$result[] = array("topic_id" => $topic['topic_id'], "topic_name" => $topic['text'], "topic_lock" => $topic['lock']);
+			$topic = getTopicById($conn, $topic_id);
+			$result[] = array("forum_id" => $forum ,"topic_id" => $topic['topic_id'], "topic_name" => $topic['text'], "topic_lock" => $topic['lock']);
 			return json_encode($result);
 		}
 	}
@@ -293,7 +293,8 @@ function createAndGetNewComment($conn, $topic, $text, $user)
 
 function editItem($conn, $type, $id, $column, $value)
 {
-	$sql = 'UPDATE '.$type.'s SET '.$column.'='.$value.' WHERE '.$type.'_id='.$id;
+	$sql = 'UPDATE '.$type.'s SET '.$column.' = '.$value.' WHERE '.$type.'_id='.$id;
+	echo $sql;
 	return isLoggedUser() && mysqli_query($conn, $sql);
 	
 }
