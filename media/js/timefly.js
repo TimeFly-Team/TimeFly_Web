@@ -192,3 +192,17 @@ function ChangePage(new_page) {
     actual_page = new_page;
 };
 
+$(function() {
+  $("body").swipe( {
+    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+        console.log(direction);
+        if(direction==="right"){
+            ArrowLeftChangePage();
+        }else if(direction==="left"){
+            ArrowRightChangePage();
+        }
+    }
+  });
+
+  $("body").swipe();
+});

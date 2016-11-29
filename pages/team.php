@@ -5,13 +5,13 @@ function generateModerator($moderator)
 	?>
 	<div class="col-md-4 cols">
 		<div class="person">
-			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_moderator_<?php echo $moderator['user_id'];?>" aria-expanded="false" aria-controls="collapse_moderator_<?php echo $moderator['user_id'];?>" onclick="ShowLabel('#label_<?php echo $moderator['user_id'];?>','#collapse_moderator_<?php echo $moderator['user_id'];?>');">
+			<div class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_moderator_<?php echo $moderator['user_id'];?>" aria-expanded="false" aria-controls="collapse_moderator_<?php echo $moderator['user_id'];?>" onclick="ShowLabel('#label_<?php echo $moderator['user_id'];?>','#collapse_moderator_<?php echo $moderator['user_id'];?>');">
 				<img src="media/img/portret.jpg" alt="clen_tymu">
 				<div class="info text-center">
 					<h1><?php echo $moderator['name'];?></h1>
 				</div>
 				<p class="inf" id="label_<?php echo $moderator['user_id'];?>">+ More information</p>
-			</a>
+			</div>
 			<div id="collapse_moderator_<?php echo $moderator['user_id'];?>" class="collapse" role="tabpanel" aria-expanded="false">
 				<div id="moderator_<?php echo $moderator['user_id'];?>" class="card-block contact">
 					<p>Tel: <?php echo $moderator['property1'];?></p>
