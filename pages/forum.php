@@ -166,7 +166,7 @@ function callPHP(params, target, func, type, id)
 {
 	console.log(params+"...."+target+"......"+func+"......"+type+"......"+id+"....."+isLogged());
     var httpc = new XMLHttpRequest();
-    var url = "/" + target;
+    var url = "/dashboard/timefly/" + target;
     httpc.open("POST", url, true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     httpc.setRequestHeader("Content-Length", params.length);
@@ -195,7 +195,7 @@ var createItemViewDict = {
 						'</h4>' +
 						
 						'<div class="dropdown">' +
-							'<a data-toggle="dropdown" class="btn btn-primary dropdown-toggle" onclick="settings(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
+							'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
 							'<ul id="dropdown_ul_Forum_' + forum.forum_id + '" class="dropdown-menu">' +
 							'</ul>' +
 						'</div>' +
@@ -214,14 +214,15 @@ var createItemViewDict = {
 		return  '<div id="item_Topic_'+topic.topic_id+'" class="panel panel-default">' +
 					'<div class="panel-heading">' +
 						'<h4 class="panel-title">' +
-							'<a id="a_Topic_' + topic.topic_id + '" data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name + '<i class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' + '</a>' +
+							'<a id="a_Topic_' + topic.topic_id + '" data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name  + '</a>' +
 						'</h4>' +
-						
+
 						'<div class="dropdown">' +
-							'<a data-toggle="dropdown" class="btn btn-primary dropdown-toggle" onclick="settings(\'Topic\','+topic.topic_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
+							'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Topic\','+topic.topic_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
 							'<ul id="dropdown_ul_Topic_' + topic.topic_id + '" class="dropdown-menu">' +
 							'</ul>' +
 						'</div>' +
+			'<i class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' +
 						
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
@@ -243,7 +244,7 @@ var createItemViewDict = {
 					'</div>' +
 					
 					'<div class="dropdown">' +
-						'<a data-toggle="dropdown" class="btn btn-primary dropdown-toggle" onclick="settings(\'Comment\','+comment.comment_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
+						'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Comment\','+comment.comment_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
 						'<ul id="dropdown_ul_Comment_' + comment.comment_id + '" class="dropdown-menu">' +
 						'</ul>' +
 					'</div>' +
