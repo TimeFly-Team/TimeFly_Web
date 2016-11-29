@@ -199,9 +199,7 @@ var createItemViewDict = {
 							'<ul id="dropdown_ul_Forum_' + forum.forum_id + '" class="dropdown-menu">' +
 							'</ul>' +
 						'</div>' +
-						
-						'<a class="button_setting" onclick="setting(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
-						'<i class="fa fa-exclamation" aria-hidden="true"></i>' +
+
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
 						'<div id="' + panelId + '" class="panel-body">' +
