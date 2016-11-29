@@ -242,21 +242,14 @@ var createItemViewDict = {
 		return  '<div id="item_Topic_'+topic.topic_id+'" class="panel panel-default">' +
 					'<div class="panel-heading">' +
 						'<h4 class="panel-title">' +
-<<<<<<< HEAD
 							'<a id="a_Topic_' + topic.topic_id + '" data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name  + '</a>' +
-=======
-							'<a id="a_Topic_' + topic.topic_id + '" data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name + 
-							(topic.forum_id == 2 ? '<i class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' : '') +
-							'</a>' +
->>>>>>> 135708444cd58597e532f498a89e133ececd6235
 						'</h4>' +
-
 						'<div class="dropdown">' +
 							'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Topic\','+topic.topic_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
 							'<ul id="dropdown_ul_Topic_' + topic.topic_id + '" class="dropdown-menu">' +
 							'</ul>' +
 						'</div>' +
-			'<i class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' +
+						(topic.forum_id == 2 ? '<i class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' : '') +
 						
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
