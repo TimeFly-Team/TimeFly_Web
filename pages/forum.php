@@ -166,7 +166,7 @@ function callPHP(params, target, func, type, id)
 {
 	console.log(params+"...."+target+"......"+func+"......"+type+"......"+id+"....."+isLogged());
     var httpc = new XMLHttpRequest();
-    var url = "/" + target;
+    var url = "/dashboard/timefly/" + target;
     httpc.open("POST", url, true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     httpc.setRequestHeader("Content-Length", params.length);
@@ -193,6 +193,7 @@ var createItemViewDict = {
 						'<h4 class="panel-title">' +
 							'<a id="a_Forum_' + forum.forum_id + '" data-toggle="collapse" data-parent="#level0" onclick="getItems(\'Topic\','+forum.forum_id+')" href="' + "#" + levelId + '">' + forum.forum_name + '</a>' +
 						'</h4>' +
+<<<<<<< HEAD
 						
 						'<div class="dropdown">' +
 							'<a data-toggle="dropdown" class="btn btn-primary dropdown-toggle" onclick="settings(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
@@ -200,6 +201,10 @@ var createItemViewDict = {
 							'</ul>' +
 						'</div>' +
 						
+=======
+						'<a class="button_setting" onclick="setting(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
+						'<i class="fa fa-exclamation" aria-hidden="true"></i>' +
+>>>>>>> b066ffa3832a79bed52cb7724b332b5da95df45a
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
 						'<div id="' + panelId + '" class="panel-body">' +
