@@ -95,7 +95,7 @@ var addCommentButton = '<div id="new_reply_div" class="new_reply">' +
 function callPHP(params, target, func, type, id)
 {
     var httpc = new XMLHttpRequest();
-    var url = "/" + target;
+    var url = "/dashboard/timefly/" + target;
     httpc.open("POST", url, true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     httpc.setRequestHeader("Content-Length", params.length);
@@ -122,7 +122,8 @@ var createItemViewDict = {
 						'<h4 class="panel-title">' +
 							'<a data-toggle="collapse" data-parent="#level0" onclick="getItems(\'Topic\','+forum.forum_id+')" href="' + "#" + levelId + '">' + forum.forum_name + '</a>' +
 						'</h4>' +
-						'<a class="button_setting" onclick="setting(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
+						'<a class="button_setting" onclick="setting(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
+						'<i class="fa fa-exclamation" aria-hidden="true"></i>' +
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
 						'<div id="' + panelId + '" class="panel-body">' +
