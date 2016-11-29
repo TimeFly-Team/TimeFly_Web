@@ -1,5 +1,7 @@
 <script>
 
+var symbolDict = {0:"exclamation", 1:"check"};
+
 var addForumButton = '<div id="new_forum_div" class="new_forum">' +
 						'<button  type="button" onclick="$(\'.add_theme\').show();">' +
 							'<i class="add fa fa-plus-square" aria-hidden="true"></i>' +
@@ -93,7 +95,7 @@ var addCommentButton = '<div id="new_reply_div" class="new_reply">' +
 function callPHP(params, target, func, type, id)
 {
     var httpc = new XMLHttpRequest();
-    var url = "/" + target;
+    var url = "/dashboard/timefly/" + target;
     httpc.open("POST", url, true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     httpc.setRequestHeader("Content-Length", params.length);
@@ -107,11 +109,12 @@ function callPHP(params, target, func, type, id)
 		}
 	httpc.send(params);  
 }
-
+var forumsAccess = {};
 var submitItemTypeDict = {"Forum":"forum_submit", "Topic":"topic_submit", "Comment":"comment_submit"};
 var createItemViewDict = {	
 	"Forum": function (forum)
 	{
+		forumsAccess[forum.forum_id] = forum.forum_access;
 		var levelId = "level_0_" + forum.forum_id;
 		var panelId = "panel_0_" + forum.forum_id; 
 		return	'<div class="panel panel-default">' +
@@ -119,6 +122,8 @@ var createItemViewDict = {
 						'<h4 class="panel-title">' +
 							'<a data-toggle="collapse" data-parent="#level0" onclick="getItems(\'Topic\','+forum.forum_id+')" href="' + "#" + levelId + '">' + forum.forum_name + '</a>' +
 						'</h4>' +
+						'<a class="button_setting" onclick="setting(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
+						'<i class="fa fa-exclamation" aria-hidden="true"></i>' +
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
 						'<div id="' + panelId + '" class="panel-body">' +
@@ -133,7 +138,7 @@ var createItemViewDict = {
 		return  '<div class="panel panel-default">' +
 					'<div class="panel-heading">' +
 						'<h4 class="panel-title">' +
-							'<a data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name + '</a>' +
+							'<a data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name + '<i class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' + '</a>' +
 						'</h4>' +
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
@@ -200,12 +205,18 @@ var onAddItemClickDict = {
 		);
 	}
 };
+
+function isLogged()
+{
+	return <?php echo $moderator->isLogged() ? 1 : 0; ?> > 0;
+}
+
 var setItemsToHTMLDict = {	
 	"Forum": function(type, id, responseText)
 	{
 		document.getElementById("level0").innerHTML = showItems(type, JSON.parse(responseText)) + addForumButton;
 		document.getElementById("new_forum_div").style.display = "block";
-		if (<?php echo $moderator->isLogged() ? 1 : 0; ?> < 1)
+		if (!isLogged())
 		{
 			document.getElementById("new_forum_div").style.display = "none";
 		}
@@ -213,6 +224,11 @@ var setItemsToHTMLDict = {
 	"Topic": function(type, id, responseText)
 	{
 		document.getElementById("panel_0_" + id).innerHTML = showItems(type, JSON.parse(responseText)) + addTopicButton;
+		document.getElementById("new_topic_div").style.display = "block";
+		if (forumsAccess[id] > 0 && !isLogged())
+		{
+			document.getElementById("new_topic_div").style.display = "none";
+		}
 	},
 	"Comment": function(type, id, responseText)
 	{
@@ -234,6 +250,7 @@ function getItems(type, id)
 function showItems(type, response)
 {
 	result = "";
+	console.log(response);
 	for (var i in response)
 	{
 		result += createItemViewDict[type](response[i]);

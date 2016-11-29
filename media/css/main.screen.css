@@ -50,6 +50,7 @@ body {
 }
 .navbar-default .navbar-nav > li > a{
     color: #fff;
+    text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 0px 0px #000, -0px -0px 0 #000, 0px -0px 0 #000, -0px 0px 0 #000;
 }
 .navbar-default .navbar-brand {
     color: #fff;
