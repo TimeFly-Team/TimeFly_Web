@@ -71,7 +71,7 @@
 	<script src="./media/js/jquery.sidr.min.js"></script>
 	<script src="./media/js/timefly.js"></script>
 	<script src="./media/js/jquery.easing.min.js"></script>
-
+	<script type="text/javascript" src="media/js/jquery.touchSwipe.min.js"></script>
 
 </body>
 
