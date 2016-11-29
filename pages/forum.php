@@ -123,14 +123,14 @@ var editItemForm =	'<div id="edit_item_div" class="edit_item" >' +
 function settings(type, id)
 {
 	var view =  '<li> <a id="setting1"  onclick=""> Rename </a> </li>' +
-				'<li> <a id="setting2"  onclick=""> Delete </a> </li>';
+				'<li> <a id="setting2"  onclick=""> Delete </a> </li>' +
+				'<li> <a id="setting3"  onclick=""> Public/Private </a> </li>';
 	document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML = view;
 	if (document.getElementById("edit_item_div") !== null)
 	{
 		document.getElementById("edit_item_div").parentNode.removeChild(document.getElementById("edit_item_div"));
 	}
 	
-	console.log(type + "..." + id);
 	document.getElementById('setting1').onclick = function ()
 	{
 		document.getElementById("item_"+type+"_"+id).innerHTML += editItemForm;
@@ -139,7 +139,6 @@ function settings(type, id)
 			callPHP("type="+type+"&id="+id+"&column=text"+"&value="+'"'+document.getElementById("new_item_text").value+'"', "editItem.php",
 			function (type, id, responseText)
 			{
-				console.log(responseText);
 				if (responseText)
 				{
 					document.getElementById('a_'+type+"_"+id).innerHTML = document.getElementById("new_item_text").value;
@@ -160,6 +159,35 @@ function settings(type, id)
 			}
 		}, type, id)
 	};
+	
+	document.getElementById('setting3').onclick = function ()
+	{
+		callPHP("type="+type+"&id="+id+"&column=visible"+"&value=!visible", "editItem.php",
+		function (type, id, responseText)
+		{
+			if (responseText)
+			{
+				//Zmena bola uspesna;
+			}
+		}, type, id)
+	};
+	
+	if (type == "Topic")
+	{
+		document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML += '<li> <a id="setting4"  onclick=""> Lock/Unlock </a> </li>';
+		document.getElementById('setting4').onclick = function ()
+		{
+			callPHP("type="+type+"&id="+id+"&column=lock"+"&value=!lock", "editItem.php",
+			function (type, id, responseText)
+			{
+				if (responseText)
+				{
+					//Zmena bola uspesna;
+				}
+			}, type, id)
+		};
+	}
+	
 }
 					
 function callPHP(params, target, func, type, id)
@@ -214,7 +242,9 @@ var createItemViewDict = {
 		return  '<div id="item_Topic_'+topic.topic_id+'" class="panel panel-default">' +
 					'<div class="panel-heading">' +
 						'<h4 class="panel-title">' +
-							'<a id="a_Topic_' + topic.topic_id + '" data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name + '<i class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' + '</a>' +
+							'<a id="a_Topic_' + topic.topic_id + '" data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name + 
+							(topic.forum_id == 2 ? '<i class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' : '') +
+							'</a>' +
 						'</h4>' +
 						
 						'<div class="dropdown">' +
