@@ -85,12 +85,15 @@ function ArrowLeftChangePage() {
     }
     if (num_page === 0){
         LeftChangePage("#tim");
+        $("#TeamName").text("Team");
     }
     if (num_page === 1){
         LeftChangePage("#index");
+        $("#TeamName").text("Home/About us");
     }
     if (num_page === 2){
         LeftChangePage("#forum");
+        $("#TeamName").text("Blog");
     }
 };
 function ArrowRightChangePage() {
@@ -100,12 +103,15 @@ function ArrowRightChangePage() {
     }
     if (num_page === 0){
         RightChangePage("#tim");
+        $("#TeamName").text("Team");
     }
     if (num_page === 1){
         RightChangePage("#index");
+        $("#TeamName").text("Home/About us");
     }
     if (num_page === 2){
         RightChangePage("#forum");
+        $("#TeamName").text("Blog");
     }
 };
 
@@ -174,6 +180,7 @@ function ChangePage(new_page) {
             $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'relative','left':'0%'});
         }
         num_page = 1;
+        $("#TeamName").text("Home/About us");
     }
     if(new_page ==="#tim"){
         $("#home").css({"display": "none"});
@@ -181,6 +188,7 @@ function ChangePage(new_page) {
         $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','position':'absolute','left':'100%'});
         $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': '1s','position':'relative','left':'0%'});
         num_page = 0;
+        $("#TeamName").text("Team");
     }
     if(new_page ==="#forum"){
         $("#home").css({"display": "none"});
@@ -188,6 +196,7 @@ function ChangePage(new_page) {
         $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','position':'absolute','left':'-100%'});
         $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': '1s','position':'relative','left':'0%'});
         num_page = 2;
+        $("#TeamName").text("Blog");
     }
     actual_page = new_page;
 };
