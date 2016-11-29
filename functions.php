@@ -7,7 +7,7 @@
 //Pripojenie databázy
 function db_connect() {
 	//$conn = mysqli_connect('localhost', 'sktimefly', 'timefly12345');
-	$conn = mysqli_connect("localhost","root","vertrigo");
+	$conn = mysqli_connect("localhost","root","");
 	if ($conn) {
 		return db_select($conn);
 	}
@@ -205,7 +205,7 @@ function getSqlInsertComment($topic_id, $user_id, $text)
 function getForums($conn)
 {
 	$result = array();
-	$sql = mysqli_query($conn,"SELECT * FROM forums ORDER BY forum_id;");
+	$sql = mysqli_query($conn,"SELECT * FROM forums ORDER BY forum_id");
 	while ($row = mysqli_fetch_array($sql))
 	{
 	 	$result[] = array("forum_id" => $row['forum_id'], "forum_name" => $row['name']);
@@ -216,7 +216,7 @@ function getForums($conn)
 function getTopics($conn, $forum_id)
 {
  $result = array();
- $sql = mysqli_query($conn,"SELECT * FROM topics WHERE forum_id=".$forum_id." ORDER BY topic_id;");
+ $sql = mysqli_query($conn,"SELECT * FROM topics WHERE forum_id=".$forum_id." ORDER BY topic_id");
  while ($row = mysqli_fetch_array($sql))
  {
 	$result[] = array("topic_id" => $row['topic_id'], "topic_name" => $row['name'], "topic_lock" => $row['lock']);
@@ -227,7 +227,7 @@ function getTopics($conn, $forum_id)
 function getComments($conn,$topic_id)
 {
  $result = array();
- $sql = mysqli_query($conn,"SELECT * FROM comments c, users u WHERE u.user_id=c.user_id AND c.topic_id=".$topic_id." ORDER BY c.timestamp ASC;");
+ $sql = mysqli_query($conn,"SELECT * FROM comments c, users u WHERE u.user_id=c.user_id AND c.topic_id=".$topic_id." ORDER BY c.timestamp ASC");
  while ($row = mysqli_fetch_array($sql))
  {
 	 $result[] = array("comment_id" => $row['comment_id'], "user_name" => $row['name'], "text" => $row['text'], "time" => $row['timestamp']);
@@ -243,6 +243,55 @@ function getModerators($conn)
 		return $result;
 	}
 	return false;	
+}
+
+function getCommentById($conn, $comment_id)
+{
+	$result = mysqli_query($conn,"SELECT * FROM comments c, users u WHERE u.user_id=c.user_id AND c.comment_id=".$comment_id);
+	if ($result)
+	{
+		return mysqli_fetch_array($result);
+	}
+	return false;
+}
+
+function createAndGetNewForum($conn, $name)
+{
+	if ($id = checkUserAndAddForum($conn, $name))
+	{
+		$result = array();
+		$forum = getForumById($conn, $id); 
+		$result[] = array("forum_id" => $forum['forum_id'], "forum_name" => $forum['name']);
+		return json_encode($result);
+	}
+	return false;
+}
+
+function createAndGetNewTopic($conn, $forum, $name, $moderator, $text, $user)
+{
+	if ($topic_id = checkUserAndAddTopic($conn, $forum, $name, $moderator))
+	{
+		if ($id = checkUserAndAddComment($conn, $topic_id, $text, $user))
+		{
+			$result = array();
+			$topic = getTopicById($conn, $id);
+			$result[] = array("topic_id" => $topic['topic_id'], "topic_name" => $topic['name'], "topic_lock" => $topic['lock']);
+			return json_encode($result);
+		}
+	}
+	return false;
+}
+
+function createAndGetNewComment($conn, $topic, $text, $user)
+{
+	if ($id = checkUserAndAddComment($conn, $topic, $text, $user))
+	{
+		$result = array();
+		$comment = getForumById($conn, $id); 
+		$result[] = array("comment_id" => $comment['comment_id'], "user_name" => $comment['name'], "text" => $comment['text'], "time" => $comment['timestamp']);
+		return json_encode($result);
+	}
+	return false;
 }
 ?>
 

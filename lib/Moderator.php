@@ -1,14 +1,13 @@
 <?php
 
-require 'functions.php';
+require '/functions.php';
 
 class Moderator
 {
     public function loggIn($name, $password)
     {
-        if($this->verifyUser($name, $password)){
-            $_SESSION["name"] = $name;
-            $_SESSION["loggedUser"] = $name;
+        if($id = $this->verifyUser($name, $password)){
+            $_SESSION["loggedUser"] = $id;
         }
     }
 
@@ -20,22 +19,26 @@ class Moderator
 
     public function isLogged()
     {
-    	return (isset($_SESSION['name']) && !is_null($_SESSION["name"]));
+		return (isset($_SESSION['loggedUser']) && !is_null($_SESSION["loggedUser"]));
     }
 
     public function getName()
     {
-        return $_SESSION['name'];
+		if (isLogged())
+		{
+			return $_SESSION['loggedUser'];
+		}
+        return false;
     }
 
     private function verifyUser($name, $password)
     {
         if ($con = db_connect()) { /* global function is used db_connect()*/
-            $sql = "SELECT * FROM moderators WHERE user_id='" .$name. "' and password='". $password ."' LIMIT 1";
+            $sql = "SELECT * FROM moderators WHERE mail='" .$name. "' and password='". $password ."' LIMIT 1";
             $result = mysqli_query($con, $sql); 
             if ($result && (mysqli_num_rows($result) > 0) ) {
                 mysqli_close($con);
-                return true;
+                return mysqli_fetch_array($result)['user_id'];
             } else {
                  mysqli_close($con);
                 return false;
