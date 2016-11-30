@@ -2,6 +2,13 @@
 	<div class="container article">
 		<div class="row">
 			<div class="col-md-12">
+			
+				login = a@a.a
+				<br>
+				password = abc
+				
+				<hr>
+			
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu metus lorem. Phasellus ut nunc orci. Duis facilisis euismod mauris, at faucibus dui pulvinar ultricies. Donec ut massa tincidunt nulla tincidunt aliquet ac at ante. Nam quis porta lectus. Integer elementum sapien efficitur tellus viverra fringilla. Donec vitae lectus sit amet ligula sollicitudin malesuada. Maecenas et urna at ipsum gravida placerat rhoncus sagittis erat. Aenean posuere diam ex, quis congue nisl sodales nec. Sed sit amet tempor nibh.
 				Pellentesque malesuada urna vel lectus faucibus euismod. Duis eget pulvinar metus, eget luctus est. Aliquam posuere sed leo non vestibulum. Nulla in ante sed purus finibus imperdiet at vitae sapien. Proin ornare mi a feugiat rhoncus. Nulla facilisi. Praesent metus justo, vulputate ac lacinia vel, rutrum id nisi. Nulla vel turpis et nunc viverra mollis nec vitae risus. Morbi egestas diam et condimentum mollis. Aliquam eget consequat lacus. Pellentesque feugiat mattis porttitor. Cras erat nunc, dapibus vitae rutrum vel, malesuada ac turpis. Pellentesque egestas luctus elit eu lacinia.
 				Aliquam et felis eget neque convallis tristique tristique et odio. Cras nunc diam, volutpat et facilisis non, imperdiet ac lorem. Quisque et malesuada ante. Integer quis elit nec nunc fermentum suscipit ac eu enim. Integer ac sem lorem. Aliquam erat volutpat. Pellentesque euismod purus ex, sit amet commodo quam facilisis et.

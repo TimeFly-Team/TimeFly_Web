@@ -120,6 +120,7 @@ var editItemForm =	'<div id="edit_item_div" class="edit_item" >' +
 						'</form>' +
 					'</div>';
 					
+
 function settings(type, id)
 {
 	var view =  '<li> <a id="setting1"  onclick=""> Rename </a> </li>' +
@@ -192,9 +193,9 @@ function settings(type, id)
 					
 function callPHP(params, target, func, type, id)
 {
-	console.log(params+"...."+target+"......"+func+"......"+type+"......"+id+"....."+isLogged());
+	//console.log(params+"...."+target+"......"+func+"......"+type+"......"+id+"....."+isLogged());
     var httpc = new XMLHttpRequest();
-    var url = "/dashboard/timefly/" + target;
+    var url = "/" + target;
     httpc.open("POST", url, true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     httpc.setRequestHeader("Content-Length", params.length);
@@ -373,7 +374,6 @@ function showItems(type, response)
 	}
 	return result;
 }
-
 </script>
 
 <article id="forum">

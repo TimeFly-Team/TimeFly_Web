@@ -3,8 +3,8 @@
 
 //Pripojenie databázy
 function db_connect() {
-	//$conn = mysqli_connect('localhost', 'sktimefly', 'timefly12345');
-	$conn = mysqli_connect("localhost","root","");
+	$conn = mysqli_connect('localhost', 'sktimefly', 'timefly12345');
+	//$conn = mysqli_connect("localhost","root","");
 	if ($conn) {
 		return db_select($conn);
 	}
