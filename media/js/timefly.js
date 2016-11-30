@@ -213,5 +213,5 @@ $(function() {
     }
   });
 
-  $("body").swipe();
+  $("body").swipe({allowPageScroll:"auto"});
 });
