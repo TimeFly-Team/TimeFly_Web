@@ -210,15 +210,39 @@ function getForums($conn)
 	echo json_encode($result);
 }
 
-function getTopics($conn, $forum_id)
+function getTopics($conn, $sql)
 {
  $result = array();
- $sql = mysqli_query($conn,"SELECT * FROM topics WHERE forum_id=".$forum_id." AND visible < ".(isLoggedUser() ? "2" : "1")." ORDER BY topic_id");
- while ($row = mysqli_fetch_array($sql))
+ if ($res = mysqli_query($conn, $sql))
  {
-	$result[] = array("forum_id" => $forum_id, "topic_id" => $row['topic_id'], "topic_name" => $row['text'], "topic_lock" => $row['lock']);
+	while ($row = mysqli_fetch_array($res))
+	{
+		if (isLoggedUser() && !is_null($row['name']))
+		{
+			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => "(".$row['name'].")   ".$row['text'], "topic_lock" => $row['lock']);
+		}
+		else
+		{
+			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => $row['text'], "topic_lock" => $row['lock']);
+		}
+	} 
  }
  echo json_encode($result);
+}
+
+function getSqlTopicsFilter($forum_id)
+{
+	return "SELECT * FROM topics t, users u WHERE t.user_id = ".getLoggedUserId()." AND u.user_id = t.user_id AND forum_id=".$forum_id." AND visible < 2 ORDER BY topic_id";
+}
+
+function getSqlTopicsLogged($forum_id)
+{
+	return "SELECT * FROM topics t LEFT JOIN users u ON u.user_id = t.user_id WHERE forum_id=".$forum_id." AND visible < 2 ORDER BY topic_id";
+}
+
+function getSqlTopicsUnlogged($forum_id)
+{
+	return "SELECT * FROM topics WHERE user_id IS NULL AND forum_id=".$forum_id." AND visible < 1 ORDER BY topic_id"; 
 }
 
 function getComments($conn,$topic_id)
@@ -293,7 +317,11 @@ function createAndGetNewComment($conn, $topic, $text, $user)
 
 function editItem($conn, $type, $id, $column, $value)
 {
-	$sql = 'UPDATE '.$type.'s SET '.$column.' = '.$value.' WHERE '.$type.'_id='.$id;
+	if ($value[0] == '!')
+	{
+		$value = '!t.'.substr($value,1);
+	}
+	$sql = 'UPDATE '.$type.'s t SET t.'.$column.' = '.$value.' WHERE t.'.$type.'_id='.$id;
 	echo $sql;
 	return isLoggedUser() && mysqli_query($conn, $sql);
 	

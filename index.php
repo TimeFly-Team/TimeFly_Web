@@ -2,7 +2,7 @@
 
 session_start();
 
-require 'lib/Moderator.php';
+require_once(dirname(__FILE__).'/lib/Moderator.php');
 
 $moderator = new Moderator();
 
@@ -11,11 +11,10 @@ if (isset($_POST["name"])){
 }else if(isset($_POST["logout"])){
 	$moderator->logOut();
 }
-
-require 'pages/header.phtml';
-require 'pages/mainPage.php';
-require 'pages/team.php';
-require 'pages/forum.php';
-require "pages/footer.php"
+require_once(dirname(__FILE__).'/pages/header.phtml');
+require_once(dirname(__FILE__).'/pages/mainPage.php');
+require_once(dirname(__FILE__).'/pages/team.php');
+require_once(dirname(__FILE__).'/pages/forum.php');
+require_once(dirname(__FILE__)."/pages/footer.php");
 
 ?>
