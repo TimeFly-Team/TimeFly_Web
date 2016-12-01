@@ -209,9 +209,17 @@ $(function() {
             ArrowLeftChangePage();
         }else if(direction==="left"){
             ArrowRightChangePage();
+        }else{
+            $(this).swipe('option', 'preventDefaultEvents', true);
         }
     }
   });
 
-  $("body").swipe();
+    var swipeOptions=
+           {
+               threshold:75,
+               allowPageScroll:"auto"
+           };
+
+  $("body").swipe(swipeOptions);
 });
