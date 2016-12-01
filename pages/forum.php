@@ -120,12 +120,23 @@ var editItemForm =	'<div id="edit_item_div" class="edit_item" >' +
 						'</form>' +
 					'</div>';
 					
+
+function echoMessage(message)
+{
+	alert(message);
+}
+					
 function settings(type, id)
 {
 	var view =  '<li> <a id="setting1"  onclick=""> Rename </a> </li>' +
 				'<li> <a id="setting2"  onclick=""> Delete </a> </li>' +
 				'<li> <a id="setting3"  onclick=""> Public/Private </a> </li>';
 	document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML = view;
+	if (type == "Topic")
+	{
+		document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML += '<li> <a id="setting4"  onclick=""> Lock/Unlock </a> </li>';
+	}
+	
 	if (document.getElementById("edit_item_div") !== null)
 	{
 		document.getElementById("edit_item_div").parentNode.removeChild(document.getElementById("edit_item_div"));
@@ -133,6 +144,7 @@ function settings(type, id)
 	
 	document.getElementById('setting1').onclick = function ()
 	{
+		console.log('setting1');
 		document.getElementById("item_"+type+"_"+id).innerHTML += editItemForm;
 		document.getElementById('new_item_text_submit').onclick = function ()
 		{
@@ -143,6 +155,11 @@ function settings(type, id)
 				{
 					document.getElementById('a_'+type+"_"+id).innerHTML = document.getElementById("new_item_text").value;
 					document.getElementById("edit_item_div").parentNode.removeChild(document.getElementById("edit_item_div"));
+					echoMessage('Changes were successful.');
+				}
+				else
+				{
+					echoMessage('Error occurred during changing text in item.');
 				}
 			}, type, id)
 		};
@@ -150,39 +167,66 @@ function settings(type, id)
 	
 	document.getElementById('setting2').onclick = function ()
 	{
+		console.log('setting2');
 		callPHP("type="+type+"&id="+id+"&column=visible"+"&value=2", "editItem.php",
 		function (type, id, responseText)
 		{
 			if (responseText)
 			{
 				document.getElementById("item_"+type+"_"+id).parentNode.removeChild(document.getElementById("item_"+type+"_"+id));
+				echoMessage('Changes were successful.');
+			}
+			else
+			{
+				echoMessage('Error occurred during deleting item.');
 			}
 		}, type, id)
 	};
 	
 	document.getElementById('setting3').onclick = function ()
 	{
+		console.log('setting3');
 		callPHP("type="+type+"&id="+id+"&column=visible"+"&value=!visible", "editItem.php",
 		function (type, id, responseText)
 		{
 			if (responseText)
 			{
-				//Zmena bola uspesna;
+				echoMessage('Changes were successful.');
+			}
+			else
+			{
+				echoMessage('Error occurred during changing privacy settings of item.');
 			}
 		}, type, id)
 	};
 	
 	if (type == "Topic")
 	{
-		document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML += '<li> <a id="setting4"  onclick=""> Lock/Unlock </a> </li>';
 		document.getElementById('setting4').onclick = function ()
 		{
+			console.log('setting4');
 			callPHP("type="+type+"&id="+id+"&column=lock"+"&value=!lock", "editItem.php",
 			function (type, id, responseText)
 			{
 				if (responseText)
 				{
-					//Zmena bola uspesna;
+					var tag = document.getElementById('tag_' + type + '_' + id);
+					if (tag !== null)
+					{
+						if (tag.className == 'fa fa-exclamation')
+						{
+							tag.className = 'fa fa-check';
+						}
+						else
+						{
+							tag.className = 'fa fa-exclamation';
+						}
+					}
+					echoMessage('Changes were successful.');
+				}
+				else
+				{
+					echoMessage('Error occurred during changing tag of item.');
 				}
 			}, type, id)
 		};
@@ -192,9 +236,9 @@ function settings(type, id)
 					
 function callPHP(params, target, func, type, id)
 {
-	console.log(params+"...."+target+"......"+func+"......"+type+"......"+id+"....."+isLogged());
+	//console.log(params+"...."+target+"......"+func+"......"+type+"......"+id+"....."+isLogged());
     var httpc = new XMLHttpRequest();
-    var url = "/dashboard/timefly/" + target;
+    var url = target;
     httpc.open("POST", url, true);
     httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     httpc.setRequestHeader("Content-Length", params.length);
@@ -222,11 +266,16 @@ var createItemViewDict = {
 							'<a id="a_Forum_' + forum.forum_id + '" data-toggle="collapse" data-parent="#level0" onclick="getItems(\'Topic\','+forum.forum_id+')" href="' + "#" + levelId + '">' + forum.forum_name + '</a>' +
 						'</h4>' +
 						
-						'<div class="dropdown">' +
-							'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
-							'<ul id="dropdown_ul_Forum_' + forum.forum_id + '" class="dropdown-menu">' +
-							'</ul>' +
-						'</div>' +
+						(isLogged()
+						?						
+							'<div class="dropdown">' +
+								'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
+								'<ul id="dropdown_ul_Forum_' + forum.forum_id + '" class="dropdown-menu">' +
+								'</ul>' +
+							'</div>'
+						:
+							''
+						) +
 
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
@@ -244,12 +293,21 @@ var createItemViewDict = {
 						'<h4 class="panel-title">' +
 							'<a id="a_Topic_' + topic.topic_id + '" data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name  + '</a>' +
 						'</h4>' +
-						'<div class="dropdown">' +
-							'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Topic\','+topic.topic_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
-							'<ul id="dropdown_ul_Topic_' + topic.topic_id + '" class="dropdown-menu">' +
-							'</ul>' +
-						'</div>' +
-						(topic.forum_id == 2 ? '<i class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' : '') +
+						
+						(isLogged()
+						?
+						
+							'<div class="dropdown">' +
+								'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Topic\','+topic.topic_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
+								'<ul id="dropdown_ul_Topic_' + topic.topic_id + '" class="dropdown-menu">' +
+								'</ul>' +
+							'</div>'
+						:
+							''
+						) +
+						
+						//(topic.forum_id == 2 ? '<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' : '') +
+						'<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' +
 						
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
@@ -270,11 +328,17 @@ var createItemViewDict = {
 						
 					'</div>' +
 					
-					'<div class="dropdown">' +
-						'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Comment\','+comment.comment_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
-						'<ul id="dropdown_ul_Comment_' + comment.comment_id + '" class="dropdown-menu">' +
-						'</ul>' +
-					'</div>' +
+					(isLogged()
+					?
+					
+						'<div class="dropdown">' +
+							'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Comment\','+comment.comment_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
+							'<ul id="dropdown_ul_Comment_' + comment.comment_id + '" class="dropdown-menu">' +
+							'</ul>' +
+						'</div>'
+					:
+						''
+					) +
 				'</div>';
 	}
 };
@@ -354,7 +418,12 @@ var setItemsToHTMLDict = {
 
 function getItems(type, id)
 {
-	callPHP("id=" + id, "get" + type + "s.php",
+	var params = "id=" + id;
+	if (isLogged() && type == 'Topic')
+	{
+		params += "&filter=" + document.getElementById('sel1').selectedIndex;
+	}
+	callPHP(params, "get" + type + "s.php",
 		function (type, id, responseText)
 		{
 			setItemsToHTMLDict[type](type, id, responseText);
@@ -386,17 +455,26 @@ function showItems(type, response)
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="filter">
-					<select class="form-control" id="sel1">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-					</select>
-				</div>
-				<div class="search">
-					<button  type="button" onclick="$('.search_ext').toggle();">Search</button>
-				</div>
+			
+				<?php
+				if ($moderator->isLogged())
+				{
+					echo '
+					<div class="filter">
+						<select onchange="getItems(\'Forum\', \'\')" class="form-control" id="sel1">
+							<option>All</option>
+							<option>My</option>
+						</select>
+					</div>
+					
+					';
+				}
+				?>
+				
+					<div class="search">
+						<button  type="button" onclick="$('.search_ext').toggle();">Search</button>
+					</div> 
+				
 			</div>
 		</div>
 		<div class="row search_ex">

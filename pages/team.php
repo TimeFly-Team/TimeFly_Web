@@ -2,43 +2,45 @@
 <?php
 function generateModerator($moderator)
 {
-	?>
+	$id = $moderator['user_id'];
+	echo '
 	<div class="col-md-4 cols">
 		<div class="person">
-			<div class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_moderator_<?php echo $moderator['user_id'];?>" aria-expanded="false" aria-controls="collapse_moderator_<?php echo $moderator['user_id'];?>" onclick="ShowLabel('#label_<?php echo $moderator['user_id'];?>','#collapse_moderator_<?php echo $moderator['user_id'];?>');">
+			<div class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_moderator_'.$id.'" aria-expanded="false" aria-controls="collapse_moderator_'.$id.'" onclick="ShowLabel(\'#label_'.$id.'\',\'#collapse_moderator_'.$id.'\');">
 				<img src="media/img/portret.jpg" alt="clen_tymu">
 				<div class="info text-center">
-					<h1><?php echo $moderator['name'];?></h1>
+					<h1>'.$moderator['name'].'</h1>
 				</div>
-				<p class="inf" id="label_<?php echo $moderator['user_id'];?>">+ More information</p>
+				<p class="inf" id="label_'.$id.'">+ More information</p>
 			</div>
-			<div id="collapse_moderator_<?php echo $moderator['user_id'];?>" class="collapse" role="tabpanel" aria-expanded="false">
-				<div id="moderator_<?php echo $moderator['user_id'];?>" class="card-block contact">
-					<p>Tel: <?php echo $moderator['property1'];?></p>
-					<p>Email: <?php echo $moderator['property2'];?></p>
-					<p>Twiter: <?php echo $moderator['property3'];?></p>
-					<button class="button button_kontakt" type="button" onclick="ContactToogle('#message_<?php echo $moderator['user_id'];?>','#moderator_<?php echo $moderator['user_id'];?>');">Contact</button>
+			<div id="collapse_moderator_'.$id.'" class="collapse" role="tabpanel" aria-expanded="false">
+				<div id="moderator_'.$id.'" class="card-block contact">
+					<p>Tel: '.$moderator['property1'].'</p>
+					<p>Email: '.$moderator['property2'].'</p>
+					<p>Twiter: '.$moderator['property3'].'</p>
+					<button class="button button_kontakt" type="button" onclick="ContactToogle(\'#message_'.$id.'\',\'#moderator_'.$id.'\');">Contact</button>
 				</div>
-				<div id="message_<?php echo $moderator['user_id'];?>" class="message" >
+				<div id="message_'.$id.'" class="message" >
 					<form class="send_message">
 						<p>Your mail:</p>
-						<input id="add_question_mail_<?php echo $moderator['user_id'];?>" class="mail" type="email"  name="yourmail" value=""><br>
+						<input id="add_question_mail_'.$id.'" class="mail" type="email"  name="yourmail" value=""><br>
 						<p>Question name:</p>
-						<input id="add_question_topic_name_<?php echo $moderator['user_id'];?>" class="tema" type="text" name="tema" value=""><br>
+						<input id="add_question_topic_name_'.$id.'" class="tema" type="text" name="tema" value=""><br>
 						<p>Description:</p>
-						<textarea id="add_question_desc_<?php echo $moderator['user_id'];?>" name="question" rows="4"></textarea>
-						<button class="button button_form" type="button" onclick="ContactToogle('#moderator_<?php echo $moderator['user_id'];?>','#message_<?php echo $moderator['user_id'];?>');">Cancel</button>
-						<button id="add_question_submit_<?php echo $moderator['user_id'];?>" class="button button_form" type="button" onclick="">Submit</button>
+						<textarea id="add_question_desc_'.$id.'" name="question" rows="4"></textarea>
+						<button class="button button_form" type="button" onclick="ContactToogle(\'#moderator_'.$id.'\',\'#message_'.$id.'\');">Cancel</button>
+						<button id="add_question_submit_'.$id.'" class="button button_form" type="button" onclick="">Submit</button>';
+		?>
 						<script>
-							document.getElementById('add_question_submit_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>).onclick = function ()
+							document.getElementById('add_question_submit_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>).onclick = function ()
 							{
 								
 								callPHP("type=topic" + "&forum=2"
-										+ "&name=" + document.getElementById('add_question_topic_name_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>).value
-										+ "&user=" + document.getElementById('add_question_mail_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>).value
-										+ "&desc=" + document.getElementById('add_question_desc_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>).value
-										+ "&moderator=" + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>);
-								ContactToogle('#moderator_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>,'#message_' + <?php echo json_encode($moderator['user_id'], JSON_HEX_TAG); ?>);
+										+ "&name=" + document.getElementById('add_question_topic_name_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>).value
+										+ "&user=" + document.getElementById('add_question_mail_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>).value
+										+ "&desc=" + document.getElementById('add_question_desc_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>).value
+										+ "&moderator=" + <?php echo json_encode($id, JSON_HEX_TAG); ?>, "addNewItem.php", "Topic", "_");
+								ContactToogle('#moderator_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>,'#message_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>);
 							}
 						</script>
 						
