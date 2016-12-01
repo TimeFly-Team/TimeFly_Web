@@ -1,8 +1,5 @@
+
 <?php
-
-//require 'lib/User.php';
-
-//$user = new User();
 
 //Pripojenie databázy
 function db_connect() {
@@ -54,7 +51,7 @@ function addForum($conn, $name, $access = 0)
 
 function getSqlInsertForum($name, $access)
 {
-	return "INSERT INTO forums (name, access) VALUES (\"".$name."\",".$access.")";
+	return "INSERT INTO forums (text, access) VALUES (\"".$name."\",".$access.")";
 }
 
 //Pridanie témy
@@ -109,9 +106,9 @@ function getSqlInsertTopic($forum_id, $name, $user_id)
 {
 	if (is_null($user_id))
 	{
-		return "INSERT INTO topics (forum_id, name) VALUES (".$forum_id.",\"".$name."\")";
+		return "INSERT INTO topics (forum_id, text) VALUES (".$forum_id.",\"".$name."\")";
 	}
-	return "INSERT INTO topics (forum_id, name, user_id) VALUES (".$forum_id.",\"".$name."\",".$user_id.")";
+	return "INSERT INTO topics (forum_id, text, user_id) VALUES (".$forum_id.",\"".$name."\",".$user_id.")";
 }
 
 //Pridanie komentára
@@ -205,29 +202,53 @@ function getSqlInsertComment($topic_id, $user_id, $text)
 function getForums($conn)
 {
 	$result = array();
-	$sql = mysqli_query($conn,"SELECT * FROM forums ORDER BY forum_id");
+	$sql = mysqli_query($conn, "SELECT * FROM forums WHERE visible < ".(isLoggedUser() ? "2" : "1")." ORDER BY forum_id");
 	while ($row = mysqli_fetch_array($sql))
 	{
-	 	$result[] = array("forum_id" => $row['forum_id'], "forum_name" => $row['name']);
+	 	$result[] = array("forum_id" => $row['forum_id'], "forum_name" => $row['text'], "forum_access" => $row['access']);
 	}
 	echo json_encode($result);
 }
 
-function getTopics($conn, $forum_id)
+function getTopics($conn, $sql)
 {
  $result = array();
- $sql = mysqli_query($conn,"SELECT * FROM topics WHERE forum_id=".$forum_id." ORDER BY topic_id");
- while ($row = mysqli_fetch_array($sql))
+ if ($res = mysqli_query($conn, $sql))
  {
-	$result[] = array("topic_id" => $row['topic_id'], "topic_name" => $row['name'], "topic_lock" => $row['lock']);
+	while ($row = mysqli_fetch_array($res))
+	{
+		if (isLoggedUser() && !is_null($row['name']))
+		{
+			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => "(".$row['name'].")   ".$row['text'], "topic_lock" => $row['lock']);
+		}
+		else
+		{
+			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => $row['text'], "topic_lock" => $row['lock']);
+		}
+	} 
  }
  echo json_encode($result);
+}
+
+function getSqlTopicsFilter($forum_id)
+{
+	return "SELECT * FROM topics t, users u WHERE t.user_id = ".getLoggedUserId()." AND u.user_id = t.user_id AND forum_id=".$forum_id." AND visible < 2 ORDER BY topic_id";
+}
+
+function getSqlTopicsLogged($forum_id)
+{
+	return "SELECT * FROM topics t LEFT JOIN users u ON u.user_id = t.user_id WHERE forum_id=".$forum_id." AND visible < 2 ORDER BY topic_id";
+}
+
+function getSqlTopicsUnlogged($forum_id)
+{
+	return "SELECT * FROM topics WHERE user_id IS NULL AND forum_id=".$forum_id." AND visible < 1 ORDER BY topic_id"; 
 }
 
 function getComments($conn,$topic_id)
 {
  $result = array();
- $sql = mysqli_query($conn,"SELECT * FROM comments c, users u WHERE u.user_id=c.user_id AND c.topic_id=".$topic_id." ORDER BY c.timestamp ASC");
+ $sql = mysqli_query($conn,"SELECT * FROM comments c, users u WHERE u.user_id=c.user_id AND c.topic_id=".$topic_id." AND c.visible < ".(isLoggedUser() ? "2" : "1")." ORDER BY c.timestamp ASC");
  while ($row = mysqli_fetch_array($sql))
  {
 	 $result[] = array("comment_id" => $row['comment_id'], "user_name" => $row['name'], "text" => $row['text'], "time" => $row['timestamp']);
@@ -247,7 +268,7 @@ function getModerators($conn)
 
 function getCommentById($conn, $comment_id)
 {
-	$result = mysqli_query($conn,"SELECT * FROM comments c, users u WHERE u.user_id=c.user_id AND c.comment_id=".$comment_id);
+	$result = mysqli_query($conn,"SELECT * FROM comments c, users u WHERE u.user_id=c.user_id AND c.comment_id=".$comment_id); 
 	if ($result)
 	{
 		return mysqli_fetch_array($result);
@@ -261,7 +282,7 @@ function createAndGetNewForum($conn, $name)
 	{
 		$result = array();
 		$forum = getForumById($conn, $id); 
-		$result[] = array("forum_id" => $forum['forum_id'], "forum_name" => $forum['name']);
+		$result[] = array("forum_id" => $forum['forum_id'], "forum_name" => $forum['text']);
 		return json_encode($result);
 	}
 	return false;
@@ -274,8 +295,8 @@ function createAndGetNewTopic($conn, $forum, $name, $moderator, $text, $user)
 		if ($id = checkUserAndAddComment($conn, $topic_id, $text, $user))
 		{
 			$result = array();
-			$topic = getTopicById($conn, $id);
-			$result[] = array("topic_id" => $topic['topic_id'], "topic_name" => $topic['name'], "topic_lock" => $topic['lock']);
+			$topic = getTopicById($conn, $topic_id);
+			$result[] = array("forum_id" => $forum ,"topic_id" => $topic['topic_id'], "topic_name" => $topic['text'], "topic_lock" => $topic['lock']);
 			return json_encode($result);
 		}
 	}
@@ -287,11 +308,24 @@ function createAndGetNewComment($conn, $topic, $text, $user)
 	if ($id = checkUserAndAddComment($conn, $topic, $text, $user))
 	{
 		$result = array();
-		$comment = getForumById($conn, $id); 
+		$comment = getCommentById($conn, $id); 
 		$result[] = array("comment_id" => $comment['comment_id'], "user_name" => $comment['name'], "text" => $comment['text'], "time" => $comment['timestamp']);
 		return json_encode($result);
 	}
 	return false;
 }
+
+function editItem($conn, $type, $id, $column, $value)
+{
+	if ($value[0] == '!')
+	{
+		$value = '!t.'.substr($value,1);
+	}
+	$sql = 'UPDATE '.$type.'s t SET t.'.$column.' = '.$value.' WHERE t.'.$type.'_id='.$id;
+	echo $sql;
+	return isLoggedUser() && mysqli_query($conn, $sql);
+	
+}
+
 ?>
 

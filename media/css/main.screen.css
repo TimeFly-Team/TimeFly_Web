@@ -297,9 +297,22 @@ article{
     float: right;
     border: 1px solid #AFAFAF;
 }
+.panel-title {
+    display: inline-block;
+}
+.dropdown, .dropup {
+    float: right;
+    cursor: pointer;
+}
+.dropdown-menu {
+    left: -127px;
+}
 .blog .fa {
     float: right;
     font-size: 20px;
+}
+.blog .fa-gear{
+    color: #337ab7;
 }
 .blog .fa-exclamation {
     color: red;
