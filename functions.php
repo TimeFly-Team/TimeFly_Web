@@ -1,4 +1,3 @@
-
 <?php
 
 //Pripojenie databázy
@@ -322,9 +321,7 @@ function editItem($conn, $type, $id, $column, $value)
 		$value = '!t.'.substr($value,1);
 	}
 	$sql = 'UPDATE '.$type.'s t SET t.'.$column.' = '.$value.' WHERE t.'.$type.'_id='.$id;
-	echo $sql;
 	return isLoggedUser() && mysqli_query($conn, $sql);
-	
 }
 
 ?>

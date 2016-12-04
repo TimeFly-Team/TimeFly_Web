@@ -1,3 +1,47 @@
+var DEBUG_MODE = 1;
+var logged_user = 0;
+
+function callPHP(params, url, func, args = [])
+{
+	var httpc = new XMLHttpRequest();
+    httpc.open("POST", url, true);
+    httpc.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    httpc.onreadystatechange = function() 
+		{
+			if(httpc.readyState == 4 && httpc.status == 200)
+			{
+				debug("callPHP response: " + url, httpc.responseText.trim());
+				args.push(httpc.responseText.trim());
+				func(args);
+			}
+		}
+	httpc.send(params);  
+}
+
+function debug(info, message)
+{
+	if (DEBUG_MODE)
+	{
+		console.log(info + "\n" + message + "\n");
+	}
+}
+
+function initialize()
+{
+	callPHP("", "isLogged.php",
+		function (args)
+		{
+			logged_user = args[0];
+			getItems("Forum", "");
+		}
+	);
+}
+
+function isLogged()
+{
+	return logged_user;
+}
+
 $(window).scroll(function(){
     if(($(window).scrollTop()) < ($("#chevron-index").height()-200) ){
         $(".fa-chevron-circle-right").stop().animate({"marginTop": ((($(window).height()) - ($(".slider").height())-50)/2 + ($(window).scrollTop()))- 42 + "px"}, "slow" );
@@ -215,3 +259,509 @@ $(function() {
 
   $("body").swipe();
 });
+
+//Script from forum.php
+
+var symbolDict = {0:"exclamation", 1:"check"};
+
+var addForumButton = '<div id="new_forum_div" class="new_forum">' +
+						'<button  type="button" onclick="$(\'.add_theme\').show();">' +
+							'<i class="add fa fa-plus-square" aria-hidden="true"></i>' +
+						'Add</button>' +
+					 '</div>';
+					
+var addForumForm   = '<div id="add_forum_div" class="add_theme" >' +
+						'<form class="send_theme">' +
+							'<div class="row">' +
+								'<div class="col-md-12">' +
+									'<p>Nazov temy:</p>' +
+									'<input id="theme_name" class="tema" type="text" name="tema" value="">' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="col-md-12">' +
+									'<div class="tlacidla">' +
+										'<button type="button" onclick="$(\'.add_theme\').hide();">Cancel</button>' +
+										'<button id="forum_submit" type="button" onclick="">Submit</button>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</form>' +
+					'</div>';
+					
+var addTopicButton = '<div id="new_topic_div" class="new_topic">' + 
+							'<button  type="button" onclick="$(\'.add_topic\').show();"><i class="fa fa-plus-square" aria-hidden="true"></i>' +
+								'Add</button>' +
+					'</div>';
+
+var addTopicForm =	'<div id="add_topic_div" class="add_topic" >' +
+						'<form class="send_topic">' +
+							'<div class="row">' +
+								'<div class="col-md-3">' +
+									'<p>Your email:</p>' +
+									'<input id="topic_mail" class="mail" type="email"  name="yourmail" value="">' +
+								'</div>' +
+								'<div class="col-md-9">' +
+									'<p>Nazov temy:</p>' +
+									'<input id="topic_tema" class="tema" type="text" name="tema" value="">' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="col-md-12">' +
+									'<div class="description_problem">' +
+										'<p>Opis problemu:</p>' +
+										'<textarea id="topic_desc" name="question" rows="4"></textarea>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="col-md-12">' +
+									'<div class="tlacidla">' +
+										'<button type="button" onclick="$(\'.add_topic\').hide();">Cancel</button>' +
+										'<button id="topic_submit" type="button" onclick="">Submit</button>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</form>' +
+					'</div>';
+						
+var addCommentButton = '<div id="new_reply_div" class="new_reply">' +
+							'<button  type="button" onclick="$(\'.add_reply\').show();">' +
+								'Add reply' +
+							'</button>' +
+						'</div>';
+						
+var addCommentForm	 =	'<div id="add_reply_div" class="add_reply">' +
+							'<form class="send_reply">' +
+								'<div class="row">' +
+									'<div class="col-md-3">' +
+										'<p>Your email:</p>' +
+										'<input id="reply_mail" class="mail" type="email"  name="yourmail" value="">' +
+									'</div>' +
+								'</div>' +
+								'<div class="row">' +
+									'<div class="col-md-12">' +
+										'<div class="description_problem">' +
+											'<p>Opis problemu:</p>' +
+											'<textarea id="reply_desc" name="question" rows="4"></textarea>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+								'<div class="row">' +
+									'<div class="col-md-12">' +
+										'<div class="tlacidla">' +
+											'<button type="button" onclick="$(\'.add_reply\').hide();">Cancel</button>' +
+											'<button id="comment_submit" type="button" onclick="">Submin</button>' +
+										'</div>' +
+									'</div>' +
+								'</div>' +
+							'</form>' +
+						'</div>';
+						
+var editItemForm =	'<div id="edit_item_div" class="edit_item" >' +
+						'<form class="send_theme">' +
+							'<div class="row">' +
+								'<div class="col-md-12">' +
+									'<p>Text:</p>' +
+									'<input id="new_item_text" class="tema" type="text" name="tema" value="">' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="col-md-12">' +
+									'<div class="tlacidla">' +
+										'<button type="button" onclick="$(\'.edit_item\').hide();">Cancel</button>' +
+										'<button id="new_item_text_submit" type="button" onclick="">Submit</button>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</form>' +
+					'</div>';
+					
+
+function echoMessage(message)
+{
+	alert(message);
+}
+
+var settingsList = ["Rename", "Delete", "Privacy", "Lock"];
+					
+function settings(type, id)
+{	
+	setDropdownMenu(type, id);
+	destroyEditForm();
+	
+	for (i = 0 ; i < settingsList.length ; i++)
+	{
+		var setttingButton = document.getElementById('setting_' + settingsList[i]);
+		if (setttingButton === null) continue;
+		setttingButton.onclick = function (setting, type, id)
+		{
+			return function ()
+			{
+				settingsFunctionsDict[settingsList[setting]](type, id);
+			};
+		}(i, type, id)
+	}	
+}
+
+function setDropdownMenu(type, id)
+{
+	document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML = '<li> <a id="setting_Rename"  onclick=""> Rename </a> </li>' +
+																	'<li> <a id="setting_Delete"  onclick=""> Delete </a> </li>' +
+																	'<li> <a id="setting_Privacy"  onclick=""> Public/Private </a> </li>';
+	if (hasItemLockSetting(type, id))
+	{
+		document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML += '<li> <a id="setting_Lock"  onclick=""> Lock/Unlock </a> </li>';
+	}
+}
+
+function hasItemLockSetting(type, id)
+{
+	if (type == "Topic")
+	{
+		return true;
+	}
+	return false;
+}
+
+function destroyEditForm()
+{
+	var editForm = document.getElementById("edit_item_div");
+	if (editForm !== null)
+	{
+		editForm.parentNode.removeChild(editForm);
+	}
+}
+
+var settingsFunctionsDict = {
+	"Rename": function (type, id)
+	{
+		document.getElementById("item_"+type+"_"+id).innerHTML += editItemForm;
+		document.getElementById('new_item_text_submit').onclick = function ()
+		{
+			callPHP("type="+type+"&id="+id+"&column=text"+"&value="+'"'+document.getElementById("new_item_text").value+'"', "editItem.php",
+				function (args)
+				{
+					if (args[2])
+					{
+						document.getElementById('a_' + args[0] + "_" + args[1]).innerHTML = document.getElementById("new_item_text").value;
+						document.getElementById("edit_item_div").parentNode.removeChild(document.getElementById("edit_item_div"));
+						echoMessage('Changes were successful.');
+					}
+					else
+					{
+						echoMessage('Error occurred during changing text in item.');
+					}
+				}, [type, id]
+			);
+		};
+	},
+	"Delete": function (type, id)
+	{
+		if (type == "Forum" && id < 3)
+		{
+			echoMessage("It is not possible delete this forum.");
+			return;
+		}
+		callPHP("type="+type+"&id="+id+"&column=visible"+"&value=2", "editItem.php",
+			function (args)
+			{
+				if (args[2])
+				{
+					document.getElementById("item_" + args[0] + "_" + args[1]).parentNode.removeChild(document.getElementById("item_"+type+"_"+id));
+					echoMessage('Changes were successful.');
+				}
+				else
+				{
+					echoMessage('Error occurred during deleting item.');
+				}
+			}, [type, id]
+		);
+	},
+	"Privacy": function (type, id)
+	{
+		callPHP("type="+type+"&id="+id+"&column=visible"+"&value=!visible", "editItem.php",
+			function (args)
+			{
+				if (args[0])
+				{
+					echoMessage('Changes were successful.');
+				}
+				else
+				{
+					echoMessage('Error occurred during changing privacy settings of item.');
+				}
+			}
+		);		
+	},
+	"Lock": function (type, id)
+	{
+		callPHP("type="+type+"&id="+id+"&column=lock"+"&value=!lock", "editItem.php",
+			function (args)
+			{
+				if (args[2])
+				{
+					var tag = document.getElementById('tag_' + args[0] + '_' + args[1]);
+					if (tag !== null)
+					{
+						if (tag.className == 'fa fa-exclamation')
+						{
+							tag.className = 'fa fa-check';
+						}
+						else
+						{
+							tag.className = 'fa fa-exclamation';
+						}
+					}
+					echoMessage('Changes were successful.');
+				}
+				else
+				{
+					echoMessage('Error occurred during changing tag of item.');
+				}
+			}, [type, id]
+		);
+	}
+}
+
+var forumsAccess = {};
+var submitItemTypeDict = {"Forum":"forum_submit", "Topic":"topic_submit", "Comment":"comment_submit"};
+var createItemViewDict = {	
+	"Forum": function (forum)
+	{
+		forumsAccess[forum.forum_id] = forum.forum_access;
+		var levelId = "level_0_" + forum.forum_id;
+		var panelId = "panel_0_" + forum.forum_id; 
+		return	'<div id="item_Forum_'+forum.forum_id+'" class="panel panel-default">' +
+					'<div class="panel-heading">' +
+						'<h4 class="panel-title">' +
+							'<a id="a_Forum_' + forum.forum_id + '" data-toggle="collapse" data-parent="#level0" onclick="getItems(\'Topic\','+forum.forum_id+')" href="' + "#" + levelId + '">' + forum.forum_name + '</a>' +
+						'</h4>' +
+						
+						(isLogged()
+						?						
+							'<div class="dropdown">' +
+								'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
+								'<ul id="dropdown_ul_Forum_' + forum.forum_id + '" class="dropdown-menu">' +
+								'</ul>' +
+							'</div>'
+						:
+							''
+						) +
+
+					'</div>' +
+					'<div id="' + levelId + '" class="panel-collapse collapse">' +
+						'<div id="' + panelId + '" class="panel-body">' +
+						'</div>	' +
+					'</div>' +
+				'</div>';
+	},
+	"Topic": function (topic)
+	{
+		var levelId = "level_2_" + topic.topic_id;
+		var panelId = "panel_2_" + topic.topic_id; 
+		return  '<div id="item_Topic_'+topic.topic_id+'" class="panel panel-default">' +
+					'<div class="panel-heading">' +
+						'<h4 class="panel-title">' +
+							'<a id="a_Topic_' + topic.topic_id + '" data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name  + '</a>' +
+						'</h4>' +
+						
+						(isLogged()
+						?
+						
+							'<div class="dropdown">' +
+								'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Topic\','+topic.topic_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
+								'<ul id="dropdown_ul_Topic_' + topic.topic_id + '" class="dropdown-menu">' +
+								'</ul>' +
+							'</div>'
+						:
+							''
+						) +
+						
+						//(topic.forum_id == 2 ? '<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' : '') +
+						'<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' +
+						
+					'</div>' +
+					'<div id="' + levelId + '" class="panel-collapse collapse">' +
+						'<div id="' + panelId + '" class="panel-body">' +
+						'</div>	' +
+					'</div>' +
+				'</div>';
+	},
+	"Comment": function(comment)
+	{
+		return  '<div id="item_Comment_'+comment.comment_id+'">' +
+					'<div class="media">' +
+						'<div class="media-body">' +
+							'<h4 class="media-heading">' + comment.user_name + '<small><i>  Posted on ' + comment.time + '</i></small></h4>' +
+							'<p id="a_Comment_' + comment.comment_id + '">' + comment.text + '</p>' +
+							
+						'</div>' +
+						
+					'</div>' +
+					
+					(isLogged()
+					?
+					
+						'<div class="dropdown">' +
+							'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Comment\','+comment.comment_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
+							'<ul id="dropdown_ul_Comment_' + comment.comment_id + '" class="dropdown-menu">' +
+							'</ul>' +
+						'</div>'
+					:
+						''
+					) +
+				'</div>';
+	}
+};
+
+var onAddItemClickDict = {	
+	"Forum": function(id)
+	{
+		callPHP("type=forum" + "&name=" + document.getElementById('theme_name').value,
+				"addNewItem.php", function(args)
+				{
+					if (args[1] != false)
+					{
+						var newForumView = showItems(args[0], JSON.parse(args[1]));
+						var div = document.createElement('div');
+						div.innerHTML = newForumView;
+						document.getElementById("level0").insertBefore(div.firstChild, document.getElementById("new_forum_div"));
+						document.getElementById("add_forum_div").style.display = "none";
+						echoMessage("New forum was created.");
+					}
+					else
+					{
+						echoMessage("Error occurred during creating forum.");
+					}
+				}, ["Forum"]
+		);
+	},
+	"Topic": function(id)
+	{
+		callPHP("type=topic" + "&forum=" + id
+			+ "&name=" + document.getElementById('topic_tema').value
+			+ "&user=" + document.getElementById('topic_mail').value
+			+ "&desc=" + document.getElementById('topic_desc').value,
+			"addNewItem.php", function(args)
+			{
+				if (args[2] != false)
+				{
+					var newTopicView = showItems(args[0], JSON.parse(args[2]));
+					var div = document.createElement('div');
+					div.innerHTML = newTopicView;
+					document.getElementById("panel_0_" + args[1]).insertBefore(div.firstChild, document.getElementById("new_topic_div"));
+					document.getElementById("add_topic_div").style.display = "none";
+					echoMessage("New topic was created.");
+				}
+				else
+				{
+					echoMessage("Error occurred during creating topic.");
+				}
+			}, ["Topic", id]
+		);
+	},
+	"Comment": function(id)
+	{
+		callPHP("type=comment" + "&topic=" + id
+			+ "&user=" + document.getElementById('reply_mail').value
+			+ "&desc=" + document.getElementById('reply_desc').value,
+			"addNewItem.php", function(args)
+			{
+				if (args[2] != false)
+				{
+					var newCommentView = showItems(args[0], JSON.parse(args[2]));
+					var div = document.createElement('div');
+					div.innerHTML = newCommentView;
+					document.getElementById("panel_2_" + args[1]).insertBefore(div.firstChild, document.getElementById("new_reply_div"));
+					document.getElementById("add_reply_div").style.display = "none";
+					echoMessage("Your comment was send.");
+				}
+				else
+				{
+					echoMessage("Error occurred during sending comment.");
+				}
+				
+			}, ["Comment", id]
+		);
+	}
+};
+
+var setItemsToHTMLDict = {	
+	"Forum": function(type, id, responseText)
+	{
+		document.getElementById("level0").innerHTML = showItems(type, JSON.parse(responseText)) + addForumButton + addForumForm;
+		document.getElementById("new_forum_div").style.display = "block";
+		if (!isLogged())
+		{
+			document.getElementById("new_forum_div").style.display = "none";
+		}
+	},
+	"Topic": function(type, id, responseText)
+	{
+		document.getElementById("panel_0_" + id).innerHTML = showItems(type, JSON.parse(responseText)) + addTopicButton + addTopicForm;
+		document.getElementById("new_topic_div").style.display = "block";
+		if (forumsAccess[id] > 0 && !isLogged())
+		{
+			document.getElementById("new_topic_div").style.display = "none";
+		}
+	},
+	"Comment": function(type, id, responseText)
+	{
+		document.getElementById("panel_2_" + id).innerHTML = showItems(type, JSON.parse(responseText)) + addCommentButton + addCommentForm;
+	}
+};
+
+function getItems(type, id)
+{
+	var params = "id=" + id;
+	if (isLogged() && type == 'Topic')
+	{
+		params += "&filter=" + document.getElementById('sel1').selectedIndex;
+	}
+	callPHP(params, "get" + type + "s.php",
+		function (args)
+		{
+			setItemsToHTMLDict[type](args[0], args[1], args[2]);
+			document.getElementById(submitItemTypeDict[type]).onclick = function () {onAddItemClickDict[type](id);};
+		}, [type, id]
+	);
+}
+
+function showItems(type, response)
+{
+	result = "";
+	for (var i in response)
+	{
+		result += createItemViewDict[type](response[i]);
+	}
+	return result;
+}
+
+function setAddQuestionSubmit(id)
+{
+	document.getElementById('add_question_submit_' + id).onclick = function (id)
+	{
+		return function ()
+		{		
+			callPHP("type=topic" + "&forum=2"
+					+ "&name=" + document.getElementById('add_question_topic_name_' + id).value
+					+ "&user=" + document.getElementById('add_question_mail_' + id).value
+					+ "&desc=" + document.getElementById('add_question_desc_' + id).value
+					+ "&moderator=" + id, "addNewItem.php",
+						function (args)
+						{
+							if (args[0])
+							{
+								echoMessage("Question was send");
+							}
+							else
+							{
+								echoMessage("Error occurred during sending question.")
+							}
+						}
+				);
+			ContactToogle('#moderator_' + id,'#message_' + id);
+		};
+	}(id);
+}
