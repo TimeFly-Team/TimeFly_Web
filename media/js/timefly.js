@@ -42,6 +42,17 @@ function isLogged()
 	return logged_user > 0;
 }
 
+function echoMessage(message, success = true)
+{
+	$("<div id='oznam' class='oznam_" + success + "'>" + message + "</div>").appendTo("body");
+	setTimeout(removeMessage, 3000);
+}
+
+function removeMessage()
+{
+	$("#oznam").remove();
+}
+
 $(window).scroll(function(){
     if(($(window).scrollTop()) < ($("#chevron-index").height()-200) ){
         $(".fa-chevron-circle-right").stop().animate({"marginTop": ((($(window).height()) - ($(".slider").height())-50)/2 + ($(window).scrollTop()))- 42 + "px"}, "slow" );
@@ -373,12 +384,6 @@ var editItemForm =	'<div id="edit_item_div" class="edit_item" >' +
 							'</div>' +
 						'</form>' +
 					'</div>';
-					
-
-function echoMessage(message)
-{
-	alert(message);
-}
 
 var settingsList = ["Rename", "Delete", "Privacy", "Lock"];
 					
@@ -443,11 +448,11 @@ var settingsFunctionsDict = {
 					{
 						document.getElementById('a_' + args[0] + "_" + args[1]).innerHTML = document.getElementById("new_item_text").value;
 						document.getElementById("edit_item_div").parentNode.removeChild(document.getElementById("edit_item_div"));
-						echoMessage('Changes were successful.');
+						echoMessage('Changes were successful.', true);
 					}
 					else
 					{
-						echoMessage('Error occurred during changing text in item.');
+						echoMessage('Error occurred during changing text in item.', false);
 					}
 				}, [type, id]
 			);
@@ -466,11 +471,11 @@ var settingsFunctionsDict = {
 				if (args[2])
 				{
 					document.getElementById("item_" + args[0] + "_" + args[1]).parentNode.removeChild(document.getElementById("item_"+type+"_"+id));
-					echoMessage('Changes were successful.');
+					echoMessage('Changes were successful.', true);
 				}
 				else
 				{
-					echoMessage('Error occurred during deleting item.');
+					echoMessage('Error occurred during deleting item.', false);
 				}
 			}, [type, id]
 		);
@@ -482,11 +487,11 @@ var settingsFunctionsDict = {
 			{
 				if (args[0])
 				{
-					echoMessage('Changes were successful.');
+					echoMessage('Changes were successful.', true);
 				}
 				else
 				{
-					echoMessage('Error occurred during changing privacy settings of item.');
+					echoMessage('Error occurred during changing privacy settings of item.', false);
 				}
 			}
 		);		
@@ -510,11 +515,11 @@ var settingsFunctionsDict = {
 							tag.className = 'fa fa-exclamation';
 						}
 					}
-					echoMessage('Changes were successful.');
+					echoMessage('Changes were successful.', true);
 				}
 				else
 				{
-					echoMessage('Error occurred during changing tag of item.');
+					echoMessage('Error occurred during changing tag of item.', false);
 				}
 			}, [type, id]
 		);
@@ -625,11 +630,11 @@ var onAddItemClickDict = {
 						div.innerHTML = newForumView;
 						document.getElementById("level0").insertBefore(div.firstChild, document.getElementById("new_forum_div"));
 						document.getElementById("add_forum_div").style.display = "none";
-						echoMessage("New forum was created.");
+						echoMessage("New forum was created.", true);
 					}
 					else
 					{
-						echoMessage("Error occurred during creating forum.");
+						echoMessage("Error occurred during creating forum.", false);
 					}
 				}, ["Forum"]
 		);
@@ -649,11 +654,11 @@ var onAddItemClickDict = {
 					div.innerHTML = newTopicView;
 					document.getElementById("panel_0_" + args[1]).insertBefore(div.firstChild, document.getElementById("new_topic_div"));
 					document.getElementById("add_topic_div").style.display = "none";
-					echoMessage("New topic was created.");
+					echoMessage("New topic was created.", true);
 				}
 				else
 				{
-					echoMessage("Error occurred during creating topic.");
+					echoMessage("Error occurred during creating topic.", false);
 				}
 			}, ["Topic", id]
 		);
@@ -672,11 +677,11 @@ var onAddItemClickDict = {
 					div.innerHTML = newCommentView;
 					document.getElementById("panel_2_" + args[1]).insertBefore(div.firstChild, document.getElementById("new_reply_div"));
 					document.getElementById("add_reply_div").style.display = "none";
-					echoMessage("Your comment was send.");
+					echoMessage("Your comment was send.", true);
 				}
 				else
 				{
-					echoMessage("Error occurred during sending comment.");
+					echoMessage("Error occurred during sending comment.", false);
 				}
 				
 			}, ["Comment", id]
@@ -750,11 +755,11 @@ function setAddQuestionSubmit(id)
 						{
 							if (args[0])
 							{
-								echoMessage("Question was send");
+								echoMessage("Question was send", true);
 							}
 							else
 							{
-								echoMessage("Error occurred during sending question.")
+								echoMessage("Error occurred during sending question.", false)
 							}
 						}
 				);
@@ -850,20 +855,4 @@ function boldni(text, query)
 {
 	return text.replace(query, "<b style='color: orange'>" + query + "</b>");
 }	
-
-
-function oznam_true()
-{
-	$("<div id='oznam' class='oznam_true'><strong>Gratulujem!</strong> Indicates a successful or positive action.</div>").appendTo("body");
-	setTimeout(remove_oznam, 3000);
-}
-function oznam_false()
-{
-	$("<div id='oznam' class='oznam_false'><strong>Gratulujem!</strong> Indicates a successful or positive action.</div>").appendTo("body");
-	setTimeout(remove_oznam, 3000);
-}
-function remove_oznam ()
-{
-	$( "#oznam" ).remove();
-}
 

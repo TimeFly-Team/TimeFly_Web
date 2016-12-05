@@ -320,7 +320,7 @@ function editItem($conn, $type, $id, $column, $value)
 	{
 		$value = '!t.'.substr($value,1);
 	}
-	$sql = 'UPDATE '.$type.'s t SET t.'.$column.' = '.$value.' WHERE t.'.$type.'_id='.$id;
+	$sql = 'UPDATE '.strtolower($type).'s t SET t.'.strtolower($column).' = '.$value.' WHERE t.'.strtolower($type).'_id='.$id;
 	return isLoggedUser() && mysqli_query($conn, $sql);
 }
 
@@ -328,17 +328,17 @@ function editItem($conn, $type, $id, $column, $value)
 
 function getSqlSearchInTopics($text)
 {
-	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t WHERE t.text LIKE '%".$text."%' AND t.visible < ".(isLoggedUser() ? "2" : "1");
+	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t WHERE t.text LIKE '%".$text."%' AND t.visible < ".(isLoggedUser() ? "2" : "1")." ORDER BY t.topic_id";
 }
 
 function getSqlSearchInTopicsAndComments($text)
 {
-	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t LEFT JOIN comments c on t.topic_id = c.topic_id WHERE c.visible < ".(isLoggedUser() ? "2" : "1")." AND (t.text LIKE '%".$text."%' OR  c.text LIKE '%".$text."%') GROUP BY t.text";
+	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t LEFT JOIN comments c on t.topic_id = c.topic_id AND t.visible < ".(isLoggedUser() ? "2" : "1")." WHERE c.visible < ".(isLoggedUser() ? "2" : "1")." AND (t.text LIKE '%".$text."%' OR  c.text LIKE '%".$text."%') GROUP BY t.topic_id ORDER BY t.topic_id";
 }
 
 function getSqlSearchInComments($text)
 {
-	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t JOIN comments c on c.topic_id=t.topic_id WHERE c.text LIKE '%".$text."%' AND c.visible < ".(isLoggedUser() ? "2" : "1");
+	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t JOIN comments c on c.topic_id=t.topic_id AND t.visible < ".(isLoggedUser() ? "2" : "1")." WHERE c.text LIKE '%".$text."%' AND c.visible < ".(isLoggedUser() ? "2" : "1")." GROUP BY t.topic_id ORDER BY t.topic_id";
 }
 
 function getTopicsForSearch($conn, $sql)
