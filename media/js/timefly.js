@@ -856,7 +856,7 @@ function getHTMLCosi(comment, text)
 
 function boldni(text, query)
 {
-	return text.replace(query, "<b style='color: orange'>" + query + "</b>");
+	return text.split(query).join("<b style='color: orange'>" + query + "</b>");
 }	
 
 function removetext(comu)
