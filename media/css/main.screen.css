@@ -420,8 +420,18 @@ article{
     color: #000000;
 }
 .result_search a {
+    cursor: pointer;
+}
+.result_search a .fa-times {
     color: #AFAFAF;
     cursor: pointer;
+}
+.result_search .panel-body {
+    padding: 20px;
+}
+.result_search .panel {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 
