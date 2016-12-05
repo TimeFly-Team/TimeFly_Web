@@ -29,27 +29,12 @@ function generateModerator($moderator)
 						<p>Description:</p>
 						<textarea id="add_question_desc_'.$id.'" name="question" rows="4"></textarea>
 						<button class="button button_form" type="button" onclick="ContactToogle(\'#moderator_'.$id.'\',\'#message_'.$id.'\');">Cancel</button>
-						<button id="add_question_submit_'.$id.'" class="button button_form" type="button" onclick="">Submit</button>';
-		?>
-						<script>
-							document.getElementById('add_question_submit_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>).onclick = function ()
-							{
-								
-								callPHP("type=topic" + "&forum=2"
-										+ "&name=" + document.getElementById('add_question_topic_name_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>).value
-										+ "&user=" + document.getElementById('add_question_mail_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>).value
-										+ "&desc=" + document.getElementById('add_question_desc_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>).value
-										+ "&moderator=" + <?php echo json_encode($id, JSON_HEX_TAG); ?>, "addNewItem.php", "Topic", "_");
-								ContactToogle('#moderator_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>,'#message_' + <?php echo json_encode($id, JSON_HEX_TAG); ?>);
-							}
-						</script>
-						
+						<button id="add_question_submit_'.$id.'" class="button button_form" type="button" onclick="">Submit</button>
 					</form>
 				</div>
 			</div>
 		</div>
-	</div>
-	<?php
+	</div>';
 }
 ?>
 
