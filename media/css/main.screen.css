@@ -433,7 +433,25 @@ article{
     margin-top: 5px;
     margin-bottom: 5px;
 }
-
+#oznam {
+    position: fixed;
+    top:70px;
+    left: 20%;
+    width: 60%;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 3px;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    vertical-align: 50%;
+}
+.oznam_true {
+    background-color: green;
+}
+.oznam_false {
+    background-color: red;
+}
 
 /*==========  Footer ==========*/
 footer {
