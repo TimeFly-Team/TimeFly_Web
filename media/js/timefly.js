@@ -850,31 +850,20 @@ function boldni(text, query)
 {
 	return text.replace(query, "<b style='color: orange'>" + query + "</b>");
 }	
-	
-    /*$.ajax({
-      type: 'get',
-      url: 'getSearch.php?type=comments&text='+text+'&id='+id,
-      dataType:"json",
-      success: function (response)
-      {       
-          var result='';
-          for(var i=0; i<response.length;i++){
-            result += '<div id="item_Comment_'+response['id']+'">' +
-                       '<div class="media">' +
-                         '<div class="media-body">' +
-                            '<h4 class="media-heading">' + response['name'] + '<small><i>  Posted on ' + response['time'] + '</i></small></h4>' +
-                            '<p id="a_Comment_' + response['id'] + '">' + response['text'] + '</p>' +
-                         '</div>' +
-                         '</div>' +
-                    '</div>'    
-                    
-                    
-                }
-                var div = document.createElement('div');
-                div.innerHTML=result;
-                document.getElementById("search_panel_1_"+id).appendChild(result);
-      }
-	}).fail(function(data){console.log(data)});*/
 
 
+function oznam_true()
+{
+	$("<div id='oznam' class='oznam_true'><strong>Gratulujem!</strong> Indicates a successful or positive action.</div>").appendTo("body");
+	setTimeout(remove_oznam, 3000);
+}
+function oznam_false()
+{
+	$("<div id='oznam' class='oznam_false'><strong>Gratulujem!</strong> Indicates a successful or positive action.</div>").appendTo("body");
+	setTimeout(remove_oznam, 3000);
+}
+function remove_oznam ()
+{
+	$( "#oznam" ).remove();
+}
 
