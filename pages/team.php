@@ -6,13 +6,13 @@ function generateModerator($moderator)
 	echo '
 	<div class="col-md-4 cols">
 		<div class="person">
-			<div class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_moderator_'.$id.'" aria-expanded="false" aria-controls="collapse_moderator_'.$id.'" onclick="ShowLabel(\'#label_'.$id.'\',\'#collapse_moderator_'.$id.'\');">
-				<img src="media/img/portret.jpg" alt="clen_tymu">
+			<img src="media/img/portret.jpg" alt="clen_tymu">
+			<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse_moderator_'.$id.'" aria-expanded="false" aria-controls="collapse_moderator_'.$id.'" onclick="ShowLabel(\'#label_'.$id.'\',\'#collapse_moderator_'.$id.'\');">
 				<div class="info text-center">
-					<h1>'.$moderator['name'].'</h1>
+				<h1>'.$moderator['name'].'</h1>
 				</div>
 				<p class="inf" id="label_'.$id.'">+ More information</p>
-			</div>
+			</a>
 			<div id="collapse_moderator_'.$id.'" class="collapse" role="tabpanel" aria-expanded="false">
 				<div id="moderator_'.$id.'" class="card-block contact">
 					<p>Tel: '.$moderator['property1'].'</p>

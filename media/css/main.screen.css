@@ -17,9 +17,10 @@ body {
 
 /*==========  Navigation ==========*/
 .navbar-default {
-    background-color: #1fda81;
+    background-color: #12AD2a;
     border-style: none;
     font-size: 20px;
+    cursor: pointer;
 }
 #TeamName{
     color: #FFF;
@@ -40,17 +41,16 @@ body {
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:focus,
 .navbar-default .navbar-nav > .active > a:hover {
-    color: #1fda81;
+    color: #12AD2a;
     background-color: #fff;
 }
 .navbar-default .navbar-nav > li > a:focus,
 .navbar-default .navbar-nav > li > a:hover{
-    color: #1fda81;
+    color: #12AD2a;
     background-color: #fff;
 }
 .navbar-default .navbar-nav > li > a{
     color: #fff;
-    text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 0px 0px #000, -0px -0px 0 #000, 0px -0px 0 #000, -0px 0px 0 #000;
 }
 .navbar-default .navbar-brand {
     color: #fff;
@@ -58,7 +58,7 @@ body {
 .navbar-default .navbar-toggle:focus,
 .navbar-default .navbar-toggle:hover {
     background-color: #fff;
-    color: #1fda81;
+    color: #12AD2a;
 }
 .navbar-default .navbar-toggle{
     border-color: #fff;
@@ -115,7 +115,7 @@ article{
 .team .nadpis h4,
 .blog .nadpis h4{
     color: #d1d1d1;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 .about_us p {
     margin-top: 20px;
@@ -138,7 +138,7 @@ article{
 
 .chevron_right:hover,
 .chevron_left:hover {
-    color: #1fda81;
+    color: #12AD2a;
 }
 .bg-circle{
     background: #d1d1d1;
@@ -176,12 +176,13 @@ article{
     /*width: 100%; */
     background: #d1d1d1;
     cursor: pointer;
-    
+
 }
 .person img {
     display: flex;
     justify-content: center;
     width: 100%;
+    cursor: default;
 }
 .person h1 {
     color: black;
@@ -257,7 +258,7 @@ article{
 .button_form:hover {
     background-color: #fff;
     border: 2px solid #d1d1d1;}
-    
+
 .button_kontakt {
     width: 98%;
     background-color: #d1d1d1;
@@ -274,10 +275,10 @@ article{
 }
 .filter,
 .search {
-    display: inline-block;    
+    display: inline-block;
 }
 .search{
-    float: right;    
+    float: right;
 }
 .search button,
 .filter{
@@ -320,7 +321,7 @@ article{
 .blog .fa-check {
     color: green;
 }
-.blog .new_topic, 
+.blog .new_topic,
 .blog .new_forum  {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -354,7 +355,7 @@ article{
 .add_reply{
     border: 1px solid #ddd;
     border-radius: 3px;
-    display: none;    
+    display: none;
 }
 .add_reply {
     margin: 15px;
@@ -430,7 +431,7 @@ footer {
     right: 0;
     left: 0;
     bottom: 0px;
-    background-color: #1fda81;
+    background-color: #12AD2a;
     color: #fff;
     min-height: 62px;
     font-size: 16px;
@@ -450,13 +451,13 @@ footer #logout{
     float: right;
     margin: 10px;
     border: 1px solid #ddd;
-    background-color: #1FDA81;
+    background-color: #12AD2a;
     border-radius: 3px;
 }
 footer button:hover,
 footer #logout:hover{
     background-color: #FFFFFF;
-    color: #1FDA81;
+    color: #12AD2a;
 }
 footer .login {
     color: black;
@@ -490,12 +491,12 @@ footer .login .tlacidla input{
         float: right;
     }
     .container > .navbar-header {
-        background: #1fda81;
+        background: #12AD2a;
     }
     .navbar-default .navbar-collapse {
         border-color: #e7e7e7;
         width: auto;
-        background: #1fda81;
+        background: #12AD2a;
         float: right;
     }
     .navbar-default {
