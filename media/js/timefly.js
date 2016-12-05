@@ -39,7 +39,7 @@ function initialize()
 
 function isLogged()
 {
-	return logged_user;
+	return logged_user > 0;
 }
 
 $(window).scroll(function(){
@@ -113,10 +113,7 @@ $(function() {
         event.preventDefault();
     });
 });
-function ResultSearch() {
-    $(".res_search").remove();
-    $("<div class='row pt10 res_search'><div class='col-md-12'><div class='result_search'><a onclick='RemoveResultSearch();'><i class='fa fa-times' aria-hidden='true'></i></a></div></div></div>").insertAfter(".search_ex");
-}
+
 function RemoveResultSearch() {
     $(".res_search").remove();
 }
@@ -765,3 +762,119 @@ function setAddQuestionSubmit(id)
 		};
 	}(id);
 }
+
+//vyhladavanie
+
+function ResultSearch()
+{
+  var checkedValue = null; 
+  var inputElements = document.getElementsByClassName('checkbox');
+  
+  checkedValue = $('input:radio:checked')[0].value;
+		
+  var text =document.getElementById("searchText").value; 
+  console.log(text);
+  $(".res_search").remove();
+	$("<div class='row pt10 res_search'><div class='col-md-12'><div class='result_search panel-collapse collapse in'><a onclick='RemoveResultSearch();'><i class='fa fa-times' aria-hidden='true'></i></a> <div id=\"searchResult\" class='panel-body'> </div> </div></div></div>").insertAfter(".search_ex");
+  getSearchResult(checkedValue,text);
+    
+}
+
+function getSearchResult(value,text)
+{
+    $.ajax({
+    type: 'get',
+    url: 'getSearch.php?value='+value+'&text='+text,
+    dataType:"json",
+    success: function (response)
+    {     
+          var result='';
+          for(var i=0; i<response.length;i++){
+              var levelId = "level_1_" + response[i]['topic_id'];
+                  var panelId = "panel_1_" + response[i]['topic_id'];
+              result += '<div id="search_item_Topic_'+response[i]['topic_id']+'" class="panel panel-default">' +
+                        '<div class="panel-heading">' +
+                            '<h4 class="panel-title">' +
+                               '<a id="search_a_Topic_' + response[i]['topic_id'] + '" data-toggle="collapse" data-parent="#searchResult" onclick="getComments('+response[i]['topic_id']+',\''+text+'\')\" href="' + "#search_" + levelId + '">' + boldni(response[i]['text'], text) + '</a>' +
+                            '</h4>' +
+							
+							'<i id="tag_Topic_' + response[i]['topic_id'] + '" class="fa fa-' + symbolDict[response[i]['lock']] + '" aria-hidden="true"></i>' +
+							
+                          '</div>' +
+                        '<div id="search_' + levelId + '" class="panel-collapse collapse">' +
+                            '<div id="search_' + panelId + '" class="panel-body">' +
+                            '</div>    ' +
+                        '</div>' +
+                    '</div>';
+           }
+           var div = document.createElement('div');
+           div.innerHTML=result;
+           document.getElementById("searchResult").innerHTML += div.innerHTML;
+    }
+  }).fail(function(data){console.log(data)});
+
+}
+
+function getComments(id,text)
+{
+	var params = "id=" + id;
+	callPHP(params, "getComments.php",
+		function (args)
+		{
+			response = JSON.parse(args[1]);
+			result = "";
+			for (var i in response)
+			{
+				result += getHTMLCosi(response[i], text);
+			}
+			document.getElementById("search_panel_1_" + args[0]).innerHTML = result;
+		}, [id]
+	);
+}
+
+function getHTMLCosi(comment, text)
+{	
+	return  '<div id="item_Comment_'+comment.comment_id+'">' +
+					'<div class="media">' +
+						'<div class="media-body">' +
+							'<h4 class="media-heading">' + comment.user_name + '<small><i>  Posted on ' + comment.time + '</i></small></h4>' +
+							'<p id="a_Comment_' + comment.comment_id + '">' + boldni(comment.text, text) + '</p>' +
+							
+						'</div>' +
+						
+					'</div>' +
+				'</div>';
+}
+
+function boldni(text, query)
+{
+	return text.replace(query, "<b style='color: orange'>" + query + "</b>");
+}	
+	
+    /*$.ajax({
+      type: 'get',
+      url: 'getSearch.php?type=comments&text='+text+'&id='+id,
+      dataType:"json",
+      success: function (response)
+      {       
+          var result='';
+          for(var i=0; i<response.length;i++){
+            result += '<div id="item_Comment_'+response['id']+'">' +
+                       '<div class="media">' +
+                         '<div class="media-body">' +
+                            '<h4 class="media-heading">' + response['name'] + '<small><i>  Posted on ' + response['time'] + '</i></small></h4>' +
+                            '<p id="a_Comment_' + response['id'] + '">' + response['text'] + '</p>' +
+                         '</div>' +
+                         '</div>' +
+                    '</div>'    
+                    
+                    
+                }
+                var div = document.createElement('div');
+                div.innerHTML=result;
+                document.getElementById("search_panel_1_"+id).appendChild(result);
+      }
+	}).fail(function(data){console.log(data)});*/
+
+
+

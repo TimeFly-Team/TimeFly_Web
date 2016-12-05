@@ -324,5 +324,44 @@ function editItem($conn, $type, $id, $column, $value)
 	return isLoggedUser() && mysqli_query($conn, $sql);
 }
 
+//vyhladavanie
+
+function getSqlSearchInTopics($text)
+{
+	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t WHERE t.text LIKE '%".$text."%' AND t.visible < ".(isLoggedUser() ? "2" : "1");
+}
+
+function getSqlSearchInTopicsAndComments($text)
+{
+	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t LEFT JOIN comments c on t.topic_id = c.topic_id WHERE c.visible < ".(isLoggedUser() ? "2" : "1")." AND (t.text LIKE '%".$text."%' OR  c.text LIKE '%".$text."%') GROUP BY t.text";
+}
+
+function getSqlSearchInComments($text)
+{
+	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t JOIN comments c on c.topic_id=t.topic_id WHERE c.text LIKE '%".$text."%' AND c.visible < ".(isLoggedUser() ? "2" : "1");
+}
+
+function getTopicsForSearch($conn, $sql)
+{
+    $result = array();
+    $sql_result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_array($sql_result))
+    {  
+         $result[] = array("topic_id" => $row['topic_id'], "text" => $row['topic_name'], "lock" => $row['topic_lock']);
+    }     
+    echo json_encode($result);    
+}
+
+function getCommentForSearchTopic($conn,$text,$topic_id)
+{
+    $result = array();
+    $sql = mysqli_query($conn,"SELECT c.comment_id id, c.text text, c.timestamp date, u.name name FROM topics t, users u JOIN comments c on c.topic_id=t.topic_id WHERE u.user_id=c.user_id AND t.topic_id=".$topic_id." AND c.text LIKE '%".$text."%' AND c.visible < ".(isLoggedUser() ? "2" : "1"));
+    while ($row = mysqli_fetch_array($sql))
+    {  
+         $result[] = array("id"=>$row['id'], "text" => $row['text'], "time" => $row['date'], "name" => $row['name']);
+    }     
+    echo json_encode($result);    
+}
+
 ?>
 
