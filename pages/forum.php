@@ -25,7 +25,7 @@
 				?>
 				
 					<div class="search">
-						<button  type="button" onclick="$('.search_ext').toggle();">Search</button>
+						<button  type="button" onclick="$('.search_ext').toggle();$('.res_search').remove();">Search</button>
 					</div> 
 				
 			</div>
