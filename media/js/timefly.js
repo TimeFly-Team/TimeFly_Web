@@ -32,9 +32,13 @@ function initialize()
 		function (args)
 		{
 			logged_user = args[0];
-			getItems("Forum", "");
+			getItems("Forum", "");  
+      if(isMobile()){  
+        $(".login-div").hide();
+  
+      }
 		}
-	);
+	);  
 }
 
 function isLogged()
