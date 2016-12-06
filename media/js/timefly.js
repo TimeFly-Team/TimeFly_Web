@@ -589,10 +589,9 @@ var createItemViewDict = {
 		var levelId = "level_0_" + forum.forum_id;
 		var panelId = "panel_0_" + forum.forum_id; 
 		return	'<div id="item_Forum_'+forum.forum_id+'" class="panel panel-default">' +
-					'<a id="a_Forum_' + forum.forum_id + '" data-toggle="collapse" data-parent="#level0" onclick="getItems(\'Topic\','+forum.forum_id+')" href="' + "#" + levelId + '">' +
 					'<div class="panel-heading">' +
 						'<h4 class="panel-title">' +
-							 forum.forum_name +
+							'<a id="a_Forum_' + forum.forum_id + '" data-toggle="collapse" data-parent="#level0" onclick="getItems(\'Topic\','+forum.forum_id+')" href="' + "#" + levelId + '">' + forum.forum_name + '</a>' +
 						'</h4>' +
 						
 						(isLogged()
@@ -612,7 +611,6 @@ var createItemViewDict = {
 						) +
 
 					'</div>' +
-					'</a>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
 						'<div id="' + panelId + '" class="panel-body">' +
 						'</div>	' +
