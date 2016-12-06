@@ -252,43 +252,33 @@ function ChangePage(new_page) {
     }
     actual_page = new_page;
 };
-var scroll_horizontal = $(window).scrollTop();
-$(function() {
-  $("body").swipe( {
-    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-        console.log(direction);
-        if(direction==="right" && distance>10){
-            ArrowLeftChangePage();
-        }else if(direction==="left" && distance>10){
-            ArrowRightChangePage();
-        }else if(direction==="down" && distance>10){
-			if(scroll_horizontal < distance ){
-				scroll_horizontal = 0;
-			}
-			else{
-				scroll_horizontal = scroll_horizontal - distance;
-			}
-			$('html, body').stop().animate({
-				scrollTop: scroll_horizontal
-			}, 500, 'linear');
-		}
-		else if(direction ==="up" && distance>10){
-			if(scroll_horizontal+distance >= $('body').height() ){
-				scroll_horizontal = $('body').height;
-			}
-			else{
-				scroll_horizontal = scroll_horizontal + distance;
-			}
-			if(scroll_horizontal <= $('body').height()){
-				$('html, body').stop().animate({
-					scrollTop: scroll_horizontal
-				}, 500, 'linear');
-			}
-		}
-    }
-  });
 
-  $("body").swipe();
+function isMobile() {
+  try{ document.createEvent("TouchEvent"); return true; }
+  catch(e){ return false; }
+}
+
+$(function() {
+	if(isMobile()){
+	  $("body").swipe( {
+          swipeLeft:function(event, direction, distance, duration, fingerCount) {
+			ArrowRightChangePage();
+		  },
+          swipeRight:function(event, direction, distance, duration, fingerCount) {
+			ArrowLeftChangePage();
+          }
+	   });
+	}else{
+		$("article").addClass("noSwipe");
+	}
+
+    var swipeOptions=
+           {
+               threshold: 150,
+               allowPageScroll:"auto"
+           };
+
+  $("body").swipe(swipeOptions);
 });
 
 //Script from forum.php
