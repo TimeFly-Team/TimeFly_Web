@@ -204,7 +204,7 @@ function getForums($conn)
 	$sql = mysqli_query($conn, "SELECT * FROM forums WHERE visible < ".(isLoggedUser() ? "2" : "1")." ORDER BY forum_id");
 	while ($row = mysqli_fetch_array($sql))
 	{
-	 	$result[] = array("forum_id" => $row['forum_id'], "forum_name" => $row['text'], "forum_access" => $row['access']);
+	 	$result[] = array("forum_id" => $row['forum_id'], "forum_name" => $row['text'], "forum_access" => $row['access'], "visible" => $row['visible']);
 	}
 	echo json_encode($result);
 }
@@ -218,11 +218,11 @@ function getTopics($conn, $sql)
 	{
 		if (isLoggedUser() && !is_null($row['name']))
 		{
-			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => "(".$row['name'].")   ".$row['text'], "topic_lock" => $row['lock']);
+			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => "(".$row['name'].")   ".$row['text'], "topic_lock" => $row['lock'], "visible" => $row['visible']);
 		}
 		else
 		{
-			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => $row['text'], "topic_lock" => $row['lock']);
+			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => $row['text'], "topic_lock" => $row['lock'], "visible" => $row['visible']);
 		}
 	} 
  }
@@ -250,7 +250,7 @@ function getComments($conn,$topic_id)
  $sql = mysqli_query($conn,"SELECT * FROM comments c, users u WHERE u.user_id=c.user_id AND c.topic_id=".$topic_id." AND c.visible < ".(isLoggedUser() ? "2" : "1")." ORDER BY c.timestamp ASC");
  while ($row = mysqli_fetch_array($sql))
  {
-	 $result[] = array("comment_id" => $row['comment_id'], "user_name" => $row['name'], "text" => $row['text'], "time" => $row['timestamp']);
+	 $result[] = array("comment_id" => $row['comment_id'], "user_name" => $row['name'], "text" => $row['text'], "time" => $row['timestamp'], "visible" => $row['visible']);
  }
  echo json_encode($result);
 }

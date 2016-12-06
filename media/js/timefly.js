@@ -270,7 +270,7 @@ $(function() {
 
 //Script from forum.php
 
-var symbolDict = {0:"exclamation", 1:"check"};
+var symbolDict = {0:"exclamation", 1:"check", 2:"eye", 3:"eye-slash"};
 
 var addForumButton = '<div id="new_forum_div" class="new_forum">' +
 						'<button  type="button" onclick="removetext(\'.tema\');$(\'.add_theme\').show();">' +
@@ -387,9 +387,9 @@ var editItemForm =	'<div id="edit_item_div" class="edit_item" >' +
 
 var settingsList = ["Rename", "Delete", "Privacy", "Lock"];
 					
-function settings(type, id)
+function settings(type, id, flag = false)
 {	
-	setDropdownMenu(type, id);
+	setDropdownMenu(type, id, flag);
 	destroyEditForm();
 	
 	for (i = 0 ; i < settingsList.length ; i++)
@@ -406,20 +406,20 @@ function settings(type, id)
 	}	
 }
 
-function setDropdownMenu(type, id)
+function setDropdownMenu(type, id, flag)
 {
 	document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML = '<li> <a id="setting_Rename"  onclick=""> Rename </a> </li>' +
 																	'<li> <a id="setting_Delete"  onclick=""> Delete </a> </li>' +
 																	'<li> <a id="setting_Privacy"  onclick=""> Public/Private </a> </li>';
-	if (hasItemLockSetting(type, id))
+	if (hasItemLockSetting(type, id, flag))
 	{
-		document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML += '<li> <a id="setting_Lock"  onclick=""> Lock/Unlock </a> </li>';
+		document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML += '<li> <a id="setting_Lock"  onclick=""> Resolved/Unresolved </a> </li>';
 	}
 }
 
-function hasItemLockSetting(type, id)
+function hasItemLockSetting(type, id, flag)
 {
-	if (type == "Topic")
+	if (type == "Topic" && flag == 2)
 	{
 		return true;
 	}
@@ -462,7 +462,7 @@ var settingsFunctionsDict = {
 	{
 		if (type == "Forum" && id < 3)
 		{
-			echoMessage("It is not possible delete this forum.");
+			echoMessage("It is not possible delete this forum.", false);
 			return;
 		}
 		callPHP("type="+type+"&id="+id+"&column=visible"+"&value=2", "editItem.php",
@@ -485,15 +485,27 @@ var settingsFunctionsDict = {
 		callPHP("type="+type+"&id="+id+"&column=visible"+"&value=!visible", "editItem.php",
 			function (args)
 			{
-				if (args[0])
+				if (args[2])
 				{
+					var tag = document.getElementById('tag1_' + args[0] + '_' + args[1]);
+					if (tag !== null)
+					{
+						if (tag.className == 'fa fa-eye pl10 pr10 tooltipx')
+						{
+							tag.className = 'fa fa-eye-slash pl10 pr10 tooltipx';
+						}
+						else
+						{
+							tag.className = 'fa fa-eye pl10 pr10 tooltipx';
+						}
+					}
 					echoMessage('Changes were successful.', true);
 				}
 				else
 				{
 					echoMessage('Error occurred during changing privacy settings of item.', false);
 				}
-			}
+			}, [type, id]
 		);		
 	},
 	"Lock": function (type, id)
@@ -506,13 +518,13 @@ var settingsFunctionsDict = {
 					var tag = document.getElementById('tag_' + args[0] + '_' + args[1]);
 					if (tag !== null)
 					{
-						if (tag.className == 'fa fa-exclamation')
+						if (tag.className == 'fa fa-exclamation tooltipx')
 						{
-							tag.className = 'fa fa-check';
+							tag.className = 'fa fa-check tooltipx';
 						}
 						else
 						{
-							tag.className = 'fa fa-exclamation';
+							tag.className = 'fa fa-exclamation tooltipx';
 						}
 					}
 					echoMessage('Changes were successful.', true);
@@ -546,7 +558,12 @@ var createItemViewDict = {
 								'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
 								'<ul id="dropdown_ul_Forum_' + forum.forum_id + '" class="dropdown-menu">' +
 								'</ul>' +
-							'</div>'
+							'</div>' +
+							'<i id="tag1_Forum_' + forum.forum_id + '" class="fa fa-' + symbolDict[1*forum.visible + 2] + ' pl10 pr10 tooltipx" aria-hidden="true">' +
+								'<span class="tooltipxtext">' +
+									'Public/Private' +
+								'</span>' +
+							'</i>'
 						:
 							''
 						) +
@@ -570,18 +587,31 @@ var createItemViewDict = {
 						
 						(isLogged()
 						?
-						
+					
 							'<div class="dropdown">' +
-								'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Topic\','+topic.topic_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
+								'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Topic\','+topic.topic_id+', '+ topic.forum_id +')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
 								'<ul id="dropdown_ul_Topic_' + topic.topic_id + '" class="dropdown-menu">' +
 								'</ul>' +
-							'</div>'
+							'</div>' +
+							'<i id="tag1_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[1*topic.visible + 2] + ' pl10 pr10 tooltipx" aria-hidden="true">' +
+								'<span class="tooltipxtext">' +
+									'Public/Private' +
+								'</span>' +
+							'</i>'
 						:
 							''
 						) +
 						
-						//(topic.forum_id == 2 ? '<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' : '') +
-						'<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' +
+						(topic.forum_id == 2
+						?
+							'<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + ' tooltipx" aria-hidden="true">' +
+								'<span class="tooltipxtext">' +
+									'Resolved/Unresolved' +
+								'</span>' +
+							'</i>'
+						:
+							''
+						) +
 						
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
@@ -595,24 +625,31 @@ var createItemViewDict = {
 		return  '<div id="item_Comment_'+comment.comment_id+'">' +
 					'<div class="media">' +
 						'<div class="media-body">' +
-							'<h4 class="media-heading">' + comment.user_name + '<small><i>  Posted on ' + comment.time + '</i></small></h4>' +
+							'<h4 class="media-heading">' + comment.user_name + '<small><i>  Posted on ' + comment.time + '</i></small>' +
+							
+							(isLogged()
+							?
+							
+								'<div class="dropdown">' +
+									'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Comment\','+comment.comment_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
+									'<ul id="dropdown_ul_Comment_' + comment.comment_id + '" class="dropdown-menu">' +
+									'</ul>' +
+								'</div>' +
+								'<i id="tag1_Comment_' + comment.comment_id + '" class="fa fa-' + symbolDict[1*comment.visible + 2] + ' pl10 pr10 tooltipx" aria-hidden="true">' +
+										'<span class="tooltipxtext">' +
+											'Public/Private' +
+										'</span>' +
+								'</i>'
+							:
+								''
+							) + '</h4>' +
+							
 							'<p id="a_Comment_' + comment.comment_id + '">' + comment.text + '</p>' +
 							
 						'</div>' +
 						
 					'</div>' +
 					
-					(isLogged()
-					?
-					
-						'<div class="dropdown">' +
-							'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Comment\','+comment.comment_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
-							'<ul id="dropdown_ul_Comment_' + comment.comment_id + '" class="dropdown-menu">' +
-							'</ul>' +
-						'</div>'
-					:
-						''
-					) +
 				'</div>';
 	}
 };
