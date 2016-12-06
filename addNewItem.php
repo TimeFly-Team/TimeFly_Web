@@ -1,5 +1,6 @@
 <?php
 require_once(dirname(__FILE__)."/functions.php");
+require_once(dirname(__FILE__)."/lib/emailSending/Sender.php");
 
 session_start();
 
@@ -19,6 +20,14 @@ if (isset($_POST['type']))
 	else if ($_POST['type'] == 'comment')
 	{
 		$result = createAndGetNewComment($conn, $_POST['topic'], $_POST['desc'], $_POST['user']);
+		if($result)
+		{		
+			if($mail=getEmailFromTopicFounder($conn,$_POST['topic']))
+			{
+				$sender = new Sender();
+				$sender->send($mail, $_POST['desc'] , "TimeFly team");
+			}
+		}
 	}
 	
 	echo $result;

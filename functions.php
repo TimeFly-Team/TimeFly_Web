@@ -370,5 +370,18 @@ function getCommentForSearchTopic($conn,$text,$topic_id)
     echo json_encode($result);    
 }
 
+function getEmailFromTopicFounder($conn,$topic_id)
+{
+    $sql = "SELECT u.name as mail FROM topics t JOIN comments c on t.topic_id = c.topic_id JOIN users u on u.user_id = c.user_id WHERE t.user_id IS NOT NULL AND t.topic_id = ".$topic_id." AND t.topic_id = c.topic_id ORDER BY c.timestamp LIMIT 1";
+    if($result = mysqli_query($conn,$sql))
+    {
+      if($row = mysqli_fetch_array($result))
+      {
+          return $row['mail']; 
+      }
+    }
+    return false;
+}
+
 ?>
 

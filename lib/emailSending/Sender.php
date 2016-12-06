@@ -1,6 +1,6 @@
 <?php
 
-require '../../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+require_once(dirname(__FILE__)."/../../vendor/phpmailer/phpmailer/PHPMailerAutoload.php");
 
 class Sender
 {
@@ -38,8 +38,5 @@ class Sender
 		return true;
 	}
 }
-
-$sender = new Sender();
-$sender->send("koza9@uniba.sk", "skuska z timefly", "Karl");
 
 ?>
