@@ -385,13 +385,32 @@ var editItemForm =	'<div id="edit_item_div" class="edit_item" >' +
 						'</form>' +
 					'</div>';
 
+var editCommentForm =	'<div id="edit_item_div" class="edit_item" >' +
+						'<form class="send_theme">' +
+							'<div class="row">' +
+								'<div class="col-md-12">' +
+									'<p>Text:</p>' +
+									'<textarea id="new_item_text" class="tema" name="question" rows="4"></textarea>' +
+								'</div>' +
+							'</div>' +
+							'<div class="row">' +
+								'<div class="col-md-12">' +
+									'<div class="tlacidla">' +
+										'<button type="button" onclick="$(\'.edit_item\').hide();">Cancel</button>' +
+										'<button id="new_item_text_submit" type="button" onclick="">Submit</button>' +
+									'</div>' +
+								'</div>' +
+							'</div>' +
+						'</form>' +
+					'</div>';
+
+					
 var settingsList = ["Rename", "Delete", "Privacy", "Lock"];
 					
 function settings(type, id, flag = false)
 {	
 	setDropdownMenu(type, id, flag);
 	destroyEditForm();
-	
 	for (i = 0 ; i < settingsList.length ; i++)
 	{
 		var setttingButton = document.getElementById('setting_' + settingsList[i]);
@@ -404,7 +423,7 @@ function settings(type, id, flag = false)
 				document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML = "";
 			};
 		}(i, type, id)
-	}	
+	}
 }
 
 function setDropdownMenu(type, id, flag)
@@ -439,7 +458,14 @@ function destroyEditForm()
 var settingsFunctionsDict = {
 	"Rename": function (type, id)
 	{
-		document.getElementById("item_"+type+"_"+id).innerHTML += editItemForm;
+		if (type == "Comment")
+		{
+			document.getElementById("item_"+type+"_"+id).innerHTML += editCommentForm;
+		}
+		else
+		{
+			document.getElementById("item_"+type+"_"+id).innerHTML += editItemForm;
+		}
 		document.getElementById('new_item_text_submit').onclick = function ()
 		{
 			callPHP("type="+type+"&id="+id+"&column=text"+"&value="+'"'+document.getElementById("new_item_text").value+'"', "editItem.php",
@@ -583,7 +609,7 @@ var createItemViewDict = {
 		return  '<div id="item_Topic_'+topic.topic_id+'" class="panel panel-default">' +
 					'<div class="panel-heading">' +
 						'<h4 class="panel-title">' +
-							'<a id="a_Topic_' + topic.topic_id + '" data-toggle="collapse" data-parent="#level2" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name  + '</a>' +
+							'<a id="a_Topic_' + topic.topic_id + '" data-toggle="collapse" data-parent="#panel_0_' + topic.forum_id + '" onclick="getItems(\'Comment\','+topic.topic_id+')" href="' + "#" + levelId + '">' + topic.topic_name  + '</a>' +
 						'</h4>' +
 						
 						(isLogged()
@@ -874,7 +900,7 @@ function setAddQuestionSubmit(id)
 					+ "&moderator=" + id, "addNewItem.php",
 						function (args)
 						{
-							if (args[0])
+							if (args[0] != false)
 							{
 								echoMessage("Question was send", true);
 							}

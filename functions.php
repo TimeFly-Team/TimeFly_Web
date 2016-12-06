@@ -107,7 +107,7 @@ function getSqlInsertTopic($forum_id, $name, $user_id)
 	{
 		return "INSERT INTO topics (forum_id, text) VALUES (".$forum_id.",\"".$name."\")";
 	}
-	return "INSERT INTO topics (forum_id, text, user_id) VALUES (".$forum_id.",\"".$name."\",".$user_id.")";
+	return "INSERT INTO topics (forum_id, text, user_id, visible) VALUES (".$forum_id.",\"".$name."\",".$user_id.", 1)";
 }
 
 //Pridanie komentára
@@ -142,7 +142,7 @@ function getTopicById($conn, $topic_id)
 
 function canUserAddComment($conn, $topic)
 {
-	if (isLoggedUser() || (is_null($topic['user_id']) && getForumById($conn, $topic['forum_id'])['access'] < 2))
+	if (isLoggedUser() || getForumById($conn, $topic['forum_id'])['access'] < 2)
 	{
 		return true;
 	}
@@ -320,7 +320,14 @@ function editItem($conn, $type, $id, $column, $value)
 	{
 		$value = '!t.'.substr($value,1);
 	}
-	$sql = 'UPDATE '.strtolower($type).'s t SET t.'.strtolower($column).' = '.$value.' WHERE t.'.strtolower($type).'_id='.$id;
+	if ($type == "Topic" && $column == "visible")
+	{
+		$sql = 'UPDATE '.strtolower($type).'s t SET t.'.strtolower($column).' = '.$value.', user_id = NULL WHERE t.'.strtolower($type).'_id='.$id;
+	}
+	else
+	{
+		$sql = 'UPDATE '.strtolower($type).'s t SET t.'.strtolower($column).' = '.$value.' WHERE t.'.strtolower($type).'_id='.$id;
+	}
 	return isLoggedUser() && mysqli_query($conn, $sql);
 }
 
