@@ -18,12 +18,12 @@ function generateModerator($moderator)
 					<p>Tel: '.$moderator['property1'].'</p>
 					<p>Email: '.$moderator['property2'].'</p>
 					<p>Twiter: '.$moderator['property3'].'</p>
-					<button class="button button_kontakt" type="button" onclick="ContactToogle(\'#message_'.$id.'\',\'#moderator_'.$id.'\');">Contact</button>
+					<button class="button button_kontakt" type="button" onclick="ContactToogle(\'#message_'.$id.'\',\'#moderator_'.$id.'\'); hideMailIfLogged();">Contact</button>
 				</div>
 				<div id="message_'.$id.'" class="message" >
 					<form class="send_message">
-						<p>Your mail:</p>
-						<input id="add_question_mail_'.$id.'" class="mail" type="email"  name="yourmail" value=""><br>
+						<p class="mail_hide">Your mail:</p>
+						<input id="add_question_mail_'.$id.'" class="mail mail_hide" type="email"  name="yourmail" value=""><br>
 						<p>Question name:</p>
 						<input id="add_question_topic_name_'.$id.'" class="tema" type="text" name="tema" value=""><br>
 						<p>Description:</p>

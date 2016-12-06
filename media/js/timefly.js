@@ -305,7 +305,7 @@ var addTopicButton = '<div id="new_topic_div" class="new_topic">' +
 var addTopicForm =	'<div id="add_topic_div" class="add_topic" >' +
 						'<form class="send_topic">' +
 							'<div class="row">' +
-								'<div class="col-md-3">' +
+								'<div class="col-md-3 mail_hide">' +
 									'<p>Your email:</p>' +
 									'<input id="topic_mail" class="mail" type="email"  name="yourmail" value="">' +
 								'</div>' +
@@ -341,7 +341,7 @@ var addCommentButton = '<div id="new_reply_div" class="new_reply">' +
 						
 var addCommentForm	 =	'<div id="add_reply_div" class="add_reply">' +
 							'<form class="send_reply">' +
-								'<div class="row">' +
+								'<div class="row mail_hide">' +
 									'<div class="col-md-3">' +
 										'<p>Your email:</p>' +
 										'<input id="reply_mail" class="mail" type="email"  name="yourmail" value="">' +
@@ -620,6 +620,13 @@ var createItemViewDict = {
 var onAddItemClickDict = {	
 	"Forum": function(id)
 	{
+		if (!validateItemName(document.getElementById('theme_name').value))
+		{
+			echoMessage("This field must not be empty.", false);
+			$('#theme_name').css({"border":"2px solid red"});
+			return;
+		}
+		$('#theme_name').css({"border":"1px solid #ddd"});
 		callPHP("type=forum" + "&name=" + document.getElementById('theme_name').value,
 				"addNewItem.php", function(args)
 				{
@@ -641,6 +648,20 @@ var onAddItemClickDict = {
 	},
 	"Topic": function(id)
 	{
+		if (!isLogged() && !validateEmail(document.getElementById('topic_mail').value))
+		{
+			echoMessage("Your mail is not valid.", false);
+			$("#topic_mail").css({"border":"2px solid red"});
+			return;
+		}
+		$("#topic_mail").css({"border":"1px solid #ddd"});
+		if (!validateItemName(document.getElementById('topic_tema').value))
+		{
+			echoMessage("This field must not be empty.", false);
+			$('#topic_tema').css({"border":"2px solid red"});
+			return;
+		}
+		$('#topic_tema').css({"border":"1px solid #ddd"});
 		callPHP("type=topic" + "&forum=" + id
 			+ "&name=" + document.getElementById('topic_tema').value
 			+ "&user=" + document.getElementById('topic_mail').value
@@ -665,6 +686,14 @@ var onAddItemClickDict = {
 	},
 	"Comment": function(id)
 	{
+		if (!isLogged() && !validateEmail(document.getElementById('reply_mail').value))
+		{
+			echoMessage("Your mail is not valid.", false);
+			$("#reply_mail").css({"border":"2px solid red"});
+			return;
+		}
+		$("#reply_mail").css({"border":"1px solid #ddd"});
+		
 		callPHP("type=comment" + "&topic=" + id
 			+ "&user=" + document.getElementById('reply_mail').value
 			+ "&desc=" + document.getElementById('reply_desc').value,
@@ -689,6 +718,24 @@ var onAddItemClickDict = {
 	}
 };
 
+function hideMailIfLogged()
+{
+	if (isLogged())
+	{
+		$('.mail_hide').css({"display":"none"});
+	}
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function validateItemName(name)
+{
+	return name.trim() != "";
+}
+
 var setItemsToHTMLDict = {	
 	"Forum": function(type, id, responseText)
 	{
@@ -702,6 +749,7 @@ var setItemsToHTMLDict = {
 	"Topic": function(type, id, responseText)
 	{
 		document.getElementById("panel_0_" + id).innerHTML = showItems(type, JSON.parse(responseText)) + addTopicButton + addTopicForm;
+		hideMailIfLogged();
 		document.getElementById("new_topic_div").style.display = "block";
 		if (forumsAccess[id] > 0 && !isLogged())
 		{
@@ -711,6 +759,7 @@ var setItemsToHTMLDict = {
 	"Comment": function(type, id, responseText)
 	{
 		document.getElementById("panel_2_" + id).innerHTML = showItems(type, JSON.parse(responseText)) + addCommentButton + addCommentForm;
+		hideMailIfLogged();
 	}
 };
 
@@ -746,6 +795,20 @@ function setAddQuestionSubmit(id)
 	{
 		return function ()
 		{		
+			if (!isLogged() && !validateEmail(document.getElementById('add_question_mail_' + id).value))
+			{
+				echoMessage("Your mail is not valid.", false);
+				$('#add_question_mail_' + id).css({"border":"2px solid red"});
+				return;
+			}
+			$('#add_question_mail_' + id).css({"border":"1px solid #ddd"});
+			if (!validateItemName(document.getElementById('add_question_topic_name_' + id).value))
+			{
+				echoMessage("This field must not be empty.", false);
+				$('#add_question_topic_name_' + id).css({"border":"2px solid red"});
+				return;
+			}
+			$('#add_question_topic_name_' + id).css({"border":"1px solid #ddd"});
 			callPHP("type=topic" + "&forum=2"
 					+ "&name=" + document.getElementById('add_question_topic_name_' + id).value
 					+ "&user=" + document.getElementById('add_question_mail_' + id).value
