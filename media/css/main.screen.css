@@ -1438,7 +1438,7 @@ a.underline {
 
 .tooltipx .tooltipxtext {
     visibility: hidden;
-    width: 120px;
+    width: auto;
     background-color: #555;
     color: #fff;
     text-align: center;
