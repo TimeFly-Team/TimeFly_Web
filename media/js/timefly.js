@@ -812,16 +812,8 @@ var setItemsToHTMLDict = {
 	},
 	"Topic": function(type, id, responseText)
 	{
-		var elem = document.getElementById('new_topic_div');
-		if (elem !== null)
-		{
-			elem.parentNode.removeChild(elem);
-		}
-		elem = document.getElementById('add_topic_div');
-		if (elem !== null)
-		{
-			elem.parentNode.removeChild(elem);
-		}
+		delNewTopicForm();
+		delNewCommentForm();
 		document.getElementById("panel_0_" + id).innerHTML = showItems(type, JSON.parse(responseText)) + addTopicButton + addTopicForm;
 		hideMailIfLogged();
 		document.getElementById("new_topic_div").style.display = "block";
@@ -832,20 +824,39 @@ var setItemsToHTMLDict = {
 	},
 	"Comment": function(type, id, responseText)
 	{
-		var elem = document.getElementById('new_comment_div');
-		if (elem !== null)
-		{
-			elem.parentNode.removeChild(elem);
-		}
-		elem = document.getElementById('add_comment_div');
-		if (elem !== null)
-		{
-			elem.parentNode.removeChild(elem);
-		}
+		delNewCommentForm();
 		document.getElementById("panel_2_" + id).innerHTML = showItems(type, JSON.parse(responseText)) + addCommentButton + addCommentForm;
 		hideMailIfLogged();
 	}
 };
+
+function delNewCommentForm()
+{
+	var elem = document.getElementById('new_comment_div');
+	if (elem !== null)
+	{
+		elem.parentNode.removeChild(elem);
+	}
+	elem = document.getElementById('add_comment_div');
+	if (elem !== null)
+	{
+		elem.parentNode.removeChild(elem);
+	}
+}
+
+function delNewTopicForm()
+{
+	var elem = document.getElementById('new_topic_div');
+	if (elem !== null)
+	{
+		elem.parentNode.removeChild(elem);
+	}
+	elem = document.getElementById('add_topic_div');
+	if (elem !== null)
+	{
+		elem.parentNode.removeChild(elem);
+	}
+}
 
 function getItems(type, id)
 {
