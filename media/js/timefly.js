@@ -651,12 +651,17 @@ var createItemViewDict = {
 						(topic.forum_id == 2
 						?
 							'<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + ' tooltipx" aria-hidden="true">' +
-								'<span class="tooltipxtext">' +
+							(!isMobile()
+							?
+							'<span class="tooltipxtext">' +
 									'Resolved/Unresolved' +
-								'</span>' +
+								'</span>'
+								: ""
+						)+
 							'</i>'
 						:
 							''
+
 						) +
 						
 					'</div>' +
