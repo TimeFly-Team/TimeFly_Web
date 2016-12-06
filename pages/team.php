@@ -42,8 +42,7 @@ function generateModerator($moderator)
 	<div class="container article under_nav team">
 		<div class="row">
 			<div class="col-md-12 text-center pb35 nadpis">
-				<h1>Lorem ipsum dolor sit amet.</h1>
-				<h4>Lorem ipsum dolor sit amet.</h4>
+				<h1>TimeFly team</h1>
 			</div>
 		</div>
 		<div id="moderators_row" class="row">

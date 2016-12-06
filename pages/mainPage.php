@@ -5,23 +5,51 @@
 			
 				login = a@a.a
 				<br>
-				password = abc
+				password = abc         
 				
 				<hr>
-			
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu metus lorem. Phasellus ut nunc orci. Duis facilisis euismod mauris, at faucibus dui pulvinar ultricies. Donec ut massa tincidunt nulla tincidunt aliquet ac at ante. Nam quis porta lectus. Integer elementum sapien efficitur tellus viverra fringilla. Donec vitae lectus sit amet ligula sollicitudin malesuada. Maecenas et urna at ipsum gravida placerat rhoncus sagittis erat. Aenean posuere diam ex, quis congue nisl sodales nec. Sed sit amet tempor nibh.
-				Pellentesque malesuada urna vel lectus faucibus euismod. Duis eget pulvinar metus, eget luctus est. Aliquam posuere sed leo non vestibulum. Nulla in ante sed purus finibus imperdiet at vitae sapien. Proin ornare mi a feugiat rhoncus. Nulla facilisi. Praesent metus justo, vulputate ac lacinia vel, rutrum id nisi. Nulla vel turpis et nunc viverra mollis nec vitae risus. Morbi egestas diam et condimentum mollis. Aliquam eget consequat lacus. Pellentesque feugiat mattis porttitor. Cras erat nunc, dapibus vitae rutrum vel, malesuada ac turpis. Pellentesque egestas luctus elit eu lacinia.
-				Aliquam et felis eget neque convallis tristique tristique et odio. Cras nunc diam, volutpat et facilisis non, imperdiet ac lorem. Quisque et malesuada ante. Integer quis elit nec nunc fermentum suscipit ac eu enim. Integer ac sem lorem. Aliquam erat volutpat. Pellentesque euismod purus ex, sit amet commodo quam facilisis et.
-				Quisque varius viverra sem vitae tempus. Mauris commodo urna vel lacinia scelerisque. Nam ac odio nec justo scelerisque commodo sit amet in nulla. Praesent eget facilisis ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla tempor purus a convallis ultricies. Integer fermentum aliquam tortor, at volutpat metus mattis sit amet. Fusce purus mauris, tincidunt ac dictum quis, aliquet quis purus. Curabitur euismod tellus nunc. Donec pretium mi fringilla, maximus lorem sed, tempus enim. Mauris vel est pharetra, placerat erat quis, molestie sapien. Praesent risus purus, varius at leo eu, egestas interdum tortor. Donec elementum odio sed augue finibus vehicula. Nam non venenatis velit.
-				Donec rutrum elementum elit et eleifend. Pellentesque ut sapien elit. Mauris non consequat lorem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla massa dui, semper quis neque ac, venenatis sagittis tortor. Pellentesque ut vulputate enim. Maecenas et ligula vitae turpis rhoncus facilisis sed auctor mauris. Curabitur eu tempus ex, egestas pharetra nibh. Suspendisse potenti. Nunc lacinia ullamcorper consectetur. Mauris porttitor gravida purus, auctor rutrum felis luctus at. Sed varius, mauris quis vestibulum gravida, ante est vestibulum velit, vitae tristique mi urna et massa. Curabitur finibus cursus mi, et varius velit dictum a. Integer vel neque non purus cursus egestas vitae at velit. Etiam hendrerit rutrum felis, euismod porta ante. Sed non quam ac augue posuere ullamcorper.
-			</div>
+        <div class="text-center">
+          <h1>Mobile application</h1>
+          <p><b>Past content diseppearing into the masses?</b></p>
+          <p><b>Albums too static and linear?</b></p>
+          <p><b>Annoyed with irrelevant content?</b></p>  
+        </div>
+        <div class="newspaper">
+        Our vision is to take photo and album sharing to the next generation, making it smarter, more intuitive, and adaptive. Dispersing with irrelevant content and spam, and
+        instead tuning the relationship between user and application.<br> 
+        Borrowing from existing scrolling systems, andding additional dimensions, preventing scrolling from being
+        limited to up and down.<br>
+        What if at the swipe or your hand you could travel not just back and forth in time, as you do on a traditional wall? But what if you could move with
+        relevance, what if the parameters that matter to you as a user define the content you see every day?<br>
+        Content from years ago will flood you with memories you didn't know 
+        you still had at the more flourish of your finger.<br>
+        Locations, people, times will present no boundaries for what you see, insted they will help bring to life your past.<br>
+        But not only your own content will be relevant, combining data from all
+        postings will allow you to always see memories from new angles, different perspectives, and here the growth will be exponential.<br> 
+        Imagine sitting with friends and having your best moments flow before you, breaking the norm of one divece
+        for one person, now you can sit as many as will fit, and content will always be relevant, not limited.
+			  </div>
+      </div>
 		</div>
 	</div>
 	<div id="about" class="container about_us">
+  	
+    <div>		
+      <div class="gray-border-bottom"> 
+      <div class="col-md-12 text-center pb35 nadpis">
+			  <h2>So what is TimeFly today?</h2> 
+		  </div>
+       <p>
+      Together with our users we are the next generation photo and album sharing, where content is generated in a sandbox environment, based on parameters supplied inrealtime.<br> 
+      Interaction is done through a multi dimensional UI, moving the focus from device to people, bringing us together and reminding us not just of who we are now,
+      but how we came to be there.<br>
+      More informations and answers can be found on the <a class="underline" onclick="ChangePage('#forum');">blog</a> page.
+      </p>
+	  </div>
 		<div class="row">
 			<div class="col-md-12 text-center pb35 nadpis">
-				<h1>Lorem ipsum dolor sit amet.</h1>
-				<h4>Lorem ipsum dolor sit amet.</h4>
+				<h1>Building your story</h1>
+				<h2>How we bring your photos back to life!</h2>
 			</div>
 		</div>
 		<div class="row">
@@ -29,36 +57,44 @@
 				<div class="bg-circle">
 					<img class="img-circle" src="media/img/album.png" alt="" />
 				</div>
+        <h3 class="red-border-bottom">
+            SMART ALBUMS    
+        </h3>
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu metus lorem. Phasellus ut nunc orci. Duis facilisis euismod mauris, at faucibus dui pulvinar ultricies. Donec ut massa tincidunt nulla tincidunt aliquet ac at ante. Nam quis porta lectus. Integer elementum sapien efficitur tellus viverra fringilla. Donec vitae lectus sit amet ligula sollicitudin malesuada. Maecenas et urna at ipsum gravida placerat rhoncus sagittis erat. Aenean posuere diam ex, quis congue nisl sodales nec. Sed sit amet tempor nibh.
-					Pellentesque malesuada urna vel lectus faucibus euismod.
+          Albums updating in real-time to provide you with the content you want to see! No more browsing through thousands of pictures. Instead your content is delivered to you on a silver platter.
 				</p>
 			</div>
 			<div class="col-md-3">
 				<div class="bg-circle">
 					<img class="img-circle" src=media/img/3d.jpg alt="timefly">
 				</div>
+        <h3 class="green-border-bottom">
+          3D BROWSING
+        </h3>
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu metus lorem. Phasellus ut nunc orci. Duis facilisis euismod mauris, at faucibus dui pulvinar ultricies. Donec ut massa tincidunt nulla tincidunt aliquet ac at ante. Nam quis porta lectus. Integer elementum sapien efficitur tellus viverra fringilla. Donec vitae lectus sit amet ligula sollicitudin malesuada. Maecenas et urna at ipsum gravida placerat rhoncus sagittis erat. Aenean posuere diam ex, quis congue nisl sodales nec. Sed sit amet tempor nibh.
-					Pellentesque malesuada urna vel lectus faucibus euismod.
+          We are disrupting the way users browse albums. Not even the digital age managed to change the way we browse our images. From booklet photo albums to folders on a screen, nothing changed.
 				</p>
 			</div>
 			<div class="col-md-3">
 				<div class="bg-circle">
 					<img class="img-circle" src=media/img/user-input.jpg alt="timefly">
 				</div>
+        <h3 class="blue-border-bottom">
+          USER INPUT
+        </h3>
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu metus lorem. Phasellus ut nunc orci. Duis facilisis euismod mauris, at faucibus dui pulvinar ultricies. Donec ut massa tincidunt nulla tincidunt aliquet ac at ante. Nam quis porta lectus. Integer elementum sapien efficitur tellus viverra fringilla. Donec vitae lectus sit amet ligula sollicitudin malesuada. Maecenas et urna at ipsum gravida placerat rhoncus sagittis erat. Aenean posuere diam ex, quis congue nisl sodales nec. Sed sit amet tempor nibh.
-					Pellentesque malesuada urna vel lectus faucibus euismod.
+          As users interact with the application, their input will directly affect the content they access. The user is in charge of their journey through TimeFly, making it more relevant the more they interact with the application.
 				</p>
 			</div>
 			<div class="col-md-3">
 				<div class="bg-circle">
 					<img class="img-circle" src=media/img/matrix.jpg alt="timefly">
 				</div>
+        <h3 class="yellow-border-bottom">
+          ALGORITHM
+        </h3>
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu metus lorem. Phasellus ut nunc orci. Duis facilisis euismod mauris, at faucibus dui pulvinar ultricies. Donec ut massa tincidunt nulla tincidunt aliquet ac at ante. Nam quis porta lectus. Integer elementum sapien efficitur tellus viverra fringilla. Donec vitae lectus sit amet ligula sollicitudin malesuada. Maecenas et urna at ipsum gravida placerat rhoncus sagittis erat. Aenean posuere diam ex, quis congue nisl sodales nec. Sed sit amet tempor nibh.
-					Pellentesque malesuada urna vel lectus faucibus euismod.
+          Essentially the algorithm is the manual labor a user would have been doing when they browsed through thousands of pictures. Instead the process is automated, serving pictures up in real-time without the frustration.
 				</p>
 			</div>
 		</div>

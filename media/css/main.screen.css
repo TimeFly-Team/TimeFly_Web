@@ -117,6 +117,9 @@ article{
     color: #d1d1d1;
     margin-bottom: 20px;
 }
+h2{
+    color: #494949;  
+}
 .about_us p {
     margin-top: 20px;
 }
@@ -1335,4 +1338,37 @@ footer .login .tlacidla input{
 .mhn30 {
   margin-left: -30px !important;
   margin-right: -30px !important;
+}
+
+
+
+.red-border-bottom{
+  border-bottom: 1px red solid;
+}
+.green-border-bottom{
+  border-bottom: 1px green solid;
+}
+.blue-border-bottom{
+  border-bottom: 1px blue solid;
+}
+.yellow-border-bottom{
+  border-bottom: 1px yellow solid;
+}
+.gray-border-bottom{
+  #border-bottom: 1px #BDBDBD solid;
+  margin: 110px 0 120px 0;
+}
+.newspaper {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+
+    -webkit-column-gap: 30px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 30px; /* Firefox */
+    column-gap: 30px;
+    margin-top: 50px;
+}
+a.underline{
+  color: green;
+  text-decoration: underline;
 }

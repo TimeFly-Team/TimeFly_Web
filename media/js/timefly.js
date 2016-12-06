@@ -245,19 +245,32 @@ function ChangePage(new_page) {
     actual_page = new_page;
 };
 
-$(function() {
-  $("body").swipe( {
-    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-        console.log(direction);
-        if(direction==="right"){
-            ArrowLeftChangePage();
-        }else if(direction==="left"){
-            ArrowRightChangePage();
-        }
-    }
-  });
+function isMobile() {
+  try{ document.createEvent("TouchEvent"); return true; }
+  catch(e){ return false; }
+}
 
-  $("body").swipe();
+$(function() {
+	if(isMobile()){
+	  $("body").swipe( {
+          swipeLeft:function(event, direction, distance, duration, fingerCount) {
+			ArrowRightChangePage();
+		  },
+          swipeRight:function(event, direction, distance, duration, fingerCount) {
+			ArrowLeftChangePage();
+          }
+	   });
+	}else{
+		$("article").addClass("noSwipe");
+	}
+
+    var swipeOptions=
+           {
+               threshold: 150,
+               allowPageScroll:"auto"
+           };
+
+  $("body").swipe(swipeOptions);
 });
 
 //Script from forum.php
