@@ -1424,11 +1424,13 @@ footer .login .tlacidla input{
     column-gap: 30px;
     margin-top: 50px;
 }
-a.underline{
-  color: green;
-  text-decoration: underline;
+a.underline {
+    color: green;
+    text-decoration: underline;
+}
 
 /* tooltip */
+
 .tooltipx {
     position: relative;
     display: inline-block;
