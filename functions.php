@@ -281,7 +281,7 @@ function createAndGetNewForum($conn, $name)
 	{
 		$result = array();
 		$forum = getForumById($conn, $id); 
-		$result[] = array("forum_id" => $forum['forum_id'], "forum_name" => $forum['text']);
+		$result[] = array("forum_id" => $forum['forum_id'], "forum_name" => $forum['text'], "visible" => $forum['visible']);
 		return json_encode($result);
 	}
 	return false;
@@ -295,7 +295,7 @@ function createAndGetNewTopic($conn, $forum, $name, $moderator, $text, $user)
 		{
 			$result = array();
 			$topic = getTopicById($conn, $topic_id);
-			$result[] = array("forum_id" => $forum ,"topic_id" => $topic['topic_id'], "topic_name" => $topic['text'], "topic_lock" => $topic['lock']);
+			$result[] = array("forum_id" => $forum ,"topic_id" => $topic['topic_id'], "topic_name" => $topic['text'], "topic_lock" => $topic['lock'], "visible" => $topic['visible']);
 			return json_encode($result);
 		}
 	}
@@ -308,7 +308,7 @@ function createAndGetNewComment($conn, $topic, $text, $user)
 	{
 		$result = array();
 		$comment = getCommentById($conn, $id); 
-		$result[] = array("comment_id" => $comment['comment_id'], "user_name" => $comment['name'], "text" => $comment['text'], "time" => $comment['timestamp']);
+		$result[] = array("comment_id" => $comment['comment_id'], "user_name" => $comment['name'], "text" => $comment['text'], "time" => $comment['timestamp'], "visible" => $comment['visible']);
 		return json_encode($result);
 	}
 	return false;
