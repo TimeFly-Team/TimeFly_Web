@@ -273,7 +273,7 @@ $(function() {
 var symbolDict = {0:"exclamation", 1:"check"};
 
 var addForumButton = '<div id="new_forum_div" class="new_forum">' +
-						'<button  type="button" onclick="$(\'.add_theme\').show();">' +
+						'<button  type="button" onclick="removetext(\'.tema\');$(\'.add_theme\').show();">' +
 							'<i class="add fa fa-plus-square" aria-hidden="true"></i>' +
 						'Add</button>' +
 					 '</div>';
@@ -298,7 +298,7 @@ var addForumForm   = '<div id="add_forum_div" class="add_theme" >' +
 					'</div>';
 					
 var addTopicButton = '<div id="new_topic_div" class="new_topic">' + 
-							'<button  type="button" onclick="$(\'.add_topic\').show();"><i class="fa fa-plus-square" aria-hidden="true"></i>' +
+							'<button  type="button" onclick="removetext(\'.mail\');removetext(\'.tema\');removetext(\'#topic_desc\');$(\'.add_topic\').show();"><i class="fa fa-plus-square" aria-hidden="true"></i>' +
 								'Add</button>' +
 					'</div>';
 
@@ -334,7 +334,7 @@ var addTopicForm =	'<div id="add_topic_div" class="add_topic" >' +
 					'</div>';
 						
 var addCommentButton = '<div id="new_reply_div" class="new_reply">' +
-							'<button  type="button" onclick="$(\'.add_reply\').show();">' +
+							'<button  type="button" onclick="removetext(\'.mail\');removetext(\'#reply_desc\');$(\'.add_reply\').show();">' +
 								'Add reply' +
 							'</button>' +
 						'</div>';
@@ -793,7 +793,7 @@ function getSearchResult(value,text)
     dataType:"json",
     success: function (response)
     {     
-          var result='';
+          var result='<b>Search results: '+text+'</b>';
           for(var i=0; i<response.length;i++){
               var levelId = "level_1_" + response[i]['topic_id'];
                   var panelId = "panel_1_" + response[i]['topic_id'];
@@ -811,6 +811,9 @@ function getSearchResult(value,text)
                             '</div>    ' +
                         '</div>' +
                     '</div>';
+           }
+           if(response.length==0){
+              result+='<p>No results</p>';
            }
            var div = document.createElement('div');
            div.innerHTML=result;
@@ -853,6 +856,11 @@ function getHTMLCosi(comment, text)
 
 function boldni(text, query)
 {
-	return text.replace(query, "<b style='color: orange'>" + query + "</b>");
+	return text.split(query).join("<b style='color: orange'>" + query + "</b>");
 }	
+
+function removetext(comu)
+{
+  $(comu).val($(comu).val().replace($(comu).val(), ''));
+}
 
