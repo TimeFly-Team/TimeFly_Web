@@ -176,21 +176,21 @@ function LeftChangePage(new_page) {
     }, 0, 'linear');
     if(new_page ==="#index"){
         $("#home").css({"display": "flex"});
-        $("#tim").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
-        $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
-        $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': '1s','animation-timing-function': 'linear','position':'relative','left':'0%'});
+        $("#tim").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': $(window).height()/1366+'s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
+        $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': $(window).height()/1366+'s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
+        $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': $(window).height()/1366+'s','animation-timing-function': 'linear','position':'relative','left':'0%'});
     }
     if(new_page ==="#tim"){
         $("#home").css({"display": "none"});
-        $("#index").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','position':'absolute','left':'100%'});
-        $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','position':'absolute','left':'100%'});
-        $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': '1s','position':'relative','left':'0%'});
+        $("#index").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'100%'});
+        $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'100%'});
+        $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': $(window).height()/1366+'s','position':'relative','left':'0%'});
     }
     if(new_page ==="#forum"){
         $("#home").css({"display": "none"});
-        $("#index").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','position':'absolute','left':'-100%'});
-        $("#tim").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','position':'absolute','left':'-100%'});
-        $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': '1s','position':'relative','left':'0%'});
+        $("#index").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'-100%'});
+        $("#tim").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'-100%'});
+        $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': $(window).height()/1366+'s','position':'relative','left':'0%'});
     }
     actual_page = new_page;
 };
@@ -200,21 +200,21 @@ function RightChangePage(new_page) {
     }, 0, 'linear');
     if(new_page ==="#index"){
         $("#home").css({"display": "flex"});
-        $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
-        $("#forum").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
-        $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'relative','left':'0%'});
+        $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': $(window).height()/1366+'s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
+        $("#forum").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': $(window).height()/1366+'s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
+        $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': $(window).height()/1366+'s','animation-timing-function': 'linear','position':'relative','left':'0%'});
     }
     if(new_page ==="#tim"){
         $("#home").css({"display": "none"});
-        $("#index").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','position':'absolute','left':'100%'});
-        $("#forum").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','position':'absolute','left':'100%'});
-        $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': '1s','position':'relative','left':'0%'});
+        $("#index").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'100%'});
+        $("#forum").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'100%'});
+        $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': $(window).height()/1366+'s','position':'relative','left':'0%'});
     }
     if(new_page ==="#forum"){
         $("#home").css({"display": "none"});
-        $("#index").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','position':'absolute','left':'-100%'});
-        $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','position':'absolute','left':'-100%'});
-        $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': '1s','position':'relative','left':'0%'});
+        $("#index").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'-100%'});
+        $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'-100%'});
+        $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': $(window).height()/1366+'s','position':'relative','left':'0%'});
     }
     actual_page = new_page;
 };
@@ -225,30 +225,30 @@ function ChangePage(new_page) {
     if(new_page ==="#index"){
         if (actual_page ==="#forum"){
             $("#home").css({"display": "flex"});
-            $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
-            $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': '1s','animation-timing-function': 'linear','position':'relative','left':'0%'});
+            $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': $(window).height()/1366+'s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
+            $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': $(window).height()/1366+'s','animation-timing-function': 'linear','position':'relative','left':'0%'});
         }
         if (actual_page ==="#tim"){
             $("#home").css({"display": "flex"});
-            $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'100%'});
-            $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'relative','left':'0%'});
+            $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': $(window).height()/1366+'s','animation-timing-function': 'linear','position':'absolute','left':'100%'});
+            $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': $(window).height()/1366+'s','animation-timing-function': 'linear','position':'relative','left':'0%'});
         }
         num_page = 1;
         $("#TeamName").text("Home/About us");
     }
     if(new_page ==="#tim"){
         $("#home").css({"display": "none"});
-        $("#index").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','position':'absolute','left':'100%'});
-        $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','position':'absolute','left':'100%'});
-        $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': '1s','position':'relative','left':'0%'});
+        $("#index").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'100%'});
+        $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'100%'});
+        $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': $(window).height()/1366+'s','position':'relative','left':'0%'});
         num_page = 0;
         $("#TeamName").text("Team");
     }
     if(new_page ==="#forum"){
         $("#home").css({"display": "none"});
-        $("#index").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','position':'absolute','left':'-100%'});
-        $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','position':'absolute','left':'-100%'});
-        $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': '1s','position':'relative','left':'0%'});
+        $("#index").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'-100%'});
+        $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'-100%'});
+        $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': $(window).height()/1366+'s','position':'relative','left':'0%'});
         num_page = 2;
         $("#TeamName").text("Blog");
     }
