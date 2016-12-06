@@ -257,11 +257,11 @@ $(function() {
   $("body").swipe( {
     swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
         console.log(direction);
-        if(direction==="right" && distance>10 && fingerCount == 2 ){
+        if(direction==="right" && distance>10){
             ArrowLeftChangePage();
-        }else if(direction==="left" && distance>10 && fingerCount == 2 ){
+        }else if(direction==="left" && distance>10){
             ArrowRightChangePage();
-        }else if(direction==="up" && distance>10){
+        }else if(direction==="down" && distance>10){
 			if(scroll_horizontal < distance ){
 				scroll_horizontal = 0;
 			}
@@ -272,7 +272,7 @@ $(function() {
 				scrollTop: scroll_horizontal
 			}, 500, 'linear');
 		}
-		else if(direction ==="down" && distance>10){
+		else if(direction ==="up" && distance>10){
 			if(scroll_horizontal+distance >= $('body').height() ){
 				scroll_horizontal = $('body').height;
 			}
