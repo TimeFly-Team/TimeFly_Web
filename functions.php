@@ -204,7 +204,7 @@ function getForums($conn)
 	$sql = mysqli_query($conn, "SELECT * FROM forums WHERE visible < ".(isLoggedUser() ? "2" : "1")." ORDER BY forum_id");
 	while ($row = mysqli_fetch_array($sql))
 	{
-	 	$result[] = array("forum_id" => $row['forum_id'], "forum_name" => $row['text'], "forum_access" => $row['access']);
+	 	$result[] = array("forum_id" => $row['forum_id'], "forum_name" => $row['text'], "forum_access" => $row['access'], "visible" => $row['visible']);
 	}
 	echo json_encode($result);
 }
@@ -218,11 +218,11 @@ function getTopics($conn, $sql)
 	{
 		if (isLoggedUser() && !is_null($row['name']))
 		{
-			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => "(".$row['name'].")   ".$row['text'], "topic_lock" => $row['lock']);
+			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => "(".$row['name'].")   ".$row['text'], "topic_lock" => $row['lock'], "visible" => $row['visible']);
 		}
 		else
 		{
-			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => $row['text'], "topic_lock" => $row['lock']);
+			$result[] = array("forum_id" => $row['forum_id'], "topic_id" => $row['topic_id'], "topic_name" => $row['text'], "topic_lock" => $row['lock'], "visible" => $row['visible']);
 		}
 	} 
  }
@@ -250,7 +250,7 @@ function getComments($conn,$topic_id)
  $sql = mysqli_query($conn,"SELECT * FROM comments c, users u WHERE u.user_id=c.user_id AND c.topic_id=".$topic_id." AND c.visible < ".(isLoggedUser() ? "2" : "1")." ORDER BY c.timestamp ASC");
  while ($row = mysqli_fetch_array($sql))
  {
-	 $result[] = array("comment_id" => $row['comment_id'], "user_name" => $row['name'], "text" => $row['text'], "time" => $row['timestamp']);
+	 $result[] = array("comment_id" => $row['comment_id'], "user_name" => $row['name'], "text" => $row['text'], "time" => $row['timestamp'], "visible" => $row['visible']);
  }
  echo json_encode($result);
 }
@@ -320,8 +320,47 @@ function editItem($conn, $type, $id, $column, $value)
 	{
 		$value = '!t.'.substr($value,1);
 	}
-	$sql = 'UPDATE '.$type.'s t SET t.'.$column.' = '.$value.' WHERE t.'.$type.'_id='.$id;
+	$sql = 'UPDATE '.strtolower($type).'s t SET t.'.strtolower($column).' = '.$value.' WHERE t.'.strtolower($type).'_id='.$id;
 	return isLoggedUser() && mysqli_query($conn, $sql);
+}
+
+//vyhladavanie
+
+function getSqlSearchInTopics($text)
+{
+	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t WHERE t.text LIKE '%".$text."%' AND t.visible < ".(isLoggedUser() ? "2" : "1")." ORDER BY t.topic_id";
+}
+
+function getSqlSearchInTopicsAndComments($text)
+{
+	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t LEFT JOIN comments c on t.topic_id = c.topic_id AND t.visible < ".(isLoggedUser() ? "2" : "1")." WHERE c.visible < ".(isLoggedUser() ? "2" : "1")." AND (t.text LIKE '%".$text."%' OR  c.text LIKE '%".$text."%') GROUP BY t.topic_id ORDER BY t.topic_id";
+}
+
+function getSqlSearchInComments($text)
+{
+	return "SELECT t.topic_id as topic_id, t.text as topic_name, t.lock as topic_lock FROM topics t JOIN comments c on c.topic_id=t.topic_id AND t.visible < ".(isLoggedUser() ? "2" : "1")." WHERE c.text LIKE '%".$text."%' AND c.visible < ".(isLoggedUser() ? "2" : "1")." GROUP BY t.topic_id ORDER BY t.topic_id";
+}
+
+function getTopicsForSearch($conn, $sql)
+{
+    $result = array();
+    $sql_result = mysqli_query($conn, $sql);
+    while ($row = mysqli_fetch_array($sql_result))
+    {  
+         $result[] = array("topic_id" => $row['topic_id'], "text" => $row['topic_name'], "lock" => $row['topic_lock']);
+    }     
+    echo json_encode($result);    
+}
+
+function getCommentForSearchTopic($conn,$text,$topic_id)
+{
+    $result = array();
+    $sql = mysqli_query($conn,"SELECT c.comment_id id, c.text text, c.timestamp date, u.name name FROM topics t, users u JOIN comments c on c.topic_id=t.topic_id WHERE u.user_id=c.user_id AND t.topic_id=".$topic_id." AND c.text LIKE '%".$text."%' AND c.visible < ".(isLoggedUser() ? "2" : "1"));
+    while ($row = mysqli_fetch_array($sql))
+    {  
+         $result[] = array("id"=>$row['id'], "text" => $row['text'], "time" => $row['date'], "name" => $row['name']);
+    }     
+    echo json_encode($result);    
 }
 
 ?>

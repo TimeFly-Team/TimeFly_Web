@@ -39,7 +39,18 @@ function initialize()
 
 function isLogged()
 {
-	return logged_user;
+	return logged_user > 0;
+}
+
+function echoMessage(message, success = true)
+{
+	$("<div id='oznam' class='oznam_" + success + "'>" + message + "</div>").appendTo("body");
+	setTimeout(removeMessage, 3000);
+}
+
+function removeMessage()
+{
+	$("#oznam").remove();
 }
 
 $(window).scroll(function(){
@@ -109,14 +120,11 @@ $(function() {
         var $anchor = $(this);
         $('html, body').stop().animate({
             scrollTop: $($anchor.attr('href')).offset().top-50
-        }, 2500, 'easeInOutExpo');
+        }, 1500, 'easeInOutExpo');
         event.preventDefault();
     });
 });
-function ResultSearch() {
-    $(".res_search").remove();
-    $("<div class='row pt10 res_search'><div class='col-md-12'><div class='result_search'><a onclick='RemoveResultSearch();'><i class='fa fa-times' aria-hidden='true'></i></a></div></div></div>").insertAfter(".search_ex");
-}
+
 function RemoveResultSearch() {
     $(".res_search").remove();
 }
@@ -275,10 +283,10 @@ $(function() {
 
 //Script from forum.php
 
-var symbolDict = {0:"exclamation", 1:"check"};
+var symbolDict = {0:"exclamation", 1:"check", 2:"eye", 3:"eye-slash"};
 
 var addForumButton = '<div id="new_forum_div" class="new_forum">' +
-						'<button  type="button" onclick="$(\'.add_theme\').show();">' +
+						'<button  type="button" onclick="removetext(\'.tema\');$(\'.add_theme\').show();">' +
 							'<i class="add fa fa-plus-square" aria-hidden="true"></i>' +
 						'Add</button>' +
 					 '</div>';
@@ -303,14 +311,14 @@ var addForumForm   = '<div id="add_forum_div" class="add_theme" >' +
 					'</div>';
 					
 var addTopicButton = '<div id="new_topic_div" class="new_topic">' + 
-							'<button  type="button" onclick="$(\'.add_topic\').show();"><i class="fa fa-plus-square" aria-hidden="true"></i>' +
+							'<button  type="button" onclick="removetext(\'.mail\');removetext(\'.tema\');removetext(\'#topic_desc\');$(\'.add_topic\').show();"><i class="fa fa-plus-square" aria-hidden="true"></i>' +
 								'Add</button>' +
 					'</div>';
 
 var addTopicForm =	'<div id="add_topic_div" class="add_topic" >' +
 						'<form class="send_topic">' +
 							'<div class="row">' +
-								'<div class="col-md-3">' +
+								'<div class="col-md-3 mail_hide">' +
 									'<p>Your email:</p>' +
 									'<input id="topic_mail" class="mail" type="email"  name="yourmail" value="">' +
 								'</div>' +
@@ -339,14 +347,14 @@ var addTopicForm =	'<div id="add_topic_div" class="add_topic" >' +
 					'</div>';
 						
 var addCommentButton = '<div id="new_reply_div" class="new_reply">' +
-							'<button  type="button" onclick="$(\'.add_reply\').show();">' +
+							'<button  type="button" onclick="removetext(\'.mail\');removetext(\'#reply_desc\');$(\'.add_reply\').show();">' +
 								'Add reply' +
 							'</button>' +
 						'</div>';
 						
 var addCommentForm	 =	'<div id="add_reply_div" class="add_reply">' +
 							'<form class="send_reply">' +
-								'<div class="row">' +
+								'<div class="row mail_hide">' +
 									'<div class="col-md-3">' +
 										'<p>Your email:</p>' +
 										'<input id="reply_mail" class="mail" type="email"  name="yourmail" value="">' +
@@ -389,18 +397,12 @@ var editItemForm =	'<div id="edit_item_div" class="edit_item" >' +
 							'</div>' +
 						'</form>' +
 					'</div>';
-					
-
-function echoMessage(message)
-{
-	alert(message);
-}
 
 var settingsList = ["Rename", "Delete", "Privacy", "Lock"];
 					
-function settings(type, id)
+function settings(type, id, flag = false)
 {	
-	setDropdownMenu(type, id);
+	setDropdownMenu(type, id, flag);
 	destroyEditForm();
 	
 	for (i = 0 ; i < settingsList.length ; i++)
@@ -417,20 +419,20 @@ function settings(type, id)
 	}	
 }
 
-function setDropdownMenu(type, id)
+function setDropdownMenu(type, id, flag)
 {
 	document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML = '<li> <a id="setting_Rename"  onclick=""> Rename </a> </li>' +
 																	'<li> <a id="setting_Delete"  onclick=""> Delete </a> </li>' +
 																	'<li> <a id="setting_Privacy"  onclick=""> Public/Private </a> </li>';
-	if (hasItemLockSetting(type, id))
+	if (hasItemLockSetting(type, id, flag))
 	{
-		document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML += '<li> <a id="setting_Lock"  onclick=""> Lock/Unlock </a> </li>';
+		document.getElementById('dropdown_ul_'+type+"_"+id).innerHTML += '<li> <a id="setting_Lock"  onclick=""> Resolved/Unresolved </a> </li>';
 	}
 }
 
-function hasItemLockSetting(type, id)
+function hasItemLockSetting(type, id, flag)
 {
-	if (type == "Topic")
+	if (type == "Topic" && flag == 2)
 	{
 		return true;
 	}
@@ -459,11 +461,11 @@ var settingsFunctionsDict = {
 					{
 						document.getElementById('a_' + args[0] + "_" + args[1]).innerHTML = document.getElementById("new_item_text").value;
 						document.getElementById("edit_item_div").parentNode.removeChild(document.getElementById("edit_item_div"));
-						echoMessage('Changes were successful.');
+						echoMessage('Changes were successful.', true);
 					}
 					else
 					{
-						echoMessage('Error occurred during changing text in item.');
+						echoMessage('Error occurred during changing text in item.', false);
 					}
 				}, [type, id]
 			);
@@ -473,7 +475,7 @@ var settingsFunctionsDict = {
 	{
 		if (type == "Forum" && id < 3)
 		{
-			echoMessage("It is not possible delete this forum.");
+			echoMessage("It is not possible delete this forum.", false);
 			return;
 		}
 		callPHP("type="+type+"&id="+id+"&column=visible"+"&value=2", "editItem.php",
@@ -482,11 +484,11 @@ var settingsFunctionsDict = {
 				if (args[2])
 				{
 					document.getElementById("item_" + args[0] + "_" + args[1]).parentNode.removeChild(document.getElementById("item_"+type+"_"+id));
-					echoMessage('Changes were successful.');
+					echoMessage('Changes were successful.', true);
 				}
 				else
 				{
-					echoMessage('Error occurred during deleting item.');
+					echoMessage('Error occurred during deleting item.', false);
 				}
 			}, [type, id]
 		);
@@ -496,15 +498,27 @@ var settingsFunctionsDict = {
 		callPHP("type="+type+"&id="+id+"&column=visible"+"&value=!visible", "editItem.php",
 			function (args)
 			{
-				if (args[0])
+				if (args[2])
 				{
-					echoMessage('Changes were successful.');
+					var tag = document.getElementById('tag1_' + args[0] + '_' + args[1]);
+					if (tag !== null)
+					{
+						if (tag.className == 'fa fa-eye pl10 pr10 tooltipx')
+						{
+							tag.className = 'fa fa-eye-slash pl10 pr10 tooltipx';
+						}
+						else
+						{
+							tag.className = 'fa fa-eye pl10 pr10 tooltipx';
+						}
+					}
+					echoMessage('Changes were successful.', true);
 				}
 				else
 				{
-					echoMessage('Error occurred during changing privacy settings of item.');
+					echoMessage('Error occurred during changing privacy settings of item.', false);
 				}
-			}
+			}, [type, id]
 		);		
 	},
 	"Lock": function (type, id)
@@ -517,20 +531,20 @@ var settingsFunctionsDict = {
 					var tag = document.getElementById('tag_' + args[0] + '_' + args[1]);
 					if (tag !== null)
 					{
-						if (tag.className == 'fa fa-exclamation')
+						if (tag.className == 'fa fa-exclamation tooltipx')
 						{
-							tag.className = 'fa fa-check';
+							tag.className = 'fa fa-check tooltipx';
 						}
 						else
 						{
-							tag.className = 'fa fa-exclamation';
+							tag.className = 'fa fa-exclamation tooltipx';
 						}
 					}
-					echoMessage('Changes were successful.');
+					echoMessage('Changes were successful.', true);
 				}
 				else
 				{
-					echoMessage('Error occurred during changing tag of item.');
+					echoMessage('Error occurred during changing tag of item.', false);
 				}
 			}, [type, id]
 		);
@@ -557,7 +571,12 @@ var createItemViewDict = {
 								'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Forum\','+forum.forum_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
 								'<ul id="dropdown_ul_Forum_' + forum.forum_id + '" class="dropdown-menu">' +
 								'</ul>' +
-							'</div>'
+							'</div>' +
+							'<i id="tag1_Forum_' + forum.forum_id + '" class="fa fa-' + symbolDict[1*forum.visible + 2] + ' pl10 pr10 tooltipx" aria-hidden="true">' +
+								'<span class="tooltipxtext">' +
+									'Public/Private' +
+								'</span>' +
+							'</i>'
 						:
 							''
 						) +
@@ -581,18 +600,31 @@ var createItemViewDict = {
 						
 						(isLogged()
 						?
-						
+					
 							'<div class="dropdown">' +
-								'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Topic\','+topic.topic_id+')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
+								'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Topic\','+topic.topic_id+', '+ topic.forum_id +')"> <i class="fa fa-gear pl10" aria-hidden="true"></i> </a>' +
 								'<ul id="dropdown_ul_Topic_' + topic.topic_id + '" class="dropdown-menu">' +
 								'</ul>' +
-							'</div>'
+							'</div>' +
+							'<i id="tag1_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[1*topic.visible + 2] + ' pl10 pr10 tooltipx" aria-hidden="true">' +
+								'<span class="tooltipxtext">' +
+									'Public/Private' +
+								'</span>' +
+							'</i>'
 						:
 							''
 						) +
 						
-						//(topic.forum_id == 2 ? '<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' : '') +
-						'<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + '" aria-hidden="true"></i>' +
+						(topic.forum_id == 2
+						?
+							'<i id="tag_Topic_' + topic.topic_id + '" class="fa fa-' + symbolDict[topic.topic_lock] + ' tooltipx" aria-hidden="true">' +
+								'<span class="tooltipxtext">' +
+									'Resolved/Unresolved' +
+								'</span>' +
+							'</i>'
+						:
+							''
+						) +
 						
 					'</div>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
@@ -606,24 +638,31 @@ var createItemViewDict = {
 		return  '<div id="item_Comment_'+comment.comment_id+'">' +
 					'<div class="media">' +
 						'<div class="media-body">' +
-							'<h4 class="media-heading">' + comment.user_name + '<small><i>  Posted on ' + comment.time + '</i></small></h4>' +
+							'<h4 class="media-heading">' + comment.user_name + '<small><i>  Posted on ' + comment.time + '</i></small>' +
+							
+							(isLogged()
+							?
+							
+								'<div class="dropdown">' +
+									'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Comment\','+comment.comment_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
+									'<ul id="dropdown_ul_Comment_' + comment.comment_id + '" class="dropdown-menu">' +
+									'</ul>' +
+								'</div>' +
+								'<i id="tag1_Comment_' + comment.comment_id + '" class="fa fa-' + symbolDict[1*comment.visible + 2] + ' pl10 pr10 tooltipx" aria-hidden="true">' +
+										'<span class="tooltipxtext">' +
+											'Public/Private' +
+										'</span>' +
+								'</i>'
+							:
+								''
+							) + '</h4>' +
+							
 							'<p id="a_Comment_' + comment.comment_id + '">' + comment.text + '</p>' +
 							
 						'</div>' +
 						
 					'</div>' +
 					
-					(isLogged()
-					?
-					
-						'<div class="dropdown">' +
-							'<a data-toggle="dropdown" class="dropdown-toggle" onclick="settings(\'Comment\','+comment.comment_id+')"> <i class="fa fa-gear" aria-hidden="true"></i> </a>' +
-							'<ul id="dropdown_ul_Comment_' + comment.comment_id + '" class="dropdown-menu">' +
-							'</ul>' +
-						'</div>'
-					:
-						''
-					) +
 				'</div>';
 	}
 };
@@ -631,6 +670,13 @@ var createItemViewDict = {
 var onAddItemClickDict = {	
 	"Forum": function(id)
 	{
+		if (!validateItemName(document.getElementById('theme_name').value))
+		{
+			echoMessage("This field must not be empty.", false);
+			$('#theme_name').css({"border":"2px solid red"});
+			return;
+		}
+		$('#theme_name').css({"border":"1px solid #ddd"});
 		callPHP("type=forum" + "&name=" + document.getElementById('theme_name').value,
 				"addNewItem.php", function(args)
 				{
@@ -641,17 +687,31 @@ var onAddItemClickDict = {
 						div.innerHTML = newForumView;
 						document.getElementById("level0").insertBefore(div.firstChild, document.getElementById("new_forum_div"));
 						document.getElementById("add_forum_div").style.display = "none";
-						echoMessage("New forum was created.");
+						echoMessage("New forum was created.", true);
 					}
 					else
 					{
-						echoMessage("Error occurred during creating forum.");
+						echoMessage("Error occurred during creating forum.", false);
 					}
 				}, ["Forum"]
 		);
 	},
 	"Topic": function(id)
 	{
+		if (!isLogged() && !validateEmail(document.getElementById('topic_mail').value))
+		{
+			echoMessage("Your mail is not valid.", false);
+			$("#topic_mail").css({"border":"2px solid red"});
+			return;
+		}
+		$("#topic_mail").css({"border":"1px solid #ddd"});
+		if (!validateItemName(document.getElementById('topic_tema').value))
+		{
+			echoMessage("This field must not be empty.", false);
+			$('#topic_tema').css({"border":"2px solid red"});
+			return;
+		}
+		$('#topic_tema').css({"border":"1px solid #ddd"});
 		callPHP("type=topic" + "&forum=" + id
 			+ "&name=" + document.getElementById('topic_tema').value
 			+ "&user=" + document.getElementById('topic_mail').value
@@ -665,17 +725,25 @@ var onAddItemClickDict = {
 					div.innerHTML = newTopicView;
 					document.getElementById("panel_0_" + args[1]).insertBefore(div.firstChild, document.getElementById("new_topic_div"));
 					document.getElementById("add_topic_div").style.display = "none";
-					echoMessage("New topic was created.");
+					echoMessage("New topic was created.", true);
 				}
 				else
 				{
-					echoMessage("Error occurred during creating topic.");
+					echoMessage("Error occurred during creating topic.", false);
 				}
 			}, ["Topic", id]
 		);
 	},
 	"Comment": function(id)
 	{
+		if (!isLogged() && !validateEmail(document.getElementById('reply_mail').value))
+		{
+			echoMessage("Your mail is not valid.", false);
+			$("#reply_mail").css({"border":"2px solid red"});
+			return;
+		}
+		$("#reply_mail").css({"border":"1px solid #ddd"});
+		
 		callPHP("type=comment" + "&topic=" + id
 			+ "&user=" + document.getElementById('reply_mail').value
 			+ "&desc=" + document.getElementById('reply_desc').value,
@@ -688,17 +756,35 @@ var onAddItemClickDict = {
 					div.innerHTML = newCommentView;
 					document.getElementById("panel_2_" + args[1]).insertBefore(div.firstChild, document.getElementById("new_reply_div"));
 					document.getElementById("add_reply_div").style.display = "none";
-					echoMessage("Your comment was send.");
+					echoMessage("Your comment was send.", true);
 				}
 				else
 				{
-					echoMessage("Error occurred during sending comment.");
+					echoMessage("Error occurred during sending comment.", false);
 				}
 				
 			}, ["Comment", id]
 		);
 	}
 };
+
+function hideMailIfLogged()
+{
+	if (isLogged())
+	{
+		$('.mail_hide').css({"display":"none"});
+	}
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+function validateItemName(name)
+{
+	return name.trim() != "";
+}
 
 var setItemsToHTMLDict = {	
 	"Forum": function(type, id, responseText)
@@ -713,6 +799,7 @@ var setItemsToHTMLDict = {
 	"Topic": function(type, id, responseText)
 	{
 		document.getElementById("panel_0_" + id).innerHTML = showItems(type, JSON.parse(responseText)) + addTopicButton + addTopicForm;
+		hideMailIfLogged();
 		document.getElementById("new_topic_div").style.display = "block";
 		if (forumsAccess[id] > 0 && !isLogged())
 		{
@@ -722,6 +809,7 @@ var setItemsToHTMLDict = {
 	"Comment": function(type, id, responseText)
 	{
 		document.getElementById("panel_2_" + id).innerHTML = showItems(type, JSON.parse(responseText)) + addCommentButton + addCommentForm;
+		hideMailIfLogged();
 	}
 };
 
@@ -757,6 +845,20 @@ function setAddQuestionSubmit(id)
 	{
 		return function ()
 		{		
+			if (!isLogged() && !validateEmail(document.getElementById('add_question_mail_' + id).value))
+			{
+				echoMessage("Your mail is not valid.", false);
+				$('#add_question_mail_' + id).css({"border":"2px solid red"});
+				return;
+			}
+			$('#add_question_mail_' + id).css({"border":"1px solid #ddd"});
+			if (!validateItemName(document.getElementById('add_question_topic_name_' + id).value))
+			{
+				echoMessage("This field must not be empty.", false);
+				$('#add_question_topic_name_' + id).css({"border":"2px solid red"});
+				return;
+			}
+			$('#add_question_topic_name_' + id).css({"border":"1px solid #ddd"});
 			callPHP("type=topic" + "&forum=2"
 					+ "&name=" + document.getElementById('add_question_topic_name_' + id).value
 					+ "&user=" + document.getElementById('add_question_mail_' + id).value
@@ -766,11 +868,11 @@ function setAddQuestionSubmit(id)
 						{
 							if (args[0])
 							{
-								echoMessage("Question was send");
+								echoMessage("Question was send", true);
 							}
 							else
 							{
-								echoMessage("Error occurred during sending question.")
+								echoMessage("Error occurred during sending question.", false)
 							}
 						}
 				);
@@ -778,3 +880,100 @@ function setAddQuestionSubmit(id)
 		};
 	}(id);
 }
+
+//vyhladavanie
+
+function ResultSearch()
+{
+  var checkedValue = null; 
+  var inputElements = document.getElementsByClassName('checkbox');
+  
+  checkedValue = $('input:radio:checked')[0].value;
+		
+  var text =document.getElementById("searchText").value; 
+  console.log(text);
+  $(".res_search").remove();
+	$("<div class='row pt10 res_search'><div class='col-md-12'><div class='result_search panel-collapse collapse in'><a onclick='RemoveResultSearch();'><i class='fa fa-times' aria-hidden='true'></i></a> <div id=\"searchResult\" class='panel-body'> </div> </div></div></div>").insertAfter(".search_ex");
+  getSearchResult(checkedValue,text);
+    
+}
+
+function getSearchResult(value,text)
+{
+    $.ajax({
+    type: 'get',
+    url: 'getSearch.php?value='+value+'&text='+text,
+    dataType:"json",
+    success: function (response)
+    {     
+          var result='<b>Search results: '+text+'</b>';
+          for(var i=0; i<response.length;i++){
+              var levelId = "level_1_" + response[i]['topic_id'];
+                  var panelId = "panel_1_" + response[i]['topic_id'];
+              result += '<div id="search_item_Topic_'+response[i]['topic_id']+'" class="panel panel-default">' +
+                        '<div class="panel-heading">' +
+                            '<h4 class="panel-title">' +
+                               '<a id="search_a_Topic_' + response[i]['topic_id'] + '" data-toggle="collapse" data-parent="#searchResult" onclick="getComments('+response[i]['topic_id']+',\''+text+'\')\" href="' + "#search_" + levelId + '">' + boldni(response[i]['text'], text) + '</a>' +
+                            '</h4>' +
+							
+							'<i id="tag_Topic_' + response[i]['topic_id'] + '" class="fa fa-' + symbolDict[response[i]['lock']] + '" aria-hidden="true"></i>' +
+							
+                          '</div>' +
+                        '<div id="search_' + levelId + '" class="panel-collapse collapse">' +
+                            '<div id="search_' + panelId + '" class="panel-body">' +
+                            '</div>    ' +
+                        '</div>' +
+                    '</div>';
+           }
+           if(response.length==0){
+              result+='<p>No results</p>';
+           }
+           var div = document.createElement('div');
+           div.innerHTML=result;
+           document.getElementById("searchResult").innerHTML += div.innerHTML;
+    }
+  }).fail(function(data){console.log(data)});
+
+}
+
+function getComments(id,text)
+{
+	var params = "id=" + id;
+	callPHP(params, "getComments.php",
+		function (args)
+		{
+			response = JSON.parse(args[1]);
+			result = "";
+			for (var i in response)
+			{
+				result += getHTMLCosi(response[i], text);
+			}
+			document.getElementById("search_panel_1_" + args[0]).innerHTML = result;
+		}, [id]
+	);
+}
+
+function getHTMLCosi(comment, text)
+{	
+	return  '<div id="item_Comment_'+comment.comment_id+'">' +
+					'<div class="media">' +
+						'<div class="media-body">' +
+							'<h4 class="media-heading">' + comment.user_name + '<small><i>  Posted on ' + comment.time + '</i></small></h4>' +
+							'<p id="a_Comment_' + comment.comment_id + '">' + boldni(comment.text, text) + '</p>' +
+							
+						'</div>' +
+						
+					'</div>' +
+				'</div>';
+}
+
+function boldni(text, query)
+{
+	return text.split(query).join("<b style='color: orange'>" + query + "</b>");
+}	
+
+function removetext(comu)
+{
+  $(comu).val($(comu).val().replace($(comu).val(), ''));
+}
+

@@ -25,7 +25,7 @@
 				?>
 				
 					<div class="search">
-						<button  type="button" onclick="$('.search_ext').toggle();">Search</button>
+						<button  type="button" onclick="$('.search_ext').toggle();$('.res_search').remove();">Search</button>
 					</div> 
 				
 			</div>
@@ -33,14 +33,17 @@
 		<div class="row search_ex">
 			<div class="col-md-12">
 				<div class="search_ext">
-					<input class="" type="text"  name="Search" placeholder="search">
+					<input id="searchText" class="" type="text"  name="Search" placeholder="search">
 					<div class="checkbox">
-						<label><input type="checkbox" value="">Option 1</label>
+						<label><input name="searchSetting" type="radio" value="0" checked>Topic names</label>
 					</div>
 					<div class="checkbox">
-						<label><input type="checkbox" value="">Option 1</label>
+						<label><input name="searchSetting" type="radio" value="1">Topic names and comments</label>
 					</div>
-					<button  type="button" onclick="ResultSearch();$('.search_ext').toggle();">
+					<div class="checkbox">
+						<label><input name="searchSetting" type="radio" value="2">Comments</label>
+					</div>
+					<button type="button" onclick="ResultSearch();$('.search_ext').toggle();">
 						<i class="fa fa-search" aria-hidden="true"></i>
 					</button>
 				</div>
