@@ -173,7 +173,7 @@ function LeftChangePage(new_page) {
         scrollTop: 0
     }, 0, 'linear');
     if(new_page ==="#index"){
-        $("#home").css({"display": "block"});
+        $("#home").css({"display": "flex"});
         $("#tim").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
         $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
         $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': '1s','animation-timing-function': 'linear','position':'relative','left':'0%'});
@@ -197,7 +197,7 @@ function RightChangePage(new_page) {
         scrollTop: 0
     }, 0, 'linear');
     if(new_page ==="#index"){
-        $("#home").css({"display": "block"});
+        $("#home").css({"display": "flex"});
         $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
         $("#forum").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
         $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'relative','left':'0%'});
@@ -222,12 +222,12 @@ function ChangePage(new_page) {
     }, 0, 'linear');
     if(new_page ==="#index"){
         if (actual_page ==="#forum"){
-            $("#home").css({"display": "block"});
+            $("#home").css({"display": "flex"});
             $("#forum").css({'display': 'none','animation-name': 'hide_page_l','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'-100%'});
             $(new_page).css({"display": "block",'animation-name': 'show_page_l','animation-duration': '1s','animation-timing-function': 'linear','position':'relative','left':'0%'});
         }
         if (actual_page ==="#tim"){
-            $("#home").css({"display": "block"});
+            $("#home").css({"display": "flex"});
             $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'absolute','left':'100%'});
             $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': '1s','animation-timing-function': 'linear','position':'relative','left':'0%'});
         }
@@ -560,9 +560,10 @@ var createItemViewDict = {
 		var levelId = "level_0_" + forum.forum_id;
 		var panelId = "panel_0_" + forum.forum_id; 
 		return	'<div id="item_Forum_'+forum.forum_id+'" class="panel panel-default">' +
+					'<a id="a_Forum_' + forum.forum_id + '" data-toggle="collapse" data-parent="#level0" onclick="getItems(\'Topic\','+forum.forum_id+')" href="' + "#" + levelId + '">' +
 					'<div class="panel-heading">' +
 						'<h4 class="panel-title">' +
-							'<a id="a_Forum_' + forum.forum_id + '" data-toggle="collapse" data-parent="#level0" onclick="getItems(\'Topic\','+forum.forum_id+')" href="' + "#" + levelId + '">' + forum.forum_name + '</a>' +
+							 forum.forum_name +
 						'</h4>' +
 						
 						(isLogged()
@@ -582,6 +583,7 @@ var createItemViewDict = {
 						) +
 
 					'</div>' +
+					'</a>' +
 					'<div id="' + levelId + '" class="panel-collapse collapse">' +
 						'<div id="' + panelId + '" class="panel-body">' +
 						'</div>	' +
