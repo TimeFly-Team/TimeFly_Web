@@ -374,7 +374,7 @@ var addCommentForm	 =	'<div id="add_reply_div" class="add_reply">' +
 									'<div class="col-md-12">' +
 										'<div class="tlacidla">' +
 											'<button type="button" onclick="$(\'.add_reply\').hide();">Cancel</button>' +
-											'<button id="comment_submit" type="button" onclick="">Submin</button>' +
+											'<button id="comment_submit" type="button" onclick="">Submit</button>' +
 										'</div>' +
 									'</div>' +
 								'</div>' +
