@@ -71,6 +71,15 @@
 	<script src="./media/js/timefly.js"></script>
 	<script src="./media/js/jquery.easing.min.js"></script>
 	<script type="text/javascript" src="media/js/jquery.touchSwipe.min.js"></script>
+	<script type="text/javascript">
+		initialize();
+		var question_formulars = document.getElementsByClassName("send_message");
+		for (var i = 0 ; i < question_formulars.length ; i++)
+		{
+			var id = question_formulars[i].children[9].id.split("_")[3];
+			setAddQuestionSubmit(id);
+		}
+	</script>
 
 </body>
 

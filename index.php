@@ -19,12 +19,3 @@ require(dirname(__FILE__).'/pages/forum.php');
 require(dirname(__FILE__)."/pages/footer.php");
 
 ?>
-<script>
-initialize();
-var question_formulars = document.getElementsByClassName("send_message");
-for (var i = 0 ; i < question_formulars.length ; i++)
-{
-	var id = question_formulars[i].children[9].id.split("_")[3];
-	setAddQuestionSubmit(id);			
-}
-</script>

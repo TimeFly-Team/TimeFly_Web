@@ -38,7 +38,6 @@
 		</div>
 	</div>
 	<div id="about" class="container about_us">
-    <div>
 		<div class="gray-border-bottom text-center">
 			<div class="col-md-12 text-center pb35 nadpis">
 				<h2>So what is TimeFly today?</h2>
