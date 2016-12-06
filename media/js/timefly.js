@@ -120,7 +120,7 @@ $(function() {
         var $anchor = $(this);
         $('html, body').stop().animate({
             scrollTop: $($anchor.attr('href')).offset().top-50
-        }, 2500, 'easeInOutExpo');
+        }, 1500, 'easeInOutExpo');
         event.preventDefault();
     });
 });
@@ -252,16 +252,39 @@ function ChangePage(new_page) {
     }
     actual_page = new_page;
 };
-
+var scroll_horizontal = $(window).scrollTop();
 $(function() {
   $("body").swipe( {
     swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
         console.log(direction);
-        if(direction==="right"){
+        if(direction==="right" && distance>10 && fingerCount == 2 ){
             ArrowLeftChangePage();
-        }else if(direction==="left"){
+        }else if(direction==="left" && distance>10 && fingerCount == 2 ){
             ArrowRightChangePage();
-        }
+        }else if(direction==="up" && distance>10){
+			if(scroll_horizontal < distance ){
+				scroll_horizontal = 0;
+			}
+			else{
+				scroll_horizontal = scroll_horizontal - distance;
+			}
+			$('html, body').stop().animate({
+				scrollTop: scroll_horizontal
+			}, 500, 'linear');
+		}
+		else if(direction ==="down" && distance>10){
+			if(scroll_horizontal+distance >= $('body').height() ){
+				scroll_horizontal = $('body').height;
+			}
+			else{
+				scroll_horizontal = scroll_horizontal + distance;
+			}
+			if(scroll_horizontal <= $('body').height()){
+				$('html, body').stop().animate({
+					scrollTop: scroll_horizontal
+				}, 500, 'linear');
+			}
+		}
     }
   });
 
