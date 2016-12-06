@@ -13,8 +13,10 @@ body {
     position: relative;
     margin: 0;
     min-height: 100%;
-    max-width: 1366px;
 }
+@media (min-width: 1550px){.container{width: 1550px;}}
+@media (min-width: 1920px){.container{width: 1920px;}}
+
 
 /*==========  Navigation ==========*/
 .navbar-default {
@@ -85,14 +87,18 @@ body {
 }
 
 .slider{
-    width: 100%;
     max-height: 500px;
+    width: 100%;
+    background-color: #ECEBEB;
+    display: flex;
+    justify-content: center;
     /*margin-top: 50px; */
 }
 .slider img
 {
-    width: 100%;
+    max-width: 1366px;
     max-height: 300px;
+    width: 100%;
 }
 .container {
     margin-right: 0px;
@@ -151,16 +157,14 @@ h2{
     color: #3c763d;
 }
 .bg-circle{
-    background: #d1d1d1;
-    border-radius: 50%;
-    width: 220px;
-    height: 220px;
-    padding: 10px 0% 0% 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .img-circle {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
+    border: 10px solid #d1d1d1;
 }
 
 @keyframes hide_page_l {
@@ -280,6 +284,24 @@ h2{
     background-color: #fff;
     border: 2px solid #d1d1d1;}
 /*==========  Blog ==========*/
+
+.panel-default> a .panel-heading {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.panel-group a .panel-heading {
+    border-bottom: 0;
+}
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+
+
 .media {
     padding-left: 20px;
 }
@@ -465,10 +487,6 @@ h2{
 
 /*==========  Footer ==========*/
 footer {
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: 0px;
     background-color: #3c763d;
     color: #fff;
     min-height: 62px;
