@@ -107,7 +107,7 @@ function getSqlInsertTopic($forum_id, $name, $user_id)
 	{
 		return "INSERT INTO topics (forum_id, text) VALUES (".$forum_id.",\"".$name."\")";
 	}
-	return "INSERT INTO topics (forum_id, text, user_id) VALUES (".$forum_id.",\"".$name."\",".$user_id.")";
+	return "INSERT INTO topics (forum_id, text, user_id, visible) VALUES (".$forum_id.",\"".$name."\",".$user_id.", 1)";
 }
 
 //Pridanie komentára
@@ -142,7 +142,7 @@ function getTopicById($conn, $topic_id)
 
 function canUserAddComment($conn, $topic)
 {
-	if (isLoggedUser() || (is_null($topic['user_id']) && getForumById($conn, $topic['forum_id'])['access'] < 2))
+	if (isLoggedUser() || getForumById($conn, $topic['forum_id'])['access'] < 2)
 	{
 		return true;
 	}
@@ -281,7 +281,7 @@ function createAndGetNewForum($conn, $name)
 	{
 		$result = array();
 		$forum = getForumById($conn, $id); 
-		$result[] = array("forum_id" => $forum['forum_id'], "forum_name" => $forum['text']);
+		$result[] = array("forum_id" => $forum['forum_id'], "forum_name" => $forum['text'], "visible" => $forum['visible']);
 		return json_encode($result);
 	}
 	return false;
@@ -295,7 +295,7 @@ function createAndGetNewTopic($conn, $forum, $name, $moderator, $text, $user)
 		{
 			$result = array();
 			$topic = getTopicById($conn, $topic_id);
-			$result[] = array("forum_id" => $forum ,"topic_id" => $topic['topic_id'], "topic_name" => $topic['text'], "topic_lock" => $topic['lock']);
+			$result[] = array("forum_id" => $forum ,"topic_id" => $topic['topic_id'], "topic_name" => $topic['text'], "topic_lock" => $topic['lock'], "visible" => $topic['visible']);
 			return json_encode($result);
 		}
 	}
@@ -308,7 +308,7 @@ function createAndGetNewComment($conn, $topic, $text, $user)
 	{
 		$result = array();
 		$comment = getCommentById($conn, $id); 
-		$result[] = array("comment_id" => $comment['comment_id'], "user_name" => $comment['name'], "text" => $comment['text'], "time" => $comment['timestamp']);
+		$result[] = array("comment_id" => $comment['comment_id'], "user_name" => $comment['name'], "text" => $comment['text'], "time" => $comment['timestamp'], "visible" => $comment['visible']);
 		return json_encode($result);
 	}
 	return false;
@@ -320,7 +320,14 @@ function editItem($conn, $type, $id, $column, $value)
 	{
 		$value = '!t.'.substr($value,1);
 	}
-	$sql = 'UPDATE '.strtolower($type).'s t SET t.'.strtolower($column).' = '.$value.' WHERE t.'.strtolower($type).'_id='.$id;
+	if ($type == "Topic" && $column == "visible")
+	{
+		$sql = 'UPDATE '.strtolower($type).'s t SET t.'.strtolower($column).' = '.$value.', user_id = NULL WHERE t.'.strtolower($type).'_id='.$id;
+	}
+	else
+	{
+		$sql = 'UPDATE '.strtolower($type).'s t SET t.'.strtolower($column).' = '.$value.' WHERE t.'.strtolower($type).'_id='.$id;
+	}
 	return isLoggedUser() && mysqli_query($conn, $sql);
 }
 
