@@ -168,6 +168,84 @@ h2{
     border: 10px solid #d1d1d1;
 }
 
+
+.red-border-bottom{
+    border-bottom: 1px red solid;
+}
+.green-border-bottom{
+    border-bottom: 1px green solid;
+}
+.blue-border-bottom{
+    border-bottom: 1px blue solid;
+}
+.yellow-border-bottom{
+    border-bottom: 1px yellow solid;
+}
+.gray-border-bottom{
+    border-bottom: 1px solid #BDBDBD;
+    margin: 50px 0 60px 0;
+}
+
+a.underline {
+    color: green;
+    text-decoration: underline;
+}
+
+.newspaper {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+
+    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 40px; /* Firefox */
+    column-gap: 40px;
+    text-align: left;
+}
+.newspaper p{
+    margin: 0 0 0px;
+}
+
+/* tooltip */
+
+.tooltipx {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltipx .tooltipxtext {
+    visibility: hidden;
+    width: auto;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.tooltipx .tooltipxtext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltipx:hover .tooltipxtext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
 @keyframes hide_page_l {
     0%   {left:0%;position: relative;display: block;height: 1080px;}
     100% {left:100%;position: relative;display: none;height: 1080px;}
@@ -597,6 +675,17 @@ footer .login .tlacidla input{
     padding-bottom: 10px;
     padding-top: 0px;
     }
+    .newspaper {
+        -webkit-column-count: 1; /* Chrome, Safari, Opera */
+        -moz-column-count: 1; /* Firefox */
+        column-count: 1;
+
+        -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+        -moz-column-gap: 40px; /* Firefox */
+        column-gap: 40px;
+        text-align: left;
+    }
+
 }
 @media (max-width: 360px) {
     .search{
@@ -1396,75 +1485,4 @@ footer .login .tlacidla input{
 .mhn30 {
   margin-left: -30px !important;
   margin-right: -30px !important;
-}
-
-.red-border-bottom{
-  border-bottom: 1px red solid;
-}
-.green-border-bottom{
-  border-bottom: 1px green solid;
-}
-.blue-border-bottom{
-  border-bottom: 1px blue solid;
-}
-.yellow-border-bottom{
-  border-bottom: 1px yellow solid;
-}
-.gray-border-bottom{
-  #border-bottom: 1px #BDBDBD solid;
-  margin: 110px 0 120px 0;
-}
-.newspaper {
-    -webkit-column-count: 2; /* Chrome, Safari, Opera */
-    -moz-column-count: 2; /* Firefox */
-    column-count: 2;
-
-    -webkit-column-gap: 30px; /* Chrome, Safari, Opera */
-    -moz-column-gap: 30px; /* Firefox */
-    column-gap: 30px;
-    margin-top: 50px;
-}
-a.underline {
-    color: green;
-    text-decoration: underline;
-}
-
-/* tooltip */
-
-.tooltipx {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltipx .tooltipxtext {
-    visibility: hidden;
-    width: auto;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-.tooltipx .tooltipxtext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.tooltipx:hover .tooltipxtext {
-    visibility: visible;
-    opacity: 1;
 }
