@@ -6,24 +6,23 @@
 					<div class="foot">
 						<i></i>
 						Powered by TimeFly - Webdeveloper Team
+						    <?php
+						    if(!$moderator->isLogged()){
+				    		?>
 
-						<?php
-						if(!$moderator->isLogged()){
-						?>
-
-							<button type="button" data-toggle="modal" data-target="#myModal">Login</button>
+		    					<button type="button" class="login-div" data-toggle="modal" data-target="#myModal">Login</button>
 						
-						<?php
-						}else{
-						?>
+    						<?php
+    						}else{
+    						?>
 
-							<form method="post">
-								<input name="logout" type="submit" id="logout" value="Log out">
-							</form>
+    							<form method="post" class="login-div">
+    								<input name="logout" type="submit" id="logout" value="Log out">
+							   </form>
 						
-						<?php
-						}
-						?>
+						    <?php
+						    }  
+						    ?> 
 					</div>
 
 					<div class="modal fade login" id="myModal" role="dialog">
