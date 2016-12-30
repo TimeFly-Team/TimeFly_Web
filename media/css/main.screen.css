@@ -93,7 +93,6 @@ body {
     background-color: #ECEBEB;
     display: flex;
     justify-content: center;
-    /*margin-top: 50px; */
 }
 .slider img
 {
@@ -114,9 +113,10 @@ article{
     margin-left: auto;
     margin-right: auto;
     padding-top: 15px;
-    padding-bottom: 15px;
     width: 80%;
 }
+.article{padding-bottom: 0px;}
+.about_us {padding-bottom: 30px;}
 .nadpis{
     background-color: #FFFFFF;
 }
@@ -168,7 +168,12 @@ h2{
     border: 10px solid #d1d1d1;
 }
 
-
+.article_circle h3{
+    text-align: center;
+}
+.article_circle p{
+    text-align: justify;
+}
 .red-border-bottom{
     border-bottom: 1px red solid;
 }
@@ -183,26 +188,40 @@ h2{
 }
 .gray-border-bottom{
     border-bottom: 1px solid #BDBDBD;
-    margin: 50px 0 60px 0;
+    margin-bottom: 60px;
+}
+.about_us_obsah p {
+    padding-left: 15%;
+    padding-right: 15%;
+    margin: 0;
+    padding-bottom: 1em;
 }
 
 a.underline {
     color: green;
     text-decoration: underline;
+    cursor: pointer;
 }
-
+.newspaper_nadpis{margin-bottom: 25px;}
+.newspaper_nadpis h1{
+    font-weight: bold;
+    margin-bottom: 20px; 
+}
 .newspaper {
-    -webkit-column-count: 2; /* Chrome, Safari, Opera */
-    -moz-column-count: 2; /* Firefox */
-    column-count: 2;
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
 
-    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
-    -moz-column-gap: 40px; /* Firefox */
-    column-gap: 40px;
-    text-align: left;
+    -webkit-column-gap: 50px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 50px; /* Firefox */
+    column-gap: 50px;
+    text-align: justify;
 }
+
 .newspaper p{
     margin: 0 0 0px;
+    text-indent: 2em;
+    padding-bottom: 1em;
 }
 
 /* tooltip */
@@ -663,6 +682,28 @@ footer .login .tlacidla input{
         width: 50%;
         float: left;
   }
+      .newspaper {
+        -webkit-column-count: 3; /* Chrome, Safari, Opera */
+        -moz-column-count: 3; /* Firefox */
+        column-count: 3;
+
+        -webkit-column-gap: 50px; /* Chrome, Safari, Opera */
+        -moz-column-gap: 50px; /* Firefox */
+        column-gap: 50px;
+        text-align: justify;
+    }
+}
+@media screen and (min-device-width: 550px) and (max-device-width: 800px) {
+      .newspaper {
+        -webkit-column-count: 2; /* Chrome, Safari, Opera */
+        -moz-column-count: 2; /* Firefox */
+        column-count: 2;
+
+        -webkit-column-gap: 50px; /* Chrome, Safari, Opera */
+        -moz-column-gap: 50px; /* Firefox */
+        column-gap: 50px;
+        text-align: justify;
+    }
 }
 
 @media (max-width: 550px) {
@@ -692,6 +733,9 @@ footer .login .tlacidla input{
         -moz-column-gap: 40px; /* Firefox */
         column-gap: 40px;
         text-align: left;
+    }
+    .article_circle{
+        margin-bottom: 15px;
     }
 
 }

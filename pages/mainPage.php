@@ -8,7 +8,7 @@
 				password = abc
 				<hr>
 
-				<div class="text-center">
+				<div class="text-center newspaper_nadpis">
 				  <h1>Mobile application</h1>
 				  <p><b>Past content diseppearing into the masses?</b></p>
 				  <p><b>Albums too static and linear?</b></p>
@@ -39,15 +39,26 @@
 	</div>
 	<div id="about" class="container about_us">
 		<div class="gray-border-bottom text-center">
-			<div class="col-md-12 text-center pb35 nadpis">
-				<h2>So what is TimeFly today?</h2>
+			<div class="row">
+				<div class="col-md-12 text-center pb35 nadpis">
+					<h2>So what is TimeFly today?</h2>
+				</div>
 			</div>
-       		<p>
-			  Together with our users we are the next generation photo and album sharing, where content is generated in a sandbox environment, based on parameters supplied inrealtime.<br>
-			  Interaction is done through a multi dimensional UI, moving the focus from device to people, bringing us together and reminding us not just of who we are now,
-			  but how we came to be there.<br>
-			  More informations and answers can be found on the <a class="underline" onclick="ChangePage('#forum');">blog</a> page.
-			</p>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="about_us_obsah">
+						<p>
+						  Together with our users we are the next generation photo and album sharing, where content is generated in a sandbox environment, based on parameters supplied inrealtime.
+						</p>
+						<p>
+						  Interaction is done through a multi dimensional UI, moving the focus from device to people, bringing us together and reminding us not just of who we are now,
+						  but how we came to be there.</p>
+						  <p>
+						  More informations and answers can be found on the <a class="underline" onclick="ChangePage('#forum');">blog</a> page.
+						</p>
+					</div>
+				</div>
+			</div>
 	  	</div>
 		<div class="row">
 			<div class="col-md-12 text-center pb35 nadpis">
@@ -55,7 +66,7 @@
 				<h2>How we bring your photos back to life!</h2>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row article_circle">
 			<div class="col-md-3">
 				<div class="bg-circle">
 					<img class="img-circle" src="media/img/album.png" alt="timefly1" />
