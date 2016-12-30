@@ -585,6 +585,15 @@ footer .foot {
     align-items: center;
     margin: 10px 0 10px;
 }
+footer .lower {
+    font-size: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    //margin: 10px 0 10px;
+    background-color: #142714;
+}
 footer button,
 footer #logout{
     float: right;

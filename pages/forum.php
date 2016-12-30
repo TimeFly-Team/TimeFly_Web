@@ -2,8 +2,8 @@
 	<div class="container article under_nav blog">
 		<div class="row">
 			<div class="col-md-12 text-center pb35 nadpis">
-				<h1>Lorem ipsum dolor sit amet.</h1>
-				<h4>Lorem ipsum dolor sit amet.</h4>
+				<h1>News, questions and answers</h1>
+				<h3>Read news or find the answer to your question</h3>
 			</div>
 		</div>
 		<div class="row">

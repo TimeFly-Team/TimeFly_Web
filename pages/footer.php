@@ -5,7 +5,8 @@
 				<div class="col-md-12">
 					<div class="foot">
 						<i></i>
-						Powered by TimeFly - Webdeveloper Team
+						<em>&copy; 2017 Powered by TimeFly - Webdeveloper Team</em> 
+						    
 						    <?php
 						    if(!$moderator->isLogged()){
 				    		?>
@@ -60,6 +61,11 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="lower col-md-12">
+					<em>Address: VM Ľ. Štúra - Mlyny UK, Staré Grunty 36, 841 04 Bratislava</em>
+				</div>
+
 			</div>
 		</div>
 	</footer>
