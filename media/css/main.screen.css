@@ -591,7 +591,6 @@ footer .lower {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    //margin: 10px 0 10px;
     background-color: #142714;
 }
 footer button,
