@@ -428,8 +428,11 @@ a.underline {
     float: right;
     border: 1px solid #AFAFAF;
 }
+.panel-default > .panel-heading {
+    overflow: hidden;
+}
 .panel-title {
-    display: inline-block;
+	word-wrap: break-word;
 }
 .dropdown, .dropup {
     float: right;
@@ -568,7 +571,7 @@ a.underline {
     top:70px;
     left: 20%;
     width: 60%;
-    height: 40px;
+    min-height: 40px;
     border: 1px solid black;
     border-radius: 3px;
     color: white;

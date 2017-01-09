@@ -151,7 +151,7 @@ function ArrowLeftChangePage() {
     }
     if (num_page === 2){
         LeftChangePage("#forum");
-        $("#TeamName").text("Blog");
+        $("#TeamName").text("Forum");
     }
 };
 function ArrowRightChangePage() {
@@ -169,7 +169,7 @@ function ArrowRightChangePage() {
     }
     if (num_page === 2){
         RightChangePage("#forum");
-        $("#TeamName").text("Blog");
+        $("#TeamName").text("Forum");
     }
 };
 
@@ -254,7 +254,7 @@ function ChangePage(new_page) {
         $("#tim").css({'display': 'none','animation-name': 'hide_page_r','animation-duration': $(window).height()/1366+'s','position':'absolute','left':'-100%'});
         $(new_page).css({"display": "block",'animation-name': 'show_page_r','animation-duration': $(window).height()/1366+'s','position':'relative','left':'0%'});
         num_page = 2;
-        $("#TeamName").text("Blog");
+        $("#TeamName").text("Forum");
     }
     actual_page = new_page;
 };
