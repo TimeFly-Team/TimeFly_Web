@@ -301,7 +301,7 @@ var addForumForm   = '<div id="add_forum_div" class="add_theme" >' +
 						'<form class="send_theme">' +
 							'<div class="row">' +
 								'<div class="col-md-12">' +
-									'<p>Nazov temy:</p>' +
+									'<p>Topic name:</p>' +
 									'<input id="theme_name" class="tema" type="text" name="tema" value="">' +
 								'</div>' +
 							'</div>' +
@@ -329,14 +329,14 @@ var addTopicForm =	'<div id="add_topic_div" class="add_topic" >' +
 									'<input id="topic_mail" class="mail" type="email"  name="yourmail" value="">' +
 								'</div>' +
 								'<div class="col-md-9">' +
-									'<p>Nazov temy:</p>' +
+									'<p>Topic name:</p>' +
 									'<input id="topic_tema" class="tema" type="text" name="tema" value="">' +
 								'</div>' +
 							'</div>' +
 							'<div class="row">' +
 								'<div class="col-md-12">' +
 									'<div class="description_problem">' +
-										'<p>Opis problemu:</p>' +
+										'<p>Description of the problem:</p>' +
 										'<textarea id="topic_desc" name="question" rows="4"></textarea>' +
 									'</div>' +
 								'</div>' +
@@ -369,7 +369,7 @@ var addCommentForm	 =	'<div id="add_reply_div" class="add_reply">' +
 								'<div class="row">' +
 									'<div class="col-md-12">' +
 										'<div class="description_problem">' +
-											'<p>Opis problemu:</p>' +
+											'<p>Description of the problem:</p>' +
 											'<textarea id="reply_desc" name="question" rows="4"></textarea>' +
 										'</div>' +
 									'</div>' +
